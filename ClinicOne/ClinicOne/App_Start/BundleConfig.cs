@@ -21,12 +21,17 @@ namespace ClinicOne
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/.bin/bower_components/bootstrap/dist/js/bootstrap.min.js",
+                       "~/.bin/bower_components/metisMenu/dist/metisMenu.min.js",
+                      "~/.bin/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js",
                       "~/Scripts/respond.js"));
 
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/.bin/bower_components/bootstrap/dist/css/bootstrap.min.css",
+                     "~/.bin/bower_components/bootstrap/dist/css/bootstrap.min.css",
+                "~/.bin/bower_components/font-awesome/css/font-awesome.css",
+                      "~/.bin/bower_components/metisMenu/dist/metisMenu.min.css",
+                      "~/.bin/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css",
                       "~/Content/site.css"));
         }
     }
