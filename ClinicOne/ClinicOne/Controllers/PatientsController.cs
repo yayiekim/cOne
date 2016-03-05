@@ -115,9 +115,6 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-
-
+        
     }
-
-}
 }
