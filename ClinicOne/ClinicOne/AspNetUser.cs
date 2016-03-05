@@ -21,10 +21,10 @@ namespace ClinicOne
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.Consultations = new HashSet<Consultation>();
             this.ContactNumbers = new HashSet<ContactNumber>();
-            this.Diagnosis = new HashSet<Diagnosi>();
-            this.Drugs = new HashSet<Drug>();
+            this.DiagnosisCategories = new HashSet<DiagnosisCategory>();
+            this.DrugsCategories = new HashSet<DrugsCategory>();
             this.Patients = new HashSet<Patient>();
-            this.RecordTypes = new HashSet<RecordType>();
+            this.RecordTypesCategories = new HashSet<RecordTypesCategory>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
@@ -51,13 +51,13 @@ namespace ClinicOne
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContactNumber> ContactNumbers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Diagnosi> Diagnosis { get; set; }
+        public virtual ICollection<DiagnosisCategory> DiagnosisCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Drug> Drugs { get; set; }
+        public virtual ICollection<DrugsCategory> DrugsCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Patient> Patients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecordType> RecordTypes { get; set; }
+        public virtual ICollection<RecordTypesCategory> RecordTypesCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }

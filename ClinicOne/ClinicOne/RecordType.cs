@@ -14,20 +14,12 @@ namespace ClinicOne
     
     public partial class RecordType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RecordType()
-        {
-            this.PatientsRecords = new HashSet<PatientsRecord>();
-        }
-    
         public System.Guid Id { get; set; }
-        public string AspNetUserId { get; set; }
         public string Name { get; set; }
         public int ValueTypeId { get; set; }
+        public System.Guid RecordTypesCategoryId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientsRecord> PatientsRecords { get; set; }
+        public virtual RecordTypesCategory RecordTypesCategory { get; set; }
         public virtual ValueType ValueType { get; set; }
     }
 }

@@ -12,29 +12,20 @@ namespace ClinicOne
     using System;
     using System.Collections.Generic;
     
-    public partial class Patient
+    public partial class DiagnosisCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Patient()
+        public DiagnosisCategory()
         {
-            this.Consultations = new HashSet<Consultation>();
+            this.Diagnosis = new HashSet<Diagnosi>();
         }
     
         public System.Guid Id { get; set; }
+        public string Name { get; set; }
         public string AspNetUserId { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public System.DateTime BirthDate { get; set; }
-        public string BloodType { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string ContactNumber1 { get; set; }
-        public string ContactNumber2 { get; set; }
-        public string Gender { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Consultation> Consultations { get; set; }
+        public virtual ICollection<Diagnosi> Diagnosis { get; set; }
     }
 }

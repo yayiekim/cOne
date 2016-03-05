@@ -15,13 +15,13 @@ namespace ClinicOne
     public partial class Drug
     {
         public System.Guid Id { get; set; }
-        public string AspNetUserId { get; set; }
         public string MedicineName { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string Dosage { get; set; }
+        public System.Guid DrugCatergoryId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual DrugsCategory DrugsCategory { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace ClinicOne
     public partial class Diagnosi
     {
         public System.Guid Id { get; set; }
-        public string AspNetUserId { get; set; }
         public string Diagnosis { get; set; }
         public string Description { get; set; }
+        public Nullable<System.Guid> DiagnosisCategoryId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual DiagnosisCategory DiagnosisCategory { get; set; }
     }
 }
