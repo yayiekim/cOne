@@ -1,0 +1,1315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClinicOneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ClinicName" Type="int" />
+        </EntityType>
+        <EntityType Name="CommunicationTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Consultations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsultationsDiagnosis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Diagnosis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Amount" Type="money" />
+        </EntityType>
+        <EntityType Name="ConsultationsOtherServices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Amount" Type="money" />
+        </EntityType>
+        <EntityType Name="ContactNumbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CommunicationTypeId" Type="int" Nullable="false" />
+          <Property Name="CommunicationValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Diagnosis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Diagnosis" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Drugs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MedicineName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="Dosage" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LabResults">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="BloodType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PatientsRecords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RecordTypeId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrescribedMedications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Medication" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="Amount" Type="money" />
+        </EntityType>
+        <EntityType Name="RecordTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValueTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ValueTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValueType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Consultations_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consultations">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consultations_Patient">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consultations">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConsultationsDiagnosis_Consultations">
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ConsultationsDiagnosis" Type="Self.ConsultationsDiagnosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultationsDiagnosis">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConsultationsOtherServices_Consultations">
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ConsultationsOtherServices" Type="Self.ConsultationsOtherServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultationsOtherServices">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactNumbers_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ContactNumbers" Type="Self.ContactNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContactNumbers">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactNumbers_CommunicationTypes">
+          <End Role="CommunicationTypes" Type="Self.CommunicationTypes" Multiplicity="1" />
+          <End Role="ContactNumbers" Type="Self.ContactNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommunicationTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContactNumbers">
+              <PropertyRef Name="CommunicationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diagnosis_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diagnosis">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drugs_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Drugs" Type="Self.Drugs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drugs">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabResults_Consultations">
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LabResults" Type="Self.LabResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LabResults">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsRecords_Consultations">
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientsRecords" Type="Self.PatientsRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientsRecords">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsRecords_RecordTypes">
+          <End Role="RecordTypes" Type="Self.RecordTypes" Multiplicity="1" />
+          <End Role="PatientsRecords" Type="Self.PatientsRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientsRecords">
+              <PropertyRef Name="RecordTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrescribedMedications_Consultations">
+          <End Role="Consultations" Type="Self.Consultations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescribedMedications" Type="Self.PrescribedMedications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescribedMedications">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordTypes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecordTypes" Type="Self.RecordTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypes">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordTypes_ValueTypes">
+          <End Role="ValueTypes" Type="Self.ValueTypes" Multiplicity="1" />
+          <End Role="RecordTypes" Type="Self.RecordTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValueTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypes">
+              <PropertyRef Name="ValueTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicOneModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunicationTypes" EntityType="Self.CommunicationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consultations" EntityType="Self.Consultations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsultationsDiagnosis" EntityType="Self.ConsultationsDiagnosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsultationsOtherServices" EntityType="Self.ConsultationsOtherServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactNumbers" EntityType="Self.ContactNumbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drugs" EntityType="Self.Drugs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LabResults" EntityType="Self.LabResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientsRecords" EntityType="Self.PatientsRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescribedMedications" EntityType="Self.PrescribedMedications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordTypes" EntityType="Self.RecordTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValueTypes" EntityType="Self.ValueTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Consultations_AspNetUsers" Association="Self.FK_Consultations_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Consultations" EntitySet="Consultations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consultations_Patient" Association="Self.FK_Consultations_Patient">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Consultations" EntitySet="Consultations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultationsDiagnosis_Consultations" Association="Self.FK_ConsultationsDiagnosis_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="ConsultationsDiagnosis" EntitySet="ConsultationsDiagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultationsOtherServices_Consultations" Association="Self.FK_ConsultationsOtherServices_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="ConsultationsOtherServices" EntitySet="ConsultationsOtherServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactNumbers_AspNetUser" Association="Self.FK_ContactNumbers_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ContactNumbers" EntitySet="ContactNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactNumbers_CommunicationTypes" Association="Self.FK_ContactNumbers_CommunicationTypes">
+            <End Role="CommunicationTypes" EntitySet="CommunicationTypes" />
+            <End Role="ContactNumbers" EntitySet="ContactNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diagnosis_AspNetUsers" Association="Self.FK_Diagnosis_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Diagnosis" EntitySet="Diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drugs_AspNetUsers" Association="Self.FK_Drugs_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Drugs" EntitySet="Drugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabResults_Consultations" Association="Self.FK_LabResults_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="LabResults" EntitySet="LabResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_AspNetUsers" Association="Self.FK_Patients_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsRecords_Consultations" Association="Self.FK_PatientsRecords_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="PatientsRecords" EntitySet="PatientsRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsRecords_RecordTypes" Association="Self.FK_PatientsRecords_RecordTypes">
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+            <End Role="PatientsRecords" EntitySet="PatientsRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrescribedMedications_Consultations" Association="Self.FK_PrescribedMedications_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="PrescribedMedications" EntitySet="PrescribedMedications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypes_AspNetUsers" Association="Self.FK_RecordTypes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypes_ValueTypes" Association="Self.FK_RecordTypes_ValueTypes">
+            <End Role="ValueTypes" EntitySet="ValueTypes" />
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClinicOneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClinicName" Type="Int32" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Consultations" Relationship="Self.FK_Consultations_AspNetUsers" FromRole="AspNetUsers" ToRole="Consultations" />
+          <NavigationProperty Name="ContactNumbers" Relationship="Self.FK_ContactNumbers_AspNetUser" FromRole="AspNetUsers" ToRole="ContactNumbers" />
+          <NavigationProperty Name="Diagnosis" Relationship="Self.FK_Diagnosis_AspNetUsers" FromRole="AspNetUsers" ToRole="Diagnosis" />
+          <NavigationProperty Name="Drugs" Relationship="Self.FK_Drugs_AspNetUsers" FromRole="AspNetUsers" ToRole="Drugs" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_AspNetUsers" FromRole="AspNetUsers" ToRole="Patients" />
+          <NavigationProperty Name="RecordTypes" Relationship="Self.FK_RecordTypes_AspNetUsers" FromRole="AspNetUsers" ToRole="RecordTypes" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="CommunicationType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ContactNumbers" Relationship="Self.FK_ContactNumbers_CommunicationTypes" FromRole="CommunicationTypes" ToRole="ContactNumbers" />
+        </EntityType>
+        <EntityType Name="Consultation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Consultations_AspNetUsers" FromRole="Consultations" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Consultations_Patient" FromRole="Consultations" ToRole="Patients" />
+          <NavigationProperty Name="ConsultationsDiagnosis" Relationship="Self.FK_ConsultationsDiagnosis_Consultations" FromRole="Consultations" ToRole="ConsultationsDiagnosis" />
+          <NavigationProperty Name="ConsultationsOtherServices" Relationship="Self.FK_ConsultationsOtherServices_Consultations" FromRole="Consultations" ToRole="ConsultationsOtherServices" />
+          <NavigationProperty Name="LabResults" Relationship="Self.FK_LabResults_Consultations" FromRole="Consultations" ToRole="LabResults" />
+          <NavigationProperty Name="PatientsRecords" Relationship="Self.FK_PatientsRecords_Consultations" FromRole="Consultations" ToRole="PatientsRecords" />
+          <NavigationProperty Name="PrescribedMedications" Relationship="Self.FK_PrescribedMedications_Consultations" FromRole="Consultations" ToRole="PrescribedMedications" />
+        </EntityType>
+        <EntityType Name="ConsultationsDiagnosi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="Diagnosis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Consultation" Relationship="Self.FK_ConsultationsDiagnosis_Consultations" FromRole="ConsultationsDiagnosis" ToRole="Consultations" />
+        </EntityType>
+        <EntityType Name="ConsultationsOtherService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Consultation" Relationship="Self.FK_ConsultationsOtherServices_Consultations" FromRole="ConsultationsOtherServices" ToRole="Consultations" />
+        </EntityType>
+        <EntityType Name="ContactNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CommunicationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CommunicationValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_ContactNumbers_AspNetUser" FromRole="ContactNumbers" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CommunicationType" Relationship="Self.FK_ContactNumbers_CommunicationTypes" FromRole="ContactNumbers" ToRole="CommunicationTypes" />
+        </EntityType>
+        <EntityType Name="Diagnosi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Diagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Diagnosis_AspNetUsers" FromRole="Diagnosis" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Drug">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MedicineName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Dosage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Drugs_AspNetUsers" FromRole="Drugs" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="LabResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Consultation" Relationship="Self.FK_LabResults_Consultations" FromRole="LabResults" ToRole="Consultations" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BloodType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Patients_AspNetUsers" FromRole="Patients" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Consultations" Relationship="Self.FK_Consultations_Patient" FromRole="Patients" ToRole="Consultations" />
+        </EntityType>
+        <EntityType Name="PatientsRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="RecordTypeId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Consultation" Relationship="Self.FK_PatientsRecords_Consultations" FromRole="PatientsRecords" ToRole="Consultations" />
+          <NavigationProperty Name="RecordType" Relationship="Self.FK_PatientsRecords_RecordTypes" FromRole="PatientsRecords" ToRole="RecordTypes" />
+        </EntityType>
+        <EntityType Name="PrescribedMedication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="Medication" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Consultation" Relationship="Self.FK_PrescribedMedications_Consultations" FromRole="PrescribedMedications" ToRole="Consultations" />
+        </EntityType>
+        <EntityType Name="RecordType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValueTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_RecordTypes_AspNetUsers" FromRole="RecordTypes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PatientsRecords" Relationship="Self.FK_PatientsRecords_RecordTypes" FromRole="RecordTypes" ToRole="PatientsRecords" />
+          <NavigationProperty Name="ValueType" Relationship="Self.FK_RecordTypes_ValueTypes" FromRole="RecordTypes" ToRole="ValueTypes" />
+        </EntityType>
+        <EntityType Name="ValueType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValueType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RecordTypes" Relationship="Self.FK_RecordTypes_ValueTypes" FromRole="ValueTypes" ToRole="RecordTypes" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consultations_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consultations">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactNumbers_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ContactNumbers" Type="Self.ContactNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContactNumbers">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diagnosis_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Diagnosis" Type="Self.Diagnosi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diagnosis">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drugs_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Drugs" Type="Self.Drug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drugs">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordTypes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecordTypes" Type="Self.RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypes">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactNumbers_CommunicationTypes">
+          <End Role="CommunicationTypes" Type="Self.CommunicationType" Multiplicity="1" />
+          <End Role="ContactNumbers" Type="Self.ContactNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommunicationTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContactNumbers">
+              <PropertyRef Name="CommunicationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consultations_Patient">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consultations">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConsultationsDiagnosis_Consultations">
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ConsultationsDiagnosis" Type="Self.ConsultationsDiagnosi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultationsDiagnosis">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConsultationsOtherServices_Consultations">
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ConsultationsOtherServices" Type="Self.ConsultationsOtherService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultationsOtherServices">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabResults_Consultations">
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LabResults" Type="Self.LabResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LabResults">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsRecords_Consultations">
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientsRecords" Type="Self.PatientsRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientsRecords">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrescribedMedications_Consultations">
+          <End Role="Consultations" Type="Self.Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PrescribedMedications" Type="Self.PrescribedMedication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescribedMedications">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientsRecords_RecordTypes">
+          <End Role="RecordTypes" Type="Self.RecordType" Multiplicity="1" />
+          <End Role="PatientsRecords" Type="Self.PatientsRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientsRecords">
+              <PropertyRef Name="RecordTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordTypes_ValueTypes">
+          <End Role="ValueTypes" Type="Self.ValueType" Multiplicity="1" />
+          <End Role="RecordTypes" Type="Self.RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValueTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypes">
+              <PropertyRef Name="ValueTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ClinicOneEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="CommunicationTypes" EntityType="Self.CommunicationType" />
+          <EntitySet Name="Consultations" EntityType="Self.Consultation" />
+          <EntitySet Name="ConsultationsDiagnosis" EntityType="Self.ConsultationsDiagnosi" />
+          <EntitySet Name="ConsultationsOtherServices" EntityType="Self.ConsultationsOtherService" />
+          <EntitySet Name="ContactNumbers" EntityType="Self.ContactNumber" />
+          <EntitySet Name="Diagnosis" EntityType="Self.Diagnosi" />
+          <EntitySet Name="Drugs" EntityType="Self.Drug" />
+          <EntitySet Name="LabResults" EntityType="Self.LabResult" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="PatientsRecords" EntityType="Self.PatientsRecord" />
+          <EntitySet Name="PrescribedMedications" EntityType="Self.PrescribedMedication" />
+          <EntitySet Name="RecordTypes" EntityType="Self.RecordType" />
+          <EntitySet Name="ValueTypes" EntityType="Self.ValueType" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consultations_AspNetUsers" Association="Self.FK_Consultations_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Consultations" EntitySet="Consultations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactNumbers_AspNetUser" Association="Self.FK_ContactNumbers_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ContactNumbers" EntitySet="ContactNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diagnosis_AspNetUsers" Association="Self.FK_Diagnosis_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Diagnosis" EntitySet="Diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drugs_AspNetUsers" Association="Self.FK_Drugs_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Drugs" EntitySet="Drugs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_AspNetUsers" Association="Self.FK_Patients_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypes_AspNetUsers" Association="Self.FK_RecordTypes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactNumbers_CommunicationTypes" Association="Self.FK_ContactNumbers_CommunicationTypes">
+            <End Role="CommunicationTypes" EntitySet="CommunicationTypes" />
+            <End Role="ContactNumbers" EntitySet="ContactNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consultations_Patient" Association="Self.FK_Consultations_Patient">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Consultations" EntitySet="Consultations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultationsDiagnosis_Consultations" Association="Self.FK_ConsultationsDiagnosis_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="ConsultationsDiagnosis" EntitySet="ConsultationsDiagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultationsOtherServices_Consultations" Association="Self.FK_ConsultationsOtherServices_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="ConsultationsOtherServices" EntitySet="ConsultationsOtherServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabResults_Consultations" Association="Self.FK_LabResults_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="LabResults" EntitySet="LabResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsRecords_Consultations" Association="Self.FK_PatientsRecords_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="PatientsRecords" EntitySet="PatientsRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrescribedMedications_Consultations" Association="Self.FK_PrescribedMedications_Consultations">
+            <End Role="Consultations" EntitySet="Consultations" />
+            <End Role="PrescribedMedications" EntitySet="PrescribedMedications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientsRecords_RecordTypes" Association="Self.FK_PatientsRecords_RecordTypes">
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+            <End Role="PatientsRecords" EntitySet="PatientsRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypes_ValueTypes" Association="Self.FK_RecordTypes_ValueTypes">
+            <End Role="ValueTypes" EntitySet="ValueTypes" />
+            <End Role="RecordTypes" EntitySet="RecordTypes" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClinicOneModelStoreContainer" CdmEntityContainer="ClinicOneEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ClinicOneModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ClinicOneModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="ClinicOneModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ClinicOneModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ClinicOneModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommunicationTypes">
+            <EntityTypeMapping TypeName="ClinicOneModel.CommunicationType">
+              <MappingFragment StoreEntitySet="CommunicationTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consultations">
+            <EntityTypeMapping TypeName="ClinicOneModel.Consultation">
+              <MappingFragment StoreEntitySet="Consultations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsultationsDiagnosis">
+            <EntityTypeMapping TypeName="ClinicOneModel.ConsultationsDiagnosi">
+              <MappingFragment StoreEntitySet="ConsultationsDiagnosis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsultationsOtherServices">
+            <EntityTypeMapping TypeName="ClinicOneModel.ConsultationsOtherService">
+              <MappingFragment StoreEntitySet="ConsultationsOtherServices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactNumbers">
+            <EntityTypeMapping TypeName="ClinicOneModel.ContactNumber">
+              <MappingFragment StoreEntitySet="ContactNumbers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="CommunicationTypeId" ColumnName="CommunicationTypeId" />
+                <ScalarProperty Name="CommunicationValue" ColumnName="CommunicationValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diagnosis">
+            <EntityTypeMapping TypeName="ClinicOneModel.Diagnosi">
+              <MappingFragment StoreEntitySet="Diagnosis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drugs">
+            <EntityTypeMapping TypeName="ClinicOneModel.Drug">
+              <MappingFragment StoreEntitySet="Drugs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="MedicineName" ColumnName="MedicineName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabResults">
+            <EntityTypeMapping TypeName="ClinicOneModel.LabResult">
+              <MappingFragment StoreEntitySet="LabResults">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="ClinicOneModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientsRecords">
+            <EntityTypeMapping TypeName="ClinicOneModel.PatientsRecord">
+              <MappingFragment StoreEntitySet="PatientsRecords">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="RecordTypeId" ColumnName="RecordTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescribedMedications">
+            <EntityTypeMapping TypeName="ClinicOneModel.PrescribedMedication">
+              <MappingFragment StoreEntitySet="PrescribedMedications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Medication" ColumnName="Medication" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordTypes">
+            <EntityTypeMapping TypeName="ClinicOneModel.RecordType">
+              <MappingFragment StoreEntitySet="RecordTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ValueTypeId" ColumnName="ValueTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ValueTypes">
+            <EntityTypeMapping TypeName="ClinicOneModel.ValueType">
+              <MappingFragment StoreEntitySet="ValueTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ValueType1" ColumnName="ValueType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ClinicOneModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -60,6 +60,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -178,17 +180,86 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaim.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClinicData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClinicData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClinicData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClinicData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClinicData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="CommunicationType.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Consultation.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultationsDiagnosi.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultationsOtherService.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactNumber.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnosi.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Drug.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LabResult.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Patient.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PatientsRecord.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrescribedMedication.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordType.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ValueType.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".bin\bower_components\angular-smart-table\dist\smart-table.js" />
@@ -690,6 +761,16 @@
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\css\sb-admin-2.css" />
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\css\timeline.css" />
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\js\sb-admin-2.js" />
+    <Content Include="ClinicData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClinicData.edmx</DependentUpon>
+      <LastGenOutput>ClinicData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ClinicData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClinicData.edmx</DependentUpon>
+      <LastGenOutput>ClinicData.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1039,6 +1120,13 @@
     <Content Include=".bin\bower_components\angular\README.md" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
+    <EntityDeploy Include="ClinicData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClinicData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ClinicData.edmx.diagram">
+      <DependentUpon>ClinicData.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1092,6 +1180,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
