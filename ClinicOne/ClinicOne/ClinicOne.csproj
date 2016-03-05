@@ -258,6 +258,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PatientModel.cs" />
+    <Compile Include="Models\RecordTypeModel.cs" />
     <Compile Include="Models\WaitingModels.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
