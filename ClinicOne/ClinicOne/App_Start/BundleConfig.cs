@@ -9,6 +9,7 @@ namespace ClinicOne
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/.bin/bower_components/angular/angular.min.js",
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,7 +30,7 @@ namespace ClinicOne
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/.bin/bower_components/bootstrap/dist/css/bootstrap.min.css",
-                "~/.bin/bower_components/font-awesome/css/font-awesome.css",
+                     "~/.bin/bower_components/font-awesome/css/font-awesome.css",
                       "~/.bin/bower_components/metisMenu/dist/metisMenu.min.css",
                       "~/.bin/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css",
                       "~/Content/site.css"));
