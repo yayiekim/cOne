@@ -18,6 +18,7 @@ namespace ClinicOne
         public Patient()
         {
             this.Consultations = new HashSet<Consultation>();
+            this.Waitings = new HashSet<Waiting>();
         }
     
         public System.Guid Id { get; set; }
@@ -36,5 +37,7 @@ namespace ClinicOne
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Consultation> Consultations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Waiting> Waitings { get; set; }
     }
 }

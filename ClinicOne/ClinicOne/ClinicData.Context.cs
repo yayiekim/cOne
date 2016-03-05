@@ -46,5 +46,6 @@ namespace ClinicOne
         public virtual DbSet<RecordType> RecordTypes { get; set; }
         public virtual DbSet<RecordTypesCategory> RecordTypesCategories { get; set; }
         public virtual DbSet<ValueType> ValueTypes { get; set; }
+        public virtual DbSet<Waiting> Waitings { get; set; }
     }
 }

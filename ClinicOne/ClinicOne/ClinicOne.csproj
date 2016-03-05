@@ -257,6 +257,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PatientModel.cs" />
+    <Compile Include="Models\WaitingModels.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
@@ -275,6 +277,9 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ValueType.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Waiting.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -1190,6 +1195,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\Waiting\Index.cshtml" />
+    <Content Include="Views\Patients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1198,9 +1205,7 @@
     <Folder Include="Views\Consultation\" />
     <Folder Include="Views\Diagnosis\" />
     <Folder Include="Views\Medications\" />
-    <Folder Include="Views\Patients\" />
     <Folder Include="Views\RecordTypes\" />
-    <Folder Include="Views\Waiting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

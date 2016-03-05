@@ -46,6 +46,9 @@
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
         <AssociationConnector Association="ClinicOneModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="ClinicOneModel.Waiting" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="ClinicOneModel.FK_Waiting_Patients" />
+        <AssociationConnector Association="ClinicOneModel.FK_Waiting_AspNetUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

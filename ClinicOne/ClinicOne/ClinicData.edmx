@@ -220,6 +220,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ValueType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Waiting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Schedule" Type="datetime" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <Association Name="FK_Consultations_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Consultations" Type="Self.Consultations" Multiplicity="*" />
@@ -508,6 +518,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Waiting_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Waiting" Type="Self.Waiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Waiting">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Waiting_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Waiting" Type="Self.Waiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Waiting">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ClinicOneModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -531,6 +567,7 @@
           <EntitySet Name="RecordTypes" EntityType="Self.RecordTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordTypesCategories" EntityType="Self.RecordTypesCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ValueTypes" EntityType="Self.ValueTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Waiting" EntityType="Self.Waiting" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Consultations_AspNetUsers" Association="Self.FK_Consultations_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Consultations" EntitySet="Consultations" />
@@ -614,6 +651,14 @@
           <AssociationSet Name="FK_RecordTypesCategories_AspNetUser" Association="Self.FK_RecordTypesCategories_AspNetUser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RecordTypesCategories" EntitySet="RecordTypesCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Waiting_AspNetUser" Association="Self.FK_Waiting_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Waiting" EntitySet="Waiting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Waiting_Patients" Association="Self.FK_Waiting_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Waiting" EntitySet="Waiting" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -722,6 +767,15 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Waitings" EntityType="ClinicOneModel.Waiting" />
+          <AssociationSet Name="FK_Waiting_Patients" Association="ClinicOneModel.FK_Waiting_Patients">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Waiting" EntitySet="Waitings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Waiting_AspNetUser" Association="ClinicOneModel.FK_Waiting_AspNetUser">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Waiting" EntitySet="Waitings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -788,6 +842,7 @@
           <NavigationProperty Name="Patients" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="AspNetUser" ToRole="Patient" />
           <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="AspNetUser" ToRole="RecordTypesCategory" />
           <NavigationProperty Name="AspNetRoles" Relationship="ClinicOneModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="AspNetUser" ToRole="Waiting" />
         </EntityType>
         <EntityType Name="CommunicationType">
           <Key>
@@ -918,6 +973,7 @@
           <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="Patient" ToRole="AspNetUser" />
           <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_Patient" FromRole="Patient" ToRole="Consultation" />
+          <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Patient" ToRole="Waiting" />
         </EntityType>
         <EntityType Name="PatientsRecord">
           <Key>
@@ -1234,6 +1290,46 @@
           <End Type="ClinicOneModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Waiting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="Schedule" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Waiting" ToRole="Patient" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="Waiting" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Waiting_Patients">
+          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.Waiting" Role="Waiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Waiting">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Waiting_AspNetUser">
+          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.Waiting" Role="Waiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Waiting">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1473,6 +1569,17 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Waitings">
+            <EntityTypeMapping TypeName="ClinicOneModel.Waiting">
+              <MappingFragment StoreEntitySet="Waiting">
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
