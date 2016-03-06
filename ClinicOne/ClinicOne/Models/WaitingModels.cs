@@ -12,6 +12,7 @@ namespace ClinicOne.Models
 
     public class WaitingPatient
     {
+        public Guid Id { get; set; }
         public Guid PatientId { get; set; }
         public string PatientFullName { get; set; }
         public DateTime Schedule { get; set; }

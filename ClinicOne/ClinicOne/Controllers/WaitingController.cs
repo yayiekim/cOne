@@ -31,6 +31,7 @@ namespace ClinicOne.Controllers
             {
                 WaitingPatient model = new WaitingPatient()
                 {
+                    Id = x.Id,
                     PatientFullName = x.Patient.FirstName + " " + x.Patient.MiddleName + " " + x.Patient.LastName,
                     PatientId = x.PatientId,
                     Schedule = x.Schedule,
@@ -50,6 +51,7 @@ namespace ClinicOne.Controllers
         {
             Waiting model = new Waiting()
             {
+                Id = patient.Id,
                 PatientId = patient.PatientId,
                 Schedule = patient.Schedule,
                 Remarks = patient.Remarks,
