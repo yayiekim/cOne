@@ -257,6 +257,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MedicationModels.cs" />
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\RecordTypeModel.cs" />
     <Compile Include="Models\WaitingModels.cs" />
@@ -1198,6 +1199,8 @@
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Views\Waiting\Index.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
+    <Content Include="Views\Medications\Index.cshtml" />
+    <Content Include="Views\RecordTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1205,8 +1208,6 @@
     <Folder Include="Views\Clinic\" />
     <Folder Include="Views\Consultation\" />
     <Folder Include="Views\Diagnosis\" />
-    <Folder Include="Views\Medications\" />
-    <Folder Include="Views\RecordTypes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
