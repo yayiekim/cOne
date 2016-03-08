@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClinicOne.Models;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace ClinicOne.Controllers
 {
@@ -24,7 +25,9 @@ namespace ClinicOne.Controllers
         {
             List<MedicationCategoryModel> thelist = new List<MedicationCategoryModel>();
 
-            var res = await db.DrugsCategories.ToListAsync();
+            var userId = User.Identity.GetUserId();
+
+            var res = await db.DrugsCategories.Where(i=>i.AspNetUserId == userId ).ToListAsync();
 
             foreach (var x in res)
             {

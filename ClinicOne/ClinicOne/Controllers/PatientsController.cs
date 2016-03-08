@@ -13,6 +13,7 @@ namespace ClinicOne.Controllers
     public class PatientsController : AsyncController
     {
         ClinicOneEntities db = new ClinicOneEntities();
+       
         // GET: Patients
         public ActionResult Index()
         {
@@ -23,7 +24,9 @@ namespace ClinicOne.Controllers
         {
             List<PatientModel> thelist = new List<PatientModel>();
 
-            var res = await db.Patients.Where(i => i.AspNetUserId == User.Identity.GetUserId()).ToListAsync();
+            var userId = User.Identity.GetUserId();
+
+            var res = await db.Patients.Where(i => i.AspNetUserId == userId).ToListAsync();
 
 
             foreach (var x in res)
