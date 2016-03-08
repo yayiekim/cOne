@@ -25,7 +25,8 @@ namespace ClinicOne.Controllers
         {
             List<WaitingPatient> thelist = new List<WaitingPatient>();
 
-            var res = await db.Waitings.Where(i => i.AspNetUserId == User.Identity.GetUserId()).ToListAsync();
+            var userId = User.Identity.GetUserId();
+            var res = await db.Waitings.Where(i => i.AspNetUserId == userId).ToListAsync();
 
             foreach (var x in res)
             {

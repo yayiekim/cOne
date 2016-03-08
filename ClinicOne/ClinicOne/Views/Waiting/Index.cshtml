@@ -6,3 +6,37 @@
 
 <h2>Index</h2>
 
+<div ng-app="app" ng-controller="cont">
+
+    {{value}}
+
+
+</div>
+
+@section Scripts{
+    
+    
+    <script>
+
+        angular.module('app', []).controller('cont', function ($scope, $http) {
+
+            $scope.waitingList = [];
+
+            $http({
+
+                method: 'GET',
+                url: '/Waiting/getWaitingPatients',
+
+            }).success(function (data) {
+
+                $scope.waitingList = data;
+
+            });
+
+
+        });
+
+    </script>
+    
+    
+    }
