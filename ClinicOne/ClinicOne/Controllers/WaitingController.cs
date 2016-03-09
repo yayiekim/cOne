@@ -58,12 +58,21 @@ namespace ClinicOne.Controllers
                 Remarks = patient.Remarks,
                 AspNetUserId = User.Identity.GetUserId()
 
-            };
+            };         
+
 
             db.Waitings.Add(model);
             await db.SaveChangesAsync();
-                        
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+
+            var x = await db.Waitings.FindAsync(model.Id);
+
+            patient.Id = x.Id;
+            patient.PatientFullName = x.Patient.FirstName + " " + x.Patient.MiddleName + " " + x.Patient.LastName;
+            patient.PatientId = x.PatientId;
+            patient.Schedule = x.Schedule;
+            patient.Remarks = x.Remarks;
+
+            return Json(patient, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> editWaitingPatient(Waiting patient)
@@ -78,6 +87,7 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public async Task<JsonResult> deleteWaitingPatient(Guid id)
         {
             var res = await db.Waitings.FindAsync(id);

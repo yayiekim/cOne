@@ -54,8 +54,8 @@
                             <td>{{row.Schedule}}</td>
                             <td>{{row.Remarks}}</td>
                             <td>
-                                <button class="btn-xs btn btn-success" data-toggle="modal" ng-click="" data-target="#DeleteModal">Delete</button>
-                                <button class="btn-xs btn btn-success" data-toggle="modal" data-target="#EditModal" ng-click="">Edit</button>
+                                <button class="btn-xs btn btn-success" ng-click="showConfirmDeleteModal(row)">Delete</button>
+                                <button class="btn-xs btn btn-success" ng-click="">Edit</button>
                             </td>
                         </tr>
                     </tbody>
@@ -132,6 +132,30 @@
     </div><!-- /.modal -->
 
 
+    
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                    <p id="dName"></p>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" ng-click="DeleteWaiting()" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
 
 </div>
 
@@ -164,7 +188,7 @@
             });
 
 
-            //ADD WAITINGLIST
+            //ADD WAITING PATIENT
 
             $scope.patientsList = [];
             $scope.patientsListDisplay = [].concat($scope.patientsList);
@@ -192,7 +216,7 @@
                 $scope.waitingModel = {
                     'Id': '',
                     'PatientId': Id,
-                    'Schedule': $("#DateTimePicker").val(),
+                    'Schedule': $('#DateTimePicker').val(),
                     'Remarks': ''
 
                 };
@@ -204,14 +228,51 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).success(function (data) {
 
-                    $scope.waitingModel.Id = data;
-                    $scope.waitingList.push($scope.waitingModel);
+                    
+                    $scope.waitingList.push(data);
 
                 });
 
             };
 
 
+            //DELETE WAITING PATIENTS
+
+
+            $scope.selectedWaitingRow;
+
+            $scope.showConfirmDeleteModal = function (row) {
+
+                $scope.selectedWaitingRow = row;
+
+                $('#deleteModal').modal('toggle');
+
+                $('#dName').text(row.PatientFullName);
+
+
+            }
+
+            $scope.DeleteWaiting = function () {
+
+                
+                $http({
+                    method: 'GET',
+                    url: '/Waiting/deleteWaitingPatient?id='+ $scope.selectedWaitingRow.Id +''
+                }).success(function (data) {
+
+                    if (data == "ok") {
+
+                        var index = $scope.waitingList.indexOf($scope.selectedWaitingRow);
+
+                        $scope.waitingList.splice(index, 1);
+                    }
+
+                }, function errorCallback(data) {
+
+                });
+
+
+            };
 
 
         });
