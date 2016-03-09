@@ -4,28 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5dba50203c4345559cd8daea5fba0dc9" Name="Diagram1">
+      <Diagram DiagramId="5dba50203c4345559cd8daea5fba0dc9" Name="Diagram1" ZoomLevel="25">
         <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ClinicOneModel.AspNetRole" Width="1.5" PointX="0.75" PointY="19.5" />
-        <EntityTypeShape EntityType="ClinicOneModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.5" />
-        <EntityTypeShape EntityType="ClinicOneModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="34.5" />
+        <EntityTypeShape EntityType="ClinicOneModel.AspNetRole" Width="1.5" PointX="0.75" PointY="19.625" />
+        <EntityTypeShape EntityType="ClinicOneModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="23" />
+        <EntityTypeShape EntityType="ClinicOneModel.AspNetUserLogin" Width="3" PointX="5.25" PointY="11.5" />
         <EntityTypeShape EntityType="ClinicOneModel.AspNetUser" Width="1.5" PointX="3" PointY="17.75" />
-        <EntityTypeShape EntityType="ClinicOneModel.CommunicationType" Width="1.5" PointX="3" PointY="14.5" />
-        <EntityTypeShape EntityType="ClinicOneModel.Consultation" Width="1.5" PointX="7.5" PointY="30.625" />
-        <EntityTypeShape EntityType="ClinicOneModel.ConsultationsDiagnosi" Width="1.5" PointX="9.75" PointY="28.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.ConsultationsOtherService" Width="2.5" PointX="9.75" PointY="34.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.ContactNumber" Width="1.5" PointX="5.25" PointY="19.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.Diagnosi" Width="1.5" PointX="7.5" PointY="40.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.DiagnosisCategory" Width="1.5" PointX="5.25" PointY="40.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.Drug" Width="1.5" PointX="7.5" PointY="37" />
-        <EntityTypeShape EntityType="ClinicOneModel.DrugsCategory" Width="1.5" PointX="5.25" PointY="37.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.LabResult" Width="1.5" PointX="9.75" PointY="25.25" />
+        <EntityTypeShape EntityType="ClinicOneModel.CommunicationType" Width="1.5" PointX="6" PointY="8.625" />
+        <EntityTypeShape EntityType="ClinicOneModel.Consultation" Width="1.5" PointX="7.5" PointY="30.75" />
+        <EntityTypeShape EntityType="ClinicOneModel.ConsultationsDiagnosi" Width="1.5" PointX="9.75" PointY="28.125" />
+        <EntityTypeShape EntityType="ClinicOneModel.ConsultationsOtherService" Width="1.5" PointX="9.75" PointY="41.125" />
+        <EntityTypeShape EntityType="ClinicOneModel.ContactNumber" Width="1.5" PointX="8.25" PointY="20.375" />
+        <EntityTypeShape EntityType="ClinicOneModel.Diagnosi" Width="1.5" PointX="7.5" PointY="14" />
+        <EntityTypeShape EntityType="ClinicOneModel.DiagnosisCategory" Width="1.5" PointX="5.25" PointY="14" />
+        <EntityTypeShape EntityType="ClinicOneModel.Drug" Width="1.5" PointX="7.5" PointY="16.75" />
+        <EntityTypeShape EntityType="ClinicOneModel.DrugsCategory" Width="1.5" PointX="5.25" PointY="17" />
+        <EntityTypeShape EntityType="ClinicOneModel.LabResult" Width="1.5" PointX="9.75" PointY="38.125" />
         <EntityTypeShape EntityType="ClinicOneModel.Patient" Width="1.5" PointX="5.25" PointY="43" />
-        <EntityTypeShape EntityType="ClinicOneModel.PatientsRecord" Width="1.5" PointX="9.75" PointY="37.125" />
-        <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="9.75" PointY="31.125" />
-        <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="7.5" PointY="14.125" />
-        <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategory" Width="1.5" PointX="5.25" PointY="14.25" />
-        <EntityTypeShape EntityType="ClinicOneModel.ValueType" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="ClinicOneModel.PatientsRecord" Width="1.5" PointX="9.75" PointY="25.375" />
+        <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="9.75" PointY="35" />
+        <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="7.5" PointY="25.625" />
+        <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategory" Width="1.5" PointX="5.25" PointY="25.75" />
+        <EntityTypeShape EntityType="ClinicOneModel.ValueType" Width="1.5" PointX="5.25" PointY="28.875" />
+        <EntityTypeShape EntityType="ClinicOneModel.Waiting" Width="1.5" PointX="10.5" PointY="31.125" />
         <AssociationConnector Association="ClinicOneModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ClinicOneModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ClinicOneModel.FK_Consultations_AspNetUsers" />
@@ -34,6 +35,7 @@
         <AssociationConnector Association="ClinicOneModel.FK_DrugsCategories_ToTable" />
         <AssociationConnector Association="ClinicOneModel.FK_Patients_AspNetUsers" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" />
+        <AssociationConnector Association="ClinicOneModel.FK_Waiting_AspNetUser" />
         <AssociationConnector Association="ClinicOneModel.FK_ContactNumbers_CommunicationTypes" />
         <AssociationConnector Association="ClinicOneModel.FK_Consultations_Patient" />
         <AssociationConnector Association="ClinicOneModel.FK_ConsultationsDiagnosis_Consultations" />
@@ -43,12 +45,10 @@
         <AssociationConnector Association="ClinicOneModel.FK_PrescribedMedications_Consultations" />
         <AssociationConnector Association="ClinicOneModel.FK_Diagnosis_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_Drugs_Category" />
+        <AssociationConnector Association="ClinicOneModel.FK_Waiting_Patients" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
         <AssociationConnector Association="ClinicOneModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="ClinicOneModel.Waiting" Width="1.5" PointX="3.375" PointY="0.75" />
-        <AssociationConnector Association="ClinicOneModel.FK_Waiting_Patients" />
-        <AssociationConnector Association="ClinicOneModel.FK_Waiting_AspNetUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

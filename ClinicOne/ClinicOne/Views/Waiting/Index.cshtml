@@ -9,46 +9,76 @@
 
 <div ng-app="app" ng-controller="cont">
 
-    <button class="btn btn-success" ng-click="showAddWaitingModal()">Add</button>
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button class="btn btn-success" ng-click="showAddWaitingModal()">Add</button>
 
 
+            </div>
+
+        </div>
+
+
+ <!-- DISPLAY WAITING LIST -->
     <!-- DISPLAY WAITING LIST -->
-    <!-- DISPLAY WAITING LIST -->
-    <!-- DISPLAY WAITING LIST -->
-
-    <table st-table="waitingListDisplay" st-safe-src="waitingList" class="table table-striped small">
-        <thead>
-            <tr>
-                <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
-            </tr>
-            <tr>
+       <!-- DISPLAY WAITING LIST -->
 
 
-                <td>Patient Full Name</td>
-                <td>Schedule</td>
-                <td>Remarks</td>
+        <div class="col-sm-12">
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr></tr>
-            <tr ng-repeat="row in waitingList">
-                <td>{{row.PatientFullName}}</td>
-                <td>{{row.Schedule}}</td>
-                <td>{{row.Remarks}}</td>
-                <td>
-                    <button class="btn btn-success" data-toggle="modal" ng-click="" data-target="#DeleteModal">Delete</button>
-                    <button class="btn btn-success" data-toggle="modal" data-target="#EditModal" ng-click="">Edit</button>
-                </td>
-            </tr>
-        </tbody>
-
-    </table>
+            <div class="panel-primary">
+                <div class="panel-heading">Waiting List</div>
 
 
-    <!-- ADD WAITINGLIST -->
-    <!-- ADD WAITINGLIST -->
-    <!-- ADD WAITINGLIST -->
+                <table st-table="waitingListDisplay" st-safe-src="waitingList" class="small table table-striped table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th colspan="5"><input st-search="" class="small form-control" placeholder="global search ..." type="text" /></th>
+                        </tr>
+                        <tr>
+
+
+                            <th>Patient Full Name</th>
+                            <th>Schedule</th>
+                            <th>Remarks</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr></tr>
+                        <tr ng-repeat="row in waitingList">
+                            <td>{{row.PatientFullName}}</td>
+                            <td>{{row.Schedule}}</td>
+                            <td>{{row.Remarks}}</td>
+                            <td>
+                                <button class="btn-xs btn btn-success" data-toggle="modal" ng-click="" data-target="#DeleteModal">Delete</button>
+                                <button class="btn-xs btn btn-success" data-toggle="modal" data-target="#EditModal" ng-click="">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+<!----------------------------------------------->
+    <!----------------------------------------------->
+        <!----------------------------------------------->
+
+
+  <!-- ADD WAITING LIST -->
+        <!-- ADD WAITING LIST -->
+            <!-- ADD WAITING LIST -->
 
 
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
@@ -60,7 +90,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <input id="DateTimePicker" type="datetime" />
+                    <input id="DateTimePicker" type="text" />
 
 
                     <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-striped small">
@@ -113,73 +143,73 @@
 
     <script>
 
-          angular.module('app', ['smart-table'], function () {})
-          .controller('cont', function ($scope, $http) {
+        angular.module('app', ['smart-table'], function () { })
+        .controller('cont', function ($scope, $http) {
 
 
-              //GET WAITINGLIST
+            //GET WAITINGLIST
 
-              $scope.waitingList = [];
-              $scope.waitingListDisplay = [].concat($scope.waitingList);
+            $scope.waitingList = [];
+            $scope.waitingListDisplay = [].concat($scope.waitingList);
 
-              $http({
-                  method: 'GET',
-                  url: '/Waiting/getWaitingPatients'
-              }).success(function (data) {
+            $http({
+                method: 'GET',
+                url: '/Waiting/getWaitingPatients'
+            }).success(function (data) {
 
-                  $scope.waitingList = data;
+                $scope.waitingList = data;
 
-              }, function errorCallback(data) {
+            }, function errorCallback(data) {
 
-              });
-
-
-              //CREATE WAITINGLIST
-
-              $scope.patientsList = [];
-              $scope.patientsListDisplay = [].concat($scope.patientsList);
-
-              $scope.showAddWaitingModal = function () {
-
-                  $('#addModal').modal('toggle');
-
-                  $http({
-                      method: 'GET',
-                      url: '/Patients/getPatients'
-                  }).success(function (data) {
-
-                      $scope.patientsList = data;
-
-                  }, function errorCallback(data) {
-
-                  });
-
-              }
+            });
 
 
-              $scope.addWaiting = function (Id) {
+            //ADD WAITINGLIST
 
-                  $scope.waitingModel = {
-                      'Id': '',
-                      'PatientId': Id,
-                      'Schedule': $("#DateTimePicker").val(),
-                      'Remarks': ''
+            $scope.patientsList = [];
+            $scope.patientsListDisplay = [].concat($scope.patientsList);
 
-                  };
+            $scope.showAddWaitingModal = function () {
 
-                  $http({
-                      method: 'POST',
-                      url: '/Waiting/addWaitingPatient',
-                      data: $.param({ patient: $scope.waitingModel }),
-                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                  }).success(function (data) {
+                $('#addModal').modal('toggle');
 
-                      $scope.waitingModel.Id = data;
-                      $scope.waitingList.push($scope.waitingModel);
+                $http({
+                    method: 'GET',
+                    url: '/Patients/getPatients'
+                }).success(function (data) {
 
-                  });
+                    $scope.patientsList = data;
 
-              };
+                }, function errorCallback(data) {
+
+                });
+
+            }
+
+
+            $scope.addWaiting = function (Id) {
+
+                $scope.waitingModel = {
+                    'Id': '',
+                    'PatientId': Id,
+                    'Schedule': $("#DateTimePicker").val(),
+                    'Remarks': ''
+
+                };
+
+                $http({
+                    method: 'POST',
+                    url: '/Waiting/addWaitingPatient',
+                    data: $.param({ patient: $scope.waitingModel }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).success(function (data) {
+
+                    $scope.waitingModel.Id = data;
+                    $scope.waitingList.push($scope.waitingModel);
+
+                });
+
+            };
 
 
 

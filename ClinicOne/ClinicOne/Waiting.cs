@@ -20,7 +20,7 @@ namespace ClinicOne
         public string Remarks { get; set; }
         public string AspNetUserId { get; set; }
     
-        public virtual Patient Patient { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }
