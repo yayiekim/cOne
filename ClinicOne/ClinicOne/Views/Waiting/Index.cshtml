@@ -47,12 +47,12 @@
                     <tbody>
                         <tr></tr>
                         <tr ng-repeat="row in waitingListDisplay">
-                            <td><button class="btn-xs btn btn-success" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-arrow-right"></span></button></td>
+                            <td><button class="btn-xs btn btn-success" ng-click="showAdmitModal(row)"><span class="fa fa-arrow-right"></span></button></td>
                             <td>{{row.PatientFullName}}</td>
                             <td>{{row.Schedule | date: 'medium'}}</td>
                             <td>{{row.Remarks}}</td>
                             <td>
-                                <button class="btn-xs btn btn-default" ng-click=""><span class="fa fa-pencil"></span> Edit</button>
+                                
                                 <button class="btn-xs btn btn-danger" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
                                
 
@@ -129,7 +129,10 @@
                             </tfoot>
                         </table>
                   
-                      
+                    <hr />
+                  
+                    <input id="remarksTb" class="input-sm form-control" placeholder="Remarks" />
+
                     </div>
                
             </div><!-- /.modal-content -->
@@ -142,7 +145,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Patient</h4>
+                    <h4 class="modal-title"><span class="fa fa-question"></span> Confirm</h4>
                 </div>
                 <div class="modal-body">
                     <h4>Are you sure you want to remove <span><strong id="dName"></strong></span> from waiting list?</h4>
@@ -150,15 +153,32 @@
 
                 </div>
                 <div class="modal-footer">
-
-                    <button type="button" class="btn-sm btn btn-primary" ng-click="DeleteWaiting()" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="DeleteWaiting()" data-dismiss="modal">  Yes  </button>
+                    
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-
+       
+   
+    <div class="modal fade" id="admitModal" tabindex="-1" role="dialog" aria-labelledby="admitModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="admitModal-label"><span class="fa fa-question"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                  <h4>Admit patient <strong id="confirmAdmitPatientName"></strong>?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Admit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -247,7 +267,7 @@
                     'Id': '',
                     'PatientId': Id,
                     'Schedule': '',
-                    'Remarks': ''
+                    'Remarks': $('#remarksTb').val()
 
                 };
 
@@ -308,6 +328,23 @@
 
 
             };
+
+
+
+            $scope.showAdmitModal = function (row) {
+
+                $scope.selectedWaitingRow = row;
+
+                $('#admitModal').modal('toggle');
+
+                $('#confirmAdmitPatientName').text(row.PatientFullName);
+
+            }
+
+            $scope.admitPatient = function () {
+
+
+            }
 
 
         });
