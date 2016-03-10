@@ -82,41 +82,88 @@
                 </div>
                 <div class="modal-body">
 
-
-
                     <form class="form-horizontal" role="form">
 
-
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="FirstName">First  Name:</label>
+                            <label class="control-label col-sm-2" for="FirstName">First Name:</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="FirstName" placeholder="Enter First Name...">
+                                <input type="text" class="form-control" id="FirstName" />
                             </div>
                         </div>
-
-
-                     
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="MiddleName">Middle Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="MiddleName" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="LastName">Last Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="LastName" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Gender">Gender:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Gender" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="BirthDate">BirthDate:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="BirthDate" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Age">Age:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Age" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="BloodType">Blood Type:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="BloodType" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="ContactNumber1">Contact No. 1:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="ContactNumber1" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="ContactNumber2">Contact No. 2:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="ContactNumber2" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Address1">Address 1:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Address1" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Address2">Address 2:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Address2" />
+                            </div>
+                        </div>           
                      
                     </form>
 
 
-
-                                <td><input type="text" id="FirstName" /></td>
-                                <td><input type="text" id="MiddleName" /></td>
-                                <td><input type="text" id="LastName" /></td>
-                                <td><input type="text" id="Gender" /></td>
-                                <td><input type="text" id="BirthDate" /></td>
-                                <td><input type="text" id="Age" /></td>
-                                <td><input type="text" id="BloodType" /></td>
-                                <td><input type="text" id="ContactNumber1" /></td>
-                                <td><input type="text" id="ContactNumber2" /></td>
-                                <td><input type="text" id="Address1" /></td>
-                                <td><input type="text" id="Address2" /></td>        
-                                
-                            </tr>
-                        </tbody>
-
-                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -175,6 +222,11 @@
 
                 $('#addModal').modal('toggle');
 
+            }
+
+
+            $scope.addPatients = function () {
+
                 $scope.Patients = {
 
                     'Id': '',
@@ -193,9 +245,6 @@
 
 
                 };
-            }
-
-            $scope.addPatients = function () {
 
                 $http({
                     method: 'POST',
