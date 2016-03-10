@@ -65,6 +65,9 @@ namespace ClinicOne.Controllers
         public async Task<JsonResult> addPatient(PatientModel patient)
         {
 
+           
+
+
             Patient model = new Patient()
             {
 
@@ -84,9 +87,14 @@ namespace ClinicOne.Controllers
             db.Patients.Add(model);
             await db.SaveChangesAsync();
 
+            DateTime dob = model.BirthDate;
+            DateTime PresentYear = DateTime.Now;
+            TimeSpan ts = PresentYear - dob;
+            DateTime Age = DateTime.MinValue.AddDays(ts.Days);
+
+            patient.Age = Age.Year - 1;
+            patient.Id = model.Id;
             
-
-
             return Json(patient, JsonRequestBehavior.AllowGet);
         }
 

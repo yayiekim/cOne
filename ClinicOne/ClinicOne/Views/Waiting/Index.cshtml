@@ -36,7 +36,7 @@
                             <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
                         </tr>
                         <tr>
-
+                            <th></th>
                             <th st-sort="PatientFullName" >Name</th>
                             <th st-sort="Schedule">Schedule</th>
                             <th>Remarks</th>
@@ -47,8 +47,9 @@
                     <tbody>
                         <tr></tr>
                         <tr ng-repeat="row in waitingListDisplay">
+                            <td><button class="btn-xs btn btn-success" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-arrow-right"></span></button></td>
                             <td>{{row.PatientFullName}}</td>
-                            <td>{{row.Schedule}}</td>
+                            <td>{{row.Schedule | date: 'medium'}}</td>
                             <td>{{row.Remarks}}</td>
                             <td>
                                 <button class="btn-xs btn btn-default" ng-click=""><span class="fa fa-pencil"></span> Edit</button>
@@ -101,6 +102,7 @@
                                     <th colspan="5"><input st-search=""  class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
                                 </tr>
                                 <tr>
+                                    
                                     <th>Name</th>
                                     <th>Gender</th>
                                     <th>Birth Date</th>
@@ -112,7 +114,7 @@
                                 <tr ng-repeat="row in patientsListDisplay">
                                     <td>{{row.FirstName + ' ' + row.MiddleName + " " + row.LastName}}</td>
                                     <td>{{row.Gender}}</td>
-                                    <td>{{row.BirthDate}}</td>
+                                    <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
                                     <td>
                                         <button class="btn-xs btn btn-primary" ng-click="addWaiting(row.Id)"><span class="fa fa-plus"></span> Add</button>
 
@@ -173,6 +175,13 @@
         .controller('cont', function ($scope, $http) {
 
 
+            function ToJavaScriptDate(value) {
+                var pattern = /Date\(([^)]+)\)/;
+                var results = pattern.exec(value);
+                var dt = new Date(parseFloat(results[1]));
+                return dt;
+            }
+
             //GET WAITINGLIST
 
             $scope.waitingList = [];
@@ -182,6 +191,16 @@
                 method: 'GET',
                 url: '/Waiting/getWaitingPatients'
             }).success(function (data) {
+
+                angular.forEach(data, function (resdata) {
+
+
+                    var Schedule = new Date(ToJavaScriptDate(resdata.Schedule))
+                    resdata.Schedule = Schedule;
+                 
+
+                });
+
 
                 $scope.waitingList = data;
 
@@ -203,6 +222,15 @@
                     method: 'GET',
                     url: '/Patients/getPatients'
                 }).success(function (data) {
+
+                    angular.forEach(data, function (resdata) {
+
+
+                        var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
+                        resdata.BirthDate = BirthDate;
+
+
+                    });
 
                     $scope.patientsList = data;
 
@@ -230,8 +258,13 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).success(function (data) {
 
+                  
+
+                        var Schedule = new Date(ToJavaScriptDate(data.Schedule))
+                        data.Schedule = Schedule;
                     
                     $scope.waitingList.push(data);
+
                     $('#addModal').modal('toggle');
                 });
 
