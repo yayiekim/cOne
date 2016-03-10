@@ -13,7 +13,7 @@
 
         <div class="col-sm-12">
             <div class="form-group form-group-sm">
-                <button class="btn btn-success" ng-click="showAddWaitingModal()">Add</button>
+                <button class="btn btn-primary" ng-click="showAddWaitingModal()"><span class="fa fa-plus-square"></span> Add</button>
 
 
             </div>
@@ -36,15 +36,15 @@
                     <thead>
                         <tr>
 
-                            <th colspan="5"><input st-search="" class="small form-control" placeholder="global search ..." type="text" /></th>
+                            <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="text" /></th>
                         </tr>
                         <tr>
 
-
-                            <th>Patient Full Name</th>
-                            <th>Schedule</th>
+                            <th st-sort="PatientFullName" >Patient Full Name</th>
+                            <th st-sort="Schedule"> Schedule</th>
                             <th>Remarks</th>
                             <th></th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -54,12 +54,20 @@
                             <td>{{row.Schedule}}</td>
                             <td>{{row.Remarks}}</td>
                             <td>
-                                <button class="btn-xs btn btn-success" ng-click="showConfirmDeleteModal(row)">Delete</button>
-                                <button class="btn-xs btn btn-success" ng-click="">Edit</button>
+                                <button class="btn-xs btn btn-default" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
+                                <button class="btn-xs btn btn-default" ng-click=""><span class="fa fa-pencil"></span> Edit</button>
+
                             </td>
+                          
                         </tr>
                     </tbody>
-
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-displayed-pages="5"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
 
             </div>

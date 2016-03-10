@@ -84,8 +84,10 @@ namespace ClinicOne.Controllers
             db.Patients.Add(model);
             await db.SaveChangesAsync();
 
+            
 
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+
+            return Json(patient, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> editPatient(PatientModel patient)

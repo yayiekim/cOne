@@ -232,6 +232,7 @@
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
+    <Compile Include="Controllers\Test.cs" />
     <Compile Include="Controllers\WaitingController.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
@@ -1201,6 +1202,11 @@
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Medications\Index.cshtml" />
     <Content Include="Views\RecordTypes\Index.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Delete.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

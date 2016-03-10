@@ -64,14 +64,17 @@ namespace ClinicOne.Controllers
             db.Waitings.Add(model);
             await db.SaveChangesAsync();
 
-            var x = await db.Waitings.FindAsync(model.Id);
+            var res = await db.Patients.FindAsync(patient.PatientId);
 
-            patient.Id = x.Id;
-            patient.PatientFullName = x.Patient.FirstName + " " + x.Patient.MiddleName + " " + x.Patient.LastName;
-            patient.PatientId = x.PatientId;
-            patient.Schedule = x.Schedule;
-            patient.Remarks = x.Remarks;
+        
+                patient.Id = model.Id;
+                patient.PatientFullName = res.FirstName + " " + res.MiddleName + " " + res.LastName;
+                patient.PatientId = model.PatientId;
+                patient.Schedule = model.Schedule;
+                patient.Remarks = model.Remarks;
 
+          
+            
             return Json(patient, JsonRequestBehavior.AllowGet);
         }
 
