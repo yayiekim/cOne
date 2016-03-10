@@ -229,6 +229,7 @@
           <Property Name="Schedule" Type="datetime" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsAdmitted" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Consultations_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -1034,9 +1035,10 @@
           <Property Name="PatientId" Type="Guid" Nullable="false" />
           <Property Name="Schedule" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="Waiting" ToRole="AspNetUser" />
           <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Waiting" ToRole="Patient" />
+          <Property Name="IsAdmitted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1562,6 +1564,7 @@
           <EntitySetMapping Name="Waitings">
             <EntityTypeMapping TypeName="ClinicOneModel.Waiting">
               <MappingFragment StoreEntitySet="Waiting">
+                <ScalarProperty Name="IsAdmitted" ColumnName="IsAdmitted" />
                 <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Schedule" ColumnName="Schedule" />

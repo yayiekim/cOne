@@ -83,21 +83,16 @@
                            
                             <li>
 
-                                <a href="@Url.Action("Index", "Waiting")"><i class="fa fa-calendar"></i> Waiting List</a>
+                                <a href="@Url.Action("Index", "Waiting")"><i class="fa fa-calendar fa-fw"></i> Waiting List</a>
                             </li>
 
                             <li>
 
-                                <a href="@Url.Action("Index", "WaitingTables")"><i class="fa fa-flag"></i> Checked-in</a>
-                            </li>
-
-                            <li>
-
-                                <a href="@Url.Action("Index", "PatientsTables")"><i class="fa fa-users"></i> Patients</a>
+                                <a href="@Url.Action("Index", "Patients")"><i class="fa fa-users fa-fw"></i> Patients</a>
                             </li>
                             <li>
 
-                                <a href="@Url.Action("Index", "PatientConditionTables")"><i class="fa fa-stethoscope fa-fw"></i> Consutations</a>
+                                <a href="@Url.Action("Index", "Consultation")"><i class="fa fa-stethoscope fa-fw"></i> Consutations</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-print fa-fw"></i> Reports<span class="fa arrow"></span></a>
@@ -110,7 +105,7 @@
                             </li>
                           
                             <li>
-                                <a href="#"><i class="fa fa-user-md"></i> Diagnosis<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-user-md fa-fw"></i> Diagnosis<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>@Html.ActionLink("Diagnisis Categories", "Index", "Scope")</li>
                                     <li>@Html.ActionLink("Diagnosis", "Index", "BranchList")</li>
@@ -120,7 +115,7 @@
                             </li>
 
                             <li>
-                                <a href="#"><i class="fa fa-medkit"></i> Medications<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-medkit fa-fw"></i> Medications<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>@Html.ActionLink("Medications Categories", "Index", "Scope")</li>
                                     <li>@Html.ActionLink("Medications", "Index", "BranchList")</li>
@@ -137,7 +132,10 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
+                            <li>
 
+                                <a href="@Url.Action("Index", "Consultation")"><i class="fa fa-question-circle fa-fw"></i> Help</a>
+                            </li>
 
 
                         </ul>
