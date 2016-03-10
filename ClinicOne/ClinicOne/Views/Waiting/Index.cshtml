@@ -10,7 +10,7 @@
 
         <div class="col-sm-12">
             <div class="form-group form-group-sm">
-                <button class="btn btn-primary" ng-click="showAddWaitingModal()"><span class="fa fa-plus-square"></span> Add</button>
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddWaitingModal()"><span class="fa fa-plus"></span> Add waiting patient</button>
 
 
             </div>
@@ -119,7 +119,12 @@
                                     </td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
 
+                                    <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+                                </tr>
+                            </tfoot>
                         </table>
                   
                       
