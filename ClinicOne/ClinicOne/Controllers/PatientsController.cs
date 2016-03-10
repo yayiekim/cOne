@@ -51,6 +51,8 @@ namespace ClinicOne.Controllers
                     MiddleName = x.MiddleName,
                     LastName = x.LastName,
                     Gender = x.Gender
+                    
+                    
 
                 };
 
@@ -65,7 +67,8 @@ namespace ClinicOne.Controllers
         public async Task<JsonResult> addPatient(PatientModel patient)
         {
 
-           
+            var userId = User.Identity.GetUserId();
+
 
 
             Patient model = new Patient()
@@ -80,7 +83,8 @@ namespace ClinicOne.Controllers
                 FirstName = patient.FirstName,
                 MiddleName = patient.MiddleName,
                 LastName = patient.LastName,
-                Gender = patient.Gender
+                Gender = patient.Gender,
+                AspNetUserId = userId
 
             };
 
