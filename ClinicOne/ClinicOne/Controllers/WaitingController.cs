@@ -102,7 +102,17 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<JsonResult> admitPatient(Guid id)
+        {
+            var res = await db.Waitings.FindAsync(id);
 
+            res.IsAdmitted = true;
+                      
+            await db.SaveChangesAsync();
+
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
