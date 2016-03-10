@@ -4,5 +4,222 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div ng-app="app" ng-controller="cont">
 
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Patient</button>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- DISPLAY PATIENT LIST -->
+    <!-- DISPLAY PATIENT LIST -->
+    <!-- DISPLAY PATIENT LIST -->
+
+
+        <div class="col-sm-12">
+
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+                <div class="panel-heading">Patients List</div>
+
+
+                <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped table-bordered">
+
+
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Birth Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="row in patientsList">
+                            <td>{{row.FirstName + " " + row.MiddleName + " " + row.LastName}}</td>
+                            <td>{{row.Gender}}</td>
+                            <td>{{row.Age}}</td>
+                            <td>{{row.BirthDate}}</td>
+                        </tr>
+                    </tbody>
+
+
+                    <tfoot>
+                        <tr>
+
+                            <td class="text-center" st-pagination="" st-items-by-page="8" colspan="5"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+    <!-- ADD PATIENTS LIST -->
+    <!-- ADD PATIENTS LIST -->
+    <!-- ADD PATIENTS LIST -->
+
+
+        
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <form class="form-horizontal" role="form">
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="FirstName">First Name:</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="FirstName" placeholder="Enter First Name...">
+                            </div>
+                        </div>
+
+
+                     
+                     
+                    </form>
+
+
+
+                                <td><input type="text" id="FirstName" /></td>
+                                <td><input type="text" id="MiddleName" /></td>
+                                <td><input type="text" id="LastName" /></td>
+                                <td><input type="text" id="Gender" /></td>
+                                <td><input type="text" id="BirthDate" /></td>
+                                <td><input type="text" id="Age" /></td>
+                                <td><input type="text" id="BloodType" /></td>
+                                <td><input type="text" id="ContactNumber1" /></td>
+                                <td><input type="text" id="ContactNumber2" /></td>
+                                <td><input type="text" id="Address1" /></td>
+                                <td><input type="text" id="Address2" /></td>        
+                                
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="addPatients()" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+@section Scripts{       
+    
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    
+    <script>
+
+        angular.module('app', ['smart-table'], function () { })
+        .controller('cont', function ($scope, $http) {
+
+
+            //GET PATIENTSLIST
+
+
+            $scope.patientsList = [];
+            $scope.patientsListDisplay = [].concat($scope.patientsList);
+
+            $http({
+                method: 'GET',
+                url: '/Patients/getPatients'
+            }).success(function (data) {
+
+                $scope.patientsList = data;
+
+            }, function errorCallBack(data) {
+
+            });
+
+
+            //ADD PATIENTSLIST
+
+            $scope.showAddModal = function () {
+
+                $('#addModal').modal('toggle');
+
+                $scope.Patients = {
+
+                    'Id': '',
+                    'FirstName': $('#FirstName').val(),
+                    'MiddleName': $('#MiddleName').val(),
+                    'LastName': $('#LastName').val(),
+                    'Gender': $('#Gender').val(),
+                    'BirthDate': $('#BirthDate').val(),
+                    'Age': $('#Age').val(),
+                    'BloodType': $('#BloodType').val(),
+                    'ContactNumber1': $('#ContactNumber1').val(),
+                    'ContactNumber2': $('#ContactNumber2').val(),
+                    'Address1': $('#Address1').val(),
+                    'Address2': $('#Address2').val(),
+
+
+
+                };
+            }
+
+            $scope.addPatients = function () {
+
+                $http({
+                    method: 'POST',
+                    url: '/Patients/addPatient',
+                    data: $.param({ patient: $scope.Patients }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).success(function (data) {
+
+                    $scope.Patients.push(data);
+
+                });
+
+            }
+
+
+
+        });
+
+
+
+    </script>
+    
+    
+    
+    
+    
+    }
