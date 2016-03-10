@@ -21,8 +21,9 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> getAdmited()
         {
-            var res = await db.Waitings.Where(i=>i.)
+            var res = await db.Waitings.Where(i => i.IsAdmitted == true).SingleAsync();
 
+            return Json("", JsonRequestBehavior.AllowGet);
 
         }
 
