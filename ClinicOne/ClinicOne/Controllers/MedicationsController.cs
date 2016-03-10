@@ -21,7 +21,7 @@ namespace ClinicOne.Controllers
             return View();
         }
 
-        public async Task<JsonResult> geMedicationCategories()
+        public async Task<JsonResult> getMedicationCategories()
         {
             List<MedicationCategoryModel> thelist = new List<MedicationCategoryModel>();
 
@@ -83,22 +83,22 @@ namespace ClinicOne.Controllers
         //Drugs
         public async Task<JsonResult> getMedications()
         {
-            List<Drug> thelist = new List<Drug>();
+            List<MedicationModel> thelist = new List<MedicationModel>();
 
             var res = await db.Drugs.ToListAsync();
 
             foreach (var x in res)
             {
 
-                Drug model = new Drug() {
+                MedicationModel model = new MedicationModel() {
 
                     Id = x.Id,
-                    MedicineName = x.MedicineName,
+                    MedicationName = x.MedicineName,
                     Description = x.Description,
                     Dosage = x.Dosage,
                     Code = x.Code,
-                    Amount = x.Amount,
-                    DrugCatergoryId = x.DrugCatergoryId
+                    Amount = x.Amount.GetValueOrDefault(0),
+                    CategoryId = x.DrugCatergoryId
 
                 };
 
@@ -143,9 +143,9 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> deleteMedication(Drug medication)
+        public async Task<JsonResult> deleteMedication(Guid id)
         {
-            var res = await db.Drugs.FindAsync(medication.Id);
+            var res = await db.Drugs.FindAsync(id);
 
             db.Drugs.Remove(res);
             await db.SaveChangesAsync();
