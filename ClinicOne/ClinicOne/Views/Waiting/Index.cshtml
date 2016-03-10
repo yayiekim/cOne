@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-
 <div ng-app="app" ng-controller="cont">
 
     <div class="row">
@@ -28,20 +25,20 @@
 
         <div class="col-sm-12">
 
-            <div class="panel-primary">
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
                 <div class="panel-heading">Waiting List</div>
 
 
-                <table st-table="waitingListDisplay" st-safe-src="waitingList" class="small table table-striped table-bordered">
+                <table st-table="waitingListDisplay" st-safe-src="waitingList" class="table table-condensed table-responsive table-striped table-bordered">
                     <thead>
                         <tr>
 
-                            <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="text" /></th>
+                            <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
                         </tr>
                         <tr>
 
-                            <th st-sort="PatientFullName" >Patient Full Name</th>
-                            <th st-sort="Schedule"> Schedule</th>
+                            <th st-sort="PatientFullName" >Name</th>
+                            <th st-sort="Schedule">Schedule</th>
                             <th>Remarks</th>
                             <th></th>
                            
@@ -49,13 +46,14 @@
                     </thead>
                     <tbody>
                         <tr></tr>
-                        <tr ng-repeat="row in waitingList">
+                        <tr ng-repeat="row in waitingListDisplay">
                             <td>{{row.PatientFullName}}</td>
                             <td>{{row.Schedule}}</td>
                             <td>{{row.Remarks}}</td>
                             <td>
-                                <button class="btn-xs btn btn-default" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
                                 <button class="btn-xs btn btn-default" ng-click=""><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn-xs btn btn-danger" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
+                               
 
                             </td>
                           
@@ -63,9 +61,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="text-center">
-                                <div st-pagination="" st-displayed-pages="5"></div>
-                            </td>
+                          
+                            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -94,69 +91,61 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Modal title</h4>
+                    <h4 class="modal-title">Patients</h4>
                 </div>
                 <div class="modal-body">
+                                       
+                        <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="5"><input st-search=""  class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Birth Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr></tr>
+                                <tr ng-repeat="row in patientsListDisplay">
+                                    <td>{{row.FirstName + ' ' + row.MiddleName + " " + row.LastName}}</td>
+                                    <td>{{row.Gender}}</td>
+                                    <td>{{row.BirthDate}}</td>
+                                    <td>
+                                        <button class="btn-xs btn btn-primary" ng-click="addWaiting(row.Id)"><span class="fa fa-plus"></span> Add</button>
 
-                    <input id="DateTimePicker" type="text" />
+                                    </td>
+                                </tr>
+                            </tbody>
 
-
-                    <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-striped small">
-                        <thead>
-                            <tr>
-                                <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
-                            </tr>
-                            <tr>
-                                <td>Full Name</td>
-                                <td>Gender</td>
-                                <td>Birth Date</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr></tr>
-                            <tr ng-repeat="row in patientsList">
-                                <td>{{row.FirstName + ' ' + row.MiddleName + " " + row.LastName}}</td>
-                                <td>{{row.Gender}}</td>
-                                <td>{{row.BirthDate}}</td>
-                                <td>
-                                    <button class="btn btn-success" ng-click="addWaiting(row.Id)">Add to Waiting List</button>
-
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                        </table>
+                  
+                      
+                    </div>
+               
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-
     
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Modal title</h4>
+                    <h4 class="modal-title">Delete Patient</h4>
                 </div>
                 <div class="modal-body">
-
-                    <p id="dName"></p>
+                    <h4>Are you sure you want to remove <span><strong id="dName"></strong></span> from waiting list?</h4>
+                  
 
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-success" ng-click="DeleteWaiting()" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="DeleteWaiting()" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -224,7 +213,7 @@
                 $scope.waitingModel = {
                     'Id': '',
                     'PatientId': Id,
-                    'Schedule': $('#DateTimePicker').val(),
+                    'Schedule': '',
                     'Remarks': ''
 
                 };
@@ -238,7 +227,7 @@
 
                     
                     $scope.waitingList.push(data);
-
+                    $('#addModal').modal('toggle');
                 });
 
             };

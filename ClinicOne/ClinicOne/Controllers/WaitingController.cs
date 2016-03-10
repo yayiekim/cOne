@@ -54,7 +54,7 @@ namespace ClinicOne.Controllers
             {
                 Id = patient.Id,
                 PatientId = patient.PatientId,
-                Schedule = patient.Schedule,
+                Schedule = DateTime.Now,
                 Remarks = patient.Remarks,
                 AspNetUserId = User.Identity.GetUserId()
 
