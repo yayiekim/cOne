@@ -1209,12 +1209,12 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Consultation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
-    <Folder Include="Views\Consultation\" />
     <Folder Include="Views\Diagnosis\" />
   </ItemGroup>
   <ItemGroup>
