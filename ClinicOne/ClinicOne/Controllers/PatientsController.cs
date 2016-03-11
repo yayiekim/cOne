@@ -20,6 +20,7 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+
         public async Task<JsonResult> getPatients()
         {
             List<PatientModel> thelist = new List<PatientModel>();
