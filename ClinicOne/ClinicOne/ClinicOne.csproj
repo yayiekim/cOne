@@ -256,7 +256,6 @@
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\DiagnosisModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
