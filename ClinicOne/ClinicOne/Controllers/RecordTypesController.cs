@@ -19,6 +19,12 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public ActionResult RecordTypes()
+        {
+            return View();
+        }
+
+
         public async Task<JsonResult> geRecordCategories()
         {
 
