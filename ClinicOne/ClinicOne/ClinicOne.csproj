@@ -787,10 +787,6 @@
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\css\sb-admin-2.css" />
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\css\timeline.css" />
     <Content Include=".bin\bower_components\startbootstrap-sb-admin-2\dist\js\sb-admin-2.js" />
-    <Content Include="App_Data\ClinicOne.mdf" />
-    <Content Include="App_Data\ClinicOne_log.ldf">
-      <DependentUpon>ClinicOne.mdf</DependentUpon>
-    </Content>
     <Content Include="ClinicData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ClinicData.edmx</DependentUpon>
@@ -1216,6 +1212,7 @@
     <Content Include="Views\Consultation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
     <Folder Include="Views\Diagnosis\" />
