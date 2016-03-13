@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "RecordTypeCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div ng-app="app" ng-controller="cont">
+
+
+
+
+    <div class="col-sm-12">
+
+        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+            <div class="panel-heading">Record Categories</div>
+
+
+            <table st-table="recordTypeCategoryListDisplay" st-safe-src="recordTypeCategoryList" class="table table-condensed table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in recordTypeCategoryListDisplay">
+
+                        <td>{{row.Id}}</td>
+                        <td>{{row.Category}}</td>
+
+                        <td>
+                            <button class="btn-sm btn btn-info" ng-click=""><span class="fa fa-info-circle"></span> Details</button>
+                        </td>
+                        <td>
+                            <button class="btn-sm btn btn-success" ng-click=""><span class="fa fa-edit"></span> Edit</button>
+                        </td>
+                        <td>
+                            <button class="btn-sm btn btn-warning" ng-click=""><span class="fa fa-remove"></span> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="7"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="CategoryName">Category Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="Category.CategoryName" class="form-control" id="CategoryName" />
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+</div>
+
+@section Scripts{
+
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+    <script>
+
+            angular.module('app', ['smart-table'], function () { })
+            .controller('cont', function ($scope, $http) {
+
+
+                $scope.recordTypeCategoryList = [];
+                $scope.recordTypeCategoryListDisplay = [].concat($scope.recordTypeCategoryList);
+
+                $http({
+                    method: 'GET',
+                    url: '/RecordTypes/geRecordCategories/'
+                }).success(function (data) {
+
+                    $scope.recordTypeCategoryList = data;
+
+                }, function errorCallBack(data) {
+
+                });
+
+                //Add Category
+
+                $scope.Category = {
+
+                    Id: '',
+                    CategoryName: '',
+                    
+
+                };
+
+               
+            });
+
+    </script>
+
+
+    }

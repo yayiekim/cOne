@@ -13,8 +13,8 @@ namespace ClinicOne.Controllers
     {
         ClinicOneEntities db = new ClinicOneEntities();
 
-        // GET: RecordTypes
-        public ActionResult Index()
+        // GET: RecordCATEGORIES
+        public ActionResult RecordTypeCategories()
         {
             return View();
         }
@@ -42,7 +42,6 @@ namespace ClinicOne.Controllers
                 };
 
                 thelist.Add(model);
-                    
 
             }
             

@@ -1204,7 +1204,6 @@
     <Content Include="Views\Waiting\Index.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Medications\Index.cshtml" />
-    <Content Include="Views\RecordTypes\Index.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
@@ -1212,6 +1211,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Consultation\Index.cshtml" />
     <Content Include="Views\RecordTypes\RecordTypes.cshtml" />
+    <Content Include="Views\RecordTypes\RecordTypeCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
