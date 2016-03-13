@@ -1,4 +1,5 @@
 ﻿using ClinicOne.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -48,12 +49,13 @@ namespace ClinicOne.Controllers
             return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> addRecordCategory(RecordTypesCategory category)
+        public async Task<JsonResult> addRecordCategory(RecordCategoryModel category)
         {
             RecordTypesCategory model = new RecordTypesCategory()
             {
-                Name = category.Name
-
+                Name = category.Category,
+                AspNetUserId = User.Identity.GetUserId()
+                
             };
 
             db.RecordTypesCategories.Add(model);
@@ -80,6 +82,8 @@ namespace ClinicOne.Controllers
             var res = await db.RecordTypesCategories.FindAsync(id);
 
             db.RecordTypesCategories.Remove(res);
+
+            await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
         }

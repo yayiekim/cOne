@@ -15,7 +15,7 @@ namespace ClinicOne.Controllers
         ClinicOneEntities db = new ClinicOneEntities();
 
         // GET: Diagnosis
-        public ActionResult Index()
+        public ActionResult DiagnosisCategories()
         {
             return View();
         }
@@ -47,8 +47,8 @@ namespace ClinicOne.Controllers
         {
             DiagnosisCategory model = new DiagnosisCategory()
             {
-                Name = category.CategoryName
-
+                Name = category.CategoryName,
+                AspNetUserId = User.Identity.GetUserId()
             };
 
             db.DiagnosisCategories.Add(model);
