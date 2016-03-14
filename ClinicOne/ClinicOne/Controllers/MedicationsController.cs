@@ -35,7 +35,7 @@ namespace ClinicOne.Controllers
                 {
                     Id = x.Id,
                     CategoryName = x.Name
-
+                    
                 };
 
                 thelist.Add(model);
@@ -48,8 +48,8 @@ namespace ClinicOne.Controllers
         {
             DrugsCategory model = new DrugsCategory()
             {
-                Name = category.CategoryName
-
+                Name = category.CategoryName,
+                AspNetUserId = User.Identity.GetUserId()
             };
 
             db.DrugsCategories.Add(model);

@@ -42,9 +42,7 @@
                         
                         <td>{{row.Category}}</td>
 
-                        <td>
-                            <button class="btn-sm btn btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span> Details</button>
-                        </td>
+                       
                         <td>
                             <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
                         </td>
@@ -261,16 +259,6 @@
 
                     });
                 };
-
-
-                $scope.showDetailModal = function (row) {
-
-                    $('#addModal').modal('toggle');
-
-                    $scope.Category = row;
-
-                    $scope.disableInput = true;
-                }
 
             });
 
