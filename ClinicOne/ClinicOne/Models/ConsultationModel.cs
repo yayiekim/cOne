@@ -13,6 +13,12 @@ namespace ClinicOne.Models
         public DateTime TransactonDate { get; set; }
         public string PatientfullName { get; set; }
         
+
+        public virtual List<ConsultationDiagnosisModel> DiagnosisList { get; set; }
+        public virtual List<PatientRecordModel> RecordList { get; set; }
+        public virtual List<PatientPrescribeMedicationModel> PrescribeMedicationList { get; set; }
+        public virtual List<PatientOtherServiceModel> OtherServiceList { get; set; }
+        public virtual List<PatientLabModel> LabModelList { get; set; }
     }
 
     public class ConsultationDiagnosisModel
@@ -21,15 +27,13 @@ namespace ClinicOne.Models
         public string Diagnosis { get; set; }
         public string Remarks { get; set; }
         public decimal Amount { get; set; }
-
+        public Guid ConsultationId { get; set; }
     }
 
     public class PatientRecordModel
     {
         public Guid Id { get; set; }
-        public string RecordType { get; set; }
-        public string Remarks { get; set; }
-        public decimal Amount { get; set; }
+        public string RecordTypeName { get; set; }
         public string RecordValue { get; set; } 
 
 
@@ -63,12 +67,11 @@ namespace ClinicOne.Models
     public class PatientLabModel
     {
         public Guid Id { get; set; }
-        public string RecordType { get; set; }
+        public string RecordTypeName { get; set; }
         public string RecordValue { get; set; }
         public Guid ConsultationId { get; set; }
         public string Remarks { get; set; }
-        public decimal Amount { get; set; }
-
+       
 
     }
 
