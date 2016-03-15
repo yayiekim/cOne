@@ -804,6 +804,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include=".bin\bower.cmd" />
+    <Content Include="Scripts\app\DiagnosisCategoriesController.js" />
+    <Content Include="Scripts\app\MedicationsController.js" />
+    <Content Include="Scripts\app\PatientController.js" />
+    <Content Include="Scripts\app\RecordTypeCategoriesController.js" />
     <Content Include="Scripts\app\WaitingController.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
