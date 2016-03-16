@@ -28,6 +28,19 @@ namespace ClinicOne.Controllers
 
         }
 
+        public async Task<JsonResult> endConsultation(Guid PatientId)
+        {
+
+            var res = await db.Waitings.Where(i => i.IsAdmitted == true).SingleAsync();
+
+
+            db.Waitings.Remove(res);
+           await db.SaveChangesAsync();
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+
+        }
+
         public async Task<JsonResult> getConsultaions(DateTime date)
         {
             var consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
