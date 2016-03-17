@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="app" ng-controller="medicationsCtrl">
+
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal(row)"><span class="fa fa-plus"></span> Add Medication Category</button>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+
+        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+            <div class="panel-heading">Medication Categories</div>
+
+
+            <table st-table="MedicationCategoryListDisplay" st-safe-src="MedicationCategoryList" class="table table-condensed table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+
+                        <th>Category Name</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in MedicationCategoryListDisplay">
+
+
+                        <td>{{row.CategoryName}}</td>
+
+                        <td>
+                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
+                        </td>
+                        <td>
+                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="CategoryName">Category Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="Category.CategoryName" ng-disabled="disableInput" class="form-control" id="CategoryName" />
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="updateCategory()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove <span><strong id="CategoryName"></strong></span> from category list?</h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteCategory()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+</div>
+
+@section Scripts{
+
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="~/Scripts/app/MedicationsController.js"></script>
+
+    <script>
+
+        var app = angular.module('app', ['smart-table', 'medicationsController']);
+
+    </script>
+
+
+}

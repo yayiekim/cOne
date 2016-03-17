@@ -1220,6 +1220,8 @@
     <Content Include="Views\RecordTypes\RecordTypes.cshtml" />
     <Content Include="Views\RecordTypes\RecordTypeCategories.cshtml" />
     <Content Include="Views\Diagnosis\DiagnosisCategories.cshtml" />
+    <Content Include="Views\Medications\MedicationCategories.cshtml" />
+    <Content Include="Views\Diagnosis\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
