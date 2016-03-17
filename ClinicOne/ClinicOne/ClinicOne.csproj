@@ -809,6 +809,7 @@
     <Content Include="Scripts\app\MedicationsController.js" />
     <Content Include="Scripts\app\PatientController.js" />
     <Content Include="Scripts\app\RecordTypeCategoriesController.js" />
+    <Content Include="Scripts\app\RecordTypeController.js" />
     <Content Include="Scripts\app\WaitingController.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
