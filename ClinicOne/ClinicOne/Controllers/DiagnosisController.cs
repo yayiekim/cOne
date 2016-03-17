@@ -14,6 +14,12 @@ namespace ClinicOne.Controllers
     {
         ClinicOneEntities db = new ClinicOneEntities();
 
+
+        public ActionResult Index()
+        {
+
+            return View();
+        }
         // GET: Diagnosis
         public ActionResult DiagnosisCategories()
         {

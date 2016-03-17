@@ -21,6 +21,12 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public ActionResult MedicationCategories()
+        {
+            return View();
+
+        }
+
         public async Task<JsonResult> getMedicationCategories()
         {
             List<MedicationCategoryModel> thelist = new List<MedicationCategoryModel>();
