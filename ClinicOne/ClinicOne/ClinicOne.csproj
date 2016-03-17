@@ -232,6 +232,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
+    <Compile Include="Controllers\OtherServicesController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
     <Compile Include="Controllers\Test.cs" />
@@ -1219,6 +1220,8 @@
     <Content Include="Views\Diagnosis\DiagnosisCategories.cshtml" />
     <Content Include="Views\Medications\MedicationCategories.cshtml" />
     <Content Include="Views\Diagnosis\Index.cshtml" />
+    <Content Include="Views\OtherServices\ServicesCategories.cshtml" />
+    <Content Include="Views\OtherServices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
