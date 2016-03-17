@@ -230,9 +230,9 @@
     <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LabController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
-    <Compile Include="Controllers\OtherServicesController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
     <Compile Include="Controllers\Test.cs" />
@@ -806,6 +806,9 @@
     <Content Include="Content\Site.css" />
     <None Include=".bin\bower.cmd" />
     <Content Include="Scripts\app\DiagnosisCategoriesController.js" />
+    <Content Include="Scripts\app\MedicationsController.js" />
+    <Content Include="Scripts\app\PatientController.js" />
+    <Content Include="Scripts\app\RecordTypeCategoriesController.js" />
     <Content Include="Scripts\app\WaitingController.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
@@ -1220,13 +1223,12 @@
     <Content Include="Views\Diagnosis\DiagnosisCategories.cshtml" />
     <Content Include="Views\Medications\MedicationCategories.cshtml" />
     <Content Include="Views\Diagnosis\Index.cshtml" />
-    <Content Include="Views\OtherServices\ServicesCategories.cshtml" />
-    <Content Include="Views\OtherServices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
+    <Folder Include="Views\Lab\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
