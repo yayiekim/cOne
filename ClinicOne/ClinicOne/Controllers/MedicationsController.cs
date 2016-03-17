@@ -91,7 +91,9 @@ namespace ClinicOne.Controllers
         {
             List<MedicationModel> thelist = new List<MedicationModel>();
 
-            var res = await db.Drugs.ToListAsync();
+            var UserId = User.Identity.GetUserId();
+
+            var res = await db.Drugs.Where(i=>i.DrugsCategory.AspNetUserId == UserId ).ToListAsync();
 
             foreach (var x in res)
             {

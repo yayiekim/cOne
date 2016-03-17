@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LabController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -1228,6 +1229,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
+    <Folder Include="Views\Lab\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
