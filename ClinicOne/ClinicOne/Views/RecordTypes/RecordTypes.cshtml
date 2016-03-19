@@ -4,6 +4,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<div ng-app="app" ng-controller="cont">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Record Type</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+
+        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+            <div class="panel-heading">Record Types</div>
+
+
+            <table st-table="recordTypesListDisplay" st-safe-src="recordTypesList" class="table table-condensed table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+
+                        <th>Record Type Name</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in recordTypesListDisplay">
+
+
+                        <td>{{row.RecordTypeName}}</td>
+
+
+                        <td>
+                            <button class="btn-sm btn btn-success" ng-click=""><span class="fa fa-edit"></span> Edit</button>
+
+                            <button class="btn-sm btn btn-warning" ng-click=""><span class="fa fa-remove"></span> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                            </div>
+                        </div>
+
+                        <select id="conbran" class="form-control" ng-options="cat.Id as cat.Category for cat in recordTypeCategoryList" ng-model="recordTypes.RecordTypeCategoryId">
+                            <option value="">-- Select Category --</option>
+                        </select>
+
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="updateRecordType()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+</div>
+
+
 @section Scripts {
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
@@ -11,15 +111,71 @@
     <script>
 
         angular.module('app', ['smart-table']).controller('cont', function ($scope, $http) {
-
-            
+                        
             //GET RECORDTYPES
+
+            $scope.recordTypesList = [];
+            $scope.recordTypesListDisplay = [].concat($scope.recordTypesList);
 
             $http({
                 method: 'GET',
-                url: '///'
-            })
+                url: '/RecordTypes/geRecordTypes/'
+            }).success(function (data) {
 
+                $scope.recordTypesList = data;
+            });
+
+
+            //ADD RECORDTYPES
+
+            $scope.recordTypes = {
+
+                'Id': '',
+                'RecordTypeName': '',
+                'RecordTypeCategoryId': ''
+            };
+            
+            $scope.showAddModal = function () {
+
+                $('#addModal').modal('toggle');
+
+                $scope.getRecordTypeCategories();
+
+            };
+
+
+            $scope.updateRecordType = function () {
+
+                $http({
+                    method: 'POST',
+                    url: '/RecordTypes/addRecordType/',
+                    data: $.param({ recordType: $scope.recordTypes }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                }).success(function (data) {
+
+                    $scope.recordTypes.Id = data;
+                    $scope.recordTypesList.push($scope.recordTypes);
+                });
+
+            }
+
+            $scope.recordTypeCategoryList = [];
+
+            $scope.getRecordTypeCategories = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/RecordTypes/geRecordCategories/'
+                }).success(function (data) {
+
+                    $scope.recordTypeCategoryList = data;
+
+                }, function errorCallBack(data) {
+
+                });
+            }
+            
         });
 
     </script>
