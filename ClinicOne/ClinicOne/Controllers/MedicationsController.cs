@@ -87,7 +87,7 @@ namespace ClinicOne.Controllers
 
 
         //Drugs
-        public async Task<JsonResult> getMedications(Guid id)
+        public async Task<JsonResult> getMedications()
         {
             List<MedicationModel> thelist = new List<MedicationModel>();
 
