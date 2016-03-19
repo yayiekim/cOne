@@ -230,7 +230,6 @@
     <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LabController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -1175,7 +1174,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1229,7 +1230,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
-    <Folder Include="Views\Lab\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

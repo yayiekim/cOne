@@ -86,13 +86,13 @@ namespace ClinicOne.Controllers
 
 
         //Drugs
-        public async Task<JsonResult> getDiagnosis()
+        public async Task<JsonResult> getDiagnosis(Guid id)
         {
             List<DiagnosisModel> thelist = new List<DiagnosisModel>();
 
             var UserId = User.Identity.GetUserId();
 
-            var res = await db.Drugs.Where(i=>i.DrugsCategory.AspNetUserId == UserId).ToListAsync();
+            var res = await db.Drugs.Where(i=>i.DrugsCategory.AspNetUserId == UserId && i.DrugCatergoryId == id).ToListAsync();
 
             foreach (var x in res)
             {
