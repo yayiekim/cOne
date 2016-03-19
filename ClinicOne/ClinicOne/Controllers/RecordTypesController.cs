@@ -119,7 +119,8 @@ namespace ClinicOne.Controllers
         {
             RecordType model = new RecordType()
             {
-                Name = recordType.RecordTypeName
+                Name = recordType.RecordTypeName,
+                RecordTypesCategoryId = recordType.RecordTypeCategoryId
 
             };
 
