@@ -27,7 +27,7 @@ namespace ClinicOne.Controllers
 
             var userId = User.Identity.GetUserId();
 
-            var res = await db.Patients.Where(i => i.AspNetUserId == userId).ToListAsync();
+            var res = await db.Patients.Where(i => i.OriginAspNetUserId == userId).ToListAsync();
 
 
             foreach (var x in res)
@@ -85,7 +85,7 @@ namespace ClinicOne.Controllers
                 MiddleName = patient.MiddleName,
                 LastName = patient.LastName,
                 Gender = patient.Gender,
-                AspNetUserId = userId
+                OriginAspNetUserId = userId
 
             };
 

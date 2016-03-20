@@ -21,4 +21,13 @@ namespace ClinicOne.Models
     
     }
 
+    public class ValueTypeModel
+    {
+
+        public int Id { get; set; }
+        public string ValueTypeName { get; set; }
+
+
+    }
+
 }

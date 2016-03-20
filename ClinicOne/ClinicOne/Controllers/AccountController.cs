@@ -12,6 +12,7 @@ using ClinicOne.Models;
 
 namespace ClinicOne.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {

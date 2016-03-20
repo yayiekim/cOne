@@ -42,6 +42,11 @@ namespace ClinicOne
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public Nullable<int> ClinicName { get; set; }
+        public string PDEA { get; set; }
+        public string LicenseNumber { get; set; }
+        public string TIN { get; set; }
+        public string BIR { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

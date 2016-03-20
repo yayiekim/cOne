@@ -25,6 +25,28 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public async Task<JsonResult> getValueType()
+        {
+
+            List<ValueTypeModel> thelist = new List<ValueTypeModel>();
+
+            var res = await db.ValueTypes.ToListAsync();
+
+            foreach (var x in res)
+            {
+                ValueTypeModel model = new ValueTypeModel()
+                {
+                    Id = x.Id,
+                    ValueTypeName = x.ValueType1
+
+                };
+
+                thelist.Add(model);
+
+            }
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
+        }
 
         public async Task<JsonResult> geRecordCategories()
         {
