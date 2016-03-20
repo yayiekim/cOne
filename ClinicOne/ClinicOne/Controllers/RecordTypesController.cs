@@ -25,7 +25,7 @@ namespace ClinicOne.Controllers
             return View();
         }
 
-        public async Task<JsonResult> getValueType()
+        public async Task<JsonResult> getValueTypes()
         {
 
             List<ValueTypeModel> thelist = new List<ValueTypeModel>();
@@ -125,8 +125,12 @@ namespace ClinicOne.Controllers
                 RecordTypeModel model = new RecordTypeModel()
                 {
                     Id = x.Id,
-                    RecordTypeName = x.Name
-
+                    RecordTypeName = x.Name,
+                    RecordTypeCategoryName = x.RecordTypesCategory.Name,
+                    RecordTypeCategoryId = x.RecordTypesCategoryId,
+                    ValueTypeName = x.ValueType.ValueType1,
+                    ValueTypeId  = x.ValueTypeId
+                    
                 };
 
                 thelist.Add(model);
@@ -142,7 +146,8 @@ namespace ClinicOne.Controllers
             RecordType model = new RecordType()
             {
                 Name = recordType.RecordTypeName,
-                RecordTypesCategoryId = recordType.RecordTypeCategoryId
+                RecordTypesCategoryId = recordType.RecordTypeCategoryId,
+                ValueTypeId = recordType.ValueTypeId
 
             };
 
@@ -158,6 +163,9 @@ namespace ClinicOne.Controllers
 
             var res = await db.RecordTypes.FindAsync(recordType.Id);
             res.Name = recordType.RecordTypeName;
+            res.RecordTypesCategoryId = recordType.RecordTypeCategoryId;
+            res.ValueTypeId = recordType.ValueTypeId;
+
 
             await db.SaveChangesAsync();
 
