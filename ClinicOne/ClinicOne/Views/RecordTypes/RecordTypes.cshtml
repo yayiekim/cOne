@@ -76,14 +76,28 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
                             <div class="col-sm-10">
-                                <input type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                                <select class="form-control" ng-options="cat.Id as cat.Category for cat in recordTypeCategoryList" ng-model="recordTypes.RecordTypeCategoryId">
+                                    <option value="">-- Select Category --</option>
+                                </select>
                             </div>
                         </div>
 
-                        <select id="conbran" class="form-control" ng-options="cat.Id as cat.Category for cat in recordTypeCategoryList" ng-model="recordTypes.RecordTypeCategoryId">
-                            <option value="">-- Select Category --</option>
-                        </select>
 
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-options="val.Id as val.ValueTypeName for val in valueTypeList" ng-model="recordTypes.ValueTypeId">
+                                    <option value="">-- Select Value Type --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                            </div>
+                        </div>
 
                     </form>
 
@@ -117,6 +131,9 @@
             $scope.recordTypesList = [];
             $scope.recordTypesListDisplay = [].concat($scope.recordTypesList);
 
+            $scope.recordTypeCategoryList = [];
+            $scope.valueTypeList = [];
+
             $http({
                 method: 'GET',
                 url: '/RecordTypes/geRecordTypes/'
@@ -126,13 +143,25 @@
             });
 
 
+            $http({
+                method: 'GET',
+                url: '/RecordTypes/getValueTypes/'
+            }).success(function (data) {
+
+                $scope.valueTypeList = data;
+            });
+
+
             //ADD RECORDTYPES
 
             $scope.recordTypes = {
 
                 'Id': '',
                 'RecordTypeName': '',
-                'RecordTypeCategoryId': ''
+                'RecordTypeCategoryId': '',
+                'RecordTypeCategoryName': '',
+                'ValueTypeId': '',
+                'ValueTypeName': ''
             };
             
             $scope.showAddModal = function () {
@@ -160,7 +189,7 @@
 
             }
 
-            $scope.recordTypeCategoryList = [];
+         
 
 
 

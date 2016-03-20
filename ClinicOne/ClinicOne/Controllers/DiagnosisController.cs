@@ -96,7 +96,6 @@ namespace ClinicOne.Controllers
 
             foreach (var x in res)
             {
-
                 DiagnosisModel model = new DiagnosisModel()
                 {
 

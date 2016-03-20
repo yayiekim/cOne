@@ -22,7 +22,7 @@ namespace ClinicOne
         }
     
         public System.Guid Id { get; set; }
-        public string AspNetUserId { get; set; }
+        public string OriginAspNetUserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -33,6 +33,9 @@ namespace ClinicOne
         public string ContactNumber1 { get; set; }
         public string ContactNumber2 { get; set; }
         public string Gender { get; set; }
+        public string SSS { get; set; }
+        public string TIN { get; set; }
+        public string Philhealth { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

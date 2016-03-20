@@ -25,6 +25,28 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public async Task<JsonResult> getValueTypes()
+        {
+
+            List<ValueTypeModel> thelist = new List<ValueTypeModel>();
+
+            var res = await db.ValueTypes.ToListAsync();
+
+            foreach (var x in res)
+            {
+                ValueTypeModel model = new ValueTypeModel()
+                {
+                    Id = x.Id,
+                    ValueTypeName = x.ValueType1
+
+                };
+
+                thelist.Add(model);
+
+            }
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
+        }
 
         public async Task<JsonResult> geRecordCategories()
         {
@@ -103,8 +125,12 @@ namespace ClinicOne.Controllers
                 RecordTypeModel model = new RecordTypeModel()
                 {
                     Id = x.Id,
-                    RecordTypeName = x.Name
-
+                    RecordTypeName = x.Name,
+                    RecordTypeCategoryName = x.RecordTypesCategory.Name,
+                    RecordTypeCategoryId = x.RecordTypesCategoryId,
+                    ValueTypeName = x.ValueType.ValueType1,
+                    ValueTypeId  = x.ValueTypeId
+                    
                 };
 
                 thelist.Add(model);
@@ -120,7 +146,8 @@ namespace ClinicOne.Controllers
             RecordType model = new RecordType()
             {
                 Name = recordType.RecordTypeName,
-                RecordTypesCategoryId = recordType.RecordTypeCategoryId
+                RecordTypesCategoryId = recordType.RecordTypeCategoryId,
+                ValueTypeId = recordType.ValueTypeId
 
             };
 
@@ -136,6 +163,9 @@ namespace ClinicOne.Controllers
 
             var res = await db.RecordTypes.FindAsync(recordType.Id);
             res.Name = recordType.RecordTypeName;
+            res.RecordTypesCategoryId = recordType.RecordTypeCategoryId;
+            res.ValueTypeId = recordType.ValueTypeId;
+
 
             await db.SaveChangesAsync();
 

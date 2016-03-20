@@ -29,7 +29,6 @@ namespace ClinicOne
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<CommunicationType> CommunicationTypes { get; set; }
         public virtual DbSet<Consultation> Consultations { get; set; }
         public virtual DbSet<ConsultationsDiagnosi> ConsultationsDiagnosis { get; set; }
@@ -40,12 +39,13 @@ namespace ClinicOne
         public virtual DbSet<Drug> Drugs { get; set; }
         public virtual DbSet<DrugsCategory> DrugsCategories { get; set; }
         public virtual DbSet<LabResult> LabResults { get; set; }
-        public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientsRecord> PatientsRecords { get; set; }
         public virtual DbSet<PrescribedMedication> PrescribedMedications { get; set; }
         public virtual DbSet<RecordType> RecordTypes { get; set; }
         public virtual DbSet<RecordTypesCategory> RecordTypesCategories { get; set; }
         public virtual DbSet<ValueType> ValueTypes { get; set; }
         public virtual DbSet<Waiting> Waitings { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
     }
 }

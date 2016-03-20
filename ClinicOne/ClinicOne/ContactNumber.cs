@@ -19,7 +19,7 @@ namespace ClinicOne
         public int CommunicationTypeId { get; set; }
         public string CommunicationValue { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         public virtual CommunicationType CommunicationType { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
