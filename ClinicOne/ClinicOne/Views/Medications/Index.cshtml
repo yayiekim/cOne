@@ -1,1 +1,82 @@
-﻿
+﻿<div ng-app="app" ng-controller="cont">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click=""><span class="fa fa-plus"></span> Add Medications</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+
+        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+            <div class="panel-heading">Medications</div>
+
+
+            <table st-table="medicationsListDisplay" st-safe-src="medicationsList" class="table table-condensed table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+
+                        <th>Medication Name</th>
+
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in medicationsListDisplay">
+
+
+                        <td>{{row.MedicationName}}</td>
+
+
+                        <td>
+                            <button class="btn-sm btn btn-success" ng-click=""><span class="fa fa-edit"></span> Edit</button>
+
+                            <button class="btn-sm btn btn-warning" ng-click=""><span class="fa fa-remove"></span> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    
+    <script>
+
+        angular.module('app', ['smart-table']).controller('cont', function ($scope, $http) {
+
+            $scope.medicationsList = [];
+            $scope.medicationsListDisplay = [].concat($scope.medicationsList);
+
+            //GET MEDICATIONS
+
+            $http({
+                method: 'GET',
+                url: '/Medications/getMedications/'
+            }).success(function (data) {
+
+                $scope.medicationsList = data;
+            });
+
+        });
+
+    </script>
+
+    }

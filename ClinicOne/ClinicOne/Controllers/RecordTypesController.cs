@@ -179,6 +179,8 @@ namespace ClinicOne.Controllers
 
             db.RecordTypes.Remove(res);
 
+            await db.SaveChangesAsync();
+
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 

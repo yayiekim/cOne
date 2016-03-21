@@ -28,7 +28,9 @@
                     <tr>
 
                         <th>Record Type Name</th>
-
+                        <th>Record Category Name</th>
+                        <th>Value Type Name</th>
+                        
                     </tr>
                 </thead>
 
@@ -37,12 +39,14 @@
 
 
                         <td>{{row.RecordTypeName}}</td>
-
+                        <td>{{row.RecordTypeCategoryName}}</td>
+                        <td>{{row.ValueTypeName}}</td>
+                        
 
                         <td>
-                            <button class="btn-sm btn btn-success" ng-click=""><span class="fa fa-edit"></span> Edit</button>
+                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
 
-                            <button class="btn-sm btn btn-warning" ng-click=""><span class="fa fa-remove"></span> Delete</button>
+                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -74,7 +78,7 @@
                     <form class="form-horizontal" role="form">
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
+                            <label class="control-label col-sm-2" for="RecordTypeName">Record Categories:</label>
                             <div class="col-sm-10">
                                 <select class="form-control" ng-options="cat.Id as cat.Category for cat in recordTypeCategoryList" ng-model="recordTypes.RecordTypeCategoryId">
                                     <option value="">-- Select Category --</option>
@@ -84,7 +88,7 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
+                            <label class="control-label col-sm-2" for="ValueTypeName">Value Type:</label>
                             <div class="col-sm-10">
                                 <select class="form-control" ng-options="val.Id as val.ValueTypeName for val in valueTypeList" ng-model="recordTypes.ValueTypeId">
                                     <option value="">-- Select Value Type --</option>
@@ -114,6 +118,33 @@
 
 
 
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteRecordType()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
 
 </div>
 
@@ -126,7 +157,7 @@
 
         angular.module('app', ['smart-table']).controller('cont', function ($scope, $http) {
                         
-            //GET RECORDTYPES
+            
 
             $scope.recordTypesList = [];
             $scope.recordTypesListDisplay = [].concat($scope.recordTypesList);
@@ -134,14 +165,28 @@
             $scope.recordTypeCategoryList = [];
             $scope.valueTypeList = [];
 
-            $http({
-                method: 'GET',
-                url: '/RecordTypes/geRecordTypes/'
-            }).success(function (data) {
 
-                $scope.recordTypesList = data;
-            });
+            $scope.submitType;
 
+
+            //FOR DROPDOWN LIST RECORD CATEGORIES
+
+            $scope.getRecordTypeCategories = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/RecordTypes/geRecordCategories/'
+                }).success(function (data) {
+
+                    $scope.recordTypeCategoryList = data;
+
+                }, function errorCallBack(data) {
+
+                });
+            }
+
+
+            //FOR DROPDOWN LIST VALUE TYPES CATEGORIES
 
             $http({
                 method: 'GET',
@@ -149,6 +194,17 @@
             }).success(function (data) {
 
                 $scope.valueTypeList = data;
+            });
+
+
+            //GET RECORDTYPES
+
+            $http({
+                method: 'GET',
+                url: '/RecordTypes/geRecordTypes/'
+            }).success(function (data) {
+
+                $scope.recordTypesList = data;
             });
 
 
@@ -170,49 +226,83 @@
 
                 $scope.getRecordTypeCategories();
 
+                $scope.submitType = 'add';
             };
 
 
             $scope.updateRecordType = function () {
 
-                $http({
-                    method: 'POST',
-                    url: '/RecordTypes/addRecordType/',
-                    data: $.param({ recordType: $scope.recordTypes }),
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                if ($scope.submitType == 'add') {
 
-                }).success(function (data) {
+                    $http({
+                        method: 'POST',
+                        url: '/RecordTypes/addRecordType/',
+                        data: $.param({ recordType: $scope.recordTypes }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-                    $scope.recordTypes.Id = data;
-                    $scope.recordTypesList.push($scope.recordTypes);
-                });
+                    }).success(function (data) {
+
+                        $scope.recordTypes.Id = data;
+                        $scope.recordTypesList.push($scope.recordTypes);
+                    });
+                }
+                else {
+
+                    $http({
+                        method: 'POST',
+                        url: '/RecordTypes/editRecordType/',
+                        data: $.param({ recordType: $scope.recordTypes }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                    }).success(function (data) {
+
+                        $scope.recordTypesList.push($scope.recordTypes);
+                    });
+
+                }
+                
 
             }
 
-         
+
+            //DELETE RECORD TYPE
+
+            $scope.showDeleteModal = function (row) {
+
+                $scope.recordTypes = row;
+
+                $('#deleteModal').modal('toggle');
+            }
 
 
-
-            //FOR DROPDOWN LIST CATEGORIES
-
-            $scope.getRecordTypeCategories = function () {
+            $scope.deleteRecordType = function () {
 
                 $http({
                     method: 'GET',
-                    url: '/RecordTypes/geRecordCategories/'
+                    url: '/RecordTypes/deleteRecordType?id=' + $scope.recordTypes.Id + ''
+
                 }).success(function (data) {
 
-                    $scope.recordTypeCategoryList = data;
+                    if (data == 'ok') {
+                        
+                        var index = $scope.recordTypesList.indexOf($scope.recordTypes);
 
-                }, function errorCallBack(data) {
-
+                        $scope.recordTypesList.splice(index, 1)
+                    }
                 });
             }
 
 
-            //FOR VALUE TYPE CATEGORIESa
+            //EDIT RECORD TYPE
 
-            
+            $scope.showEditModal = function (row) {
+
+                $('#addModal').modal('toggle');
+
+                $scope.recordTypes = row;
+
+                $scope.submitType = 'edit';
+            }
+
         });
 
     </script>
