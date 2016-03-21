@@ -34,7 +34,6 @@ namespace ClinicOne
         public virtual DbSet<ConsultationsDiagnosi> ConsultationsDiagnosis { get; set; }
         public virtual DbSet<ConsultationsOtherService> ConsultationsOtherServices { get; set; }
         public virtual DbSet<ContactNumber> ContactNumbers { get; set; }
-        public virtual DbSet<Diagnosi> Diagnosis { get; set; }
         public virtual DbSet<DiagnosisCategory> DiagnosisCategories { get; set; }
         public virtual DbSet<Drug> Drugs { get; set; }
         public virtual DbSet<DrugsCategory> DrugsCategories { get; set; }
@@ -47,5 +46,6 @@ namespace ClinicOne
         public virtual DbSet<Waiting> Waitings { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Diagnosi> Diagnosis { get; set; }
     }
 }

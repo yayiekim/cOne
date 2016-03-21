@@ -47,7 +47,7 @@
                     <tbody>
                         <tr></tr>
                         <tr ng-repeat="row in waitingListDisplay">
-                            <td><button class="btn-sm btn btn-success" ng-click="showAdmitModal(row)"><span class="fa fa-arrow-right"></span></button></td>
+                            <td><button class="btn-sm btn btn-success" ng-click="admitPatient(row)"><span class="fa fa-arrow-right"></span></button></td>
                             <td>{{row.PatientFullName}}</td>
                             <td>{{row.Schedule | date: 'medium'}}</td>
                             <td>{{row.Remarks}}</td>

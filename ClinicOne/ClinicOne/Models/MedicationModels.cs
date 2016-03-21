@@ -9,6 +9,7 @@ namespace ClinicOne.Models
     {
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public string MedicationName { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
