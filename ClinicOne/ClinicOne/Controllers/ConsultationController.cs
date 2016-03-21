@@ -41,10 +41,20 @@ namespace ClinicOne.Controllers
 
         }
 
-        public async Task<JsonResult> getConsultaions(DateTime date)
+        public async Task<JsonResult> getConsultaions(DateTime date, Guid? patientId)
         {
-            var consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
+            IEnumerable<Consultation> consultations;
 
+            if (patientId == null)
+            {
+                consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
+            }
+            else {
+
+                consultations = await db.Consultations.Where(i => i.TransactionDate == date && i.PatientId == patientId).ToListAsync();
+            }
+
+          
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
             foreach (var consultaion in consultations)
