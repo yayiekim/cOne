@@ -13,6 +13,7 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
 
     //GET WAITINGLIST
 
+
     $scope.waitingList = [];
     $scope.waitingListDisplay = [].concat($scope.waitingList);
 
@@ -150,8 +151,25 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
 
     }
 
-    $scope.admitPatient = function () {
+    
 
+    $scope.admitPatient = function (row) {
+
+        $http({
+            method: 'GET',
+            url: '/Waiting/admitPatient?id=' + row.Id + ''
+        }).success(function (data) {
+
+            if (data == "ok") {
+
+                var index = $scope.waitingList.indexOf(row);
+
+                $scope.waitingList.splice(index, 1);
+            }
+
+        }, function errorCallback(data) {
+
+        });
 
     }
 

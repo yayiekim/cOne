@@ -4,5 +4,42 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div ng-app="app" ng-controller="cont" >
 
+    <strong >{{admittedPatient.FirstName}}</strong>
+
+
+</div>
+
+@section Scripts{
+    <script>
+        angular.module('app', []).controller('cont', function ($scope, $http) {
+            
+            $scope.admittedPatient;
+
+            $scope.getAdmitted = function () {
+                
+                $http({
+                    method: 'GET',
+                    url: '/Consultation/getAdmited'
+                }).success(function (data) {
+
+                    $scope.admittedPatient = data;
+                   
+
+                }, function errorCallBack(data) {
+
+                });
+
+            };
+
+
+            $scope.getAdmitted();
+
+            
+        });
+
+
+    </script>
+     
+    }
