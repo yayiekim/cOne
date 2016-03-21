@@ -17,7 +17,7 @@ namespace ClinicOne
         public System.Guid Id { get; set; }
         public string Diagnosis { get; set; }
         public string Description { get; set; }
-        public Nullable<System.Guid> DiagnosisCategoryId { get; set; }
+        public System.Guid DiagnosisCategoryId { get; set; }
     
         public virtual DiagnosisCategory DiagnosisCategory { get; set; }
     }

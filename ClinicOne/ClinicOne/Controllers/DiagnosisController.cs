@@ -92,7 +92,7 @@ namespace ClinicOne.Controllers
 
             var UserId = User.Identity.GetUserId();
 
-            var res = await db.Drugs.Where(i=>i.DrugsCategory.AspNetUserId == UserId).ToListAsync();
+            var res = await db.Diagnosis.Where(i=>i.DiagnosisCategory.AspNetUserId == UserId).ToListAsync();
 
             foreach (var x in res)
             {
@@ -100,9 +100,10 @@ namespace ClinicOne.Controllers
                 {
 
                     Id = x.Id,
-                    DiagnosisName = x.MedicineName,
+                    DiagnosisName = x.Diagnosis,
                     Description = x.Description,
-                    CategoryId = x.DrugCatergoryId
+                    CategoryId = x.DiagnosisCategoryId,
+                    CategoryName = x.DiagnosisCategory.Name
 
                 };
 

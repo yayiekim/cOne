@@ -86,6 +86,7 @@ namespace ClinicOne.Controllers
         }
 
 
+
         //Drugs
         public async Task<JsonResult> getMedications()
         {
@@ -106,7 +107,8 @@ namespace ClinicOne.Controllers
                     Dosage = x.Dosage,
                     Code = x.Code,
                     Amount = x.Amount.GetValueOrDefault(0),
-                    CategoryId = x.DrugCatergoryId
+                    CategoryId = x.DrugCatergoryId,
+                    CategoryName = x.DrugsCategory.Name
 
                 };
 
@@ -126,7 +128,7 @@ namespace ClinicOne.Controllers
                 Description = medication.Description,
                 Dosage = medication.Dosage,
                 DrugCatergoryId = medication.CategoryId
-                
+                                
             };
 
             db.Drugs.Add(model);
