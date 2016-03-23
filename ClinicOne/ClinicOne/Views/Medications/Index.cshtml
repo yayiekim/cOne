@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group form-group-sm">
-                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click=""><span class="fa fa-plus"></span> Add Medications</button>
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Medications</button>
 
             </div>
         </div>
@@ -20,6 +20,7 @@
                     <tr>
 
                         <th>Medication Name</th>
+                        <th>Medication Category Name</th>
 
 
                     </tr>
@@ -30,12 +31,15 @@
 
 
                         <td>{{row.MedicationName}}</td>
+                        <td>{{row.CategoryName}}</td>
 
 
                         <td>
-                            <button class="btn-sm btn btn-success" ng-click=""><span class="fa fa-edit"></span> Edit</button>
+                            <button class="btn-sm btn btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span> Details</button>
 
-                            <button class="btn-sm btn btn-warning" ng-click=""><span class="fa fa-remove"></span> Delete</button>
+                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
+
+                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -51,6 +55,114 @@
 
     </div>
 
+
+
+
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="medicationName">Medication Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Medication Category:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-disabled="disableInput" ng-options="cat.Id as cat.CategoryName for cat in medicationCategoryList" ng-model="medication.CategoryId">
+                                    <option value="">-- Select Category --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="medicationCode">Code:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="medicationDescription">Description:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="medication.Description" ng-disabled="disableInput" class="form-control" id="medicationDescription" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="medicationAmount">Amount:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="medicationDosage">Dosage:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="medication.Dosage" ng-disabled="disableInput" class="form-control" id="medicationDosage" />
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteMedication()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
 </div>
 
 
@@ -65,6 +177,38 @@
             $scope.medicationsList = [];
             $scope.medicationsListDisplay = [].concat($scope.medicationsList);
 
+            $scope.submitType;
+
+            $scope.medicationCategoryList = [];
+
+            $scope.disableInput = false;
+
+            //FOR DROPDOWN MEDICATION CATEGORY
+
+            $scope.getMedicationCategories = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/Medications/getMedicationCategories'
+                }).success(function (data) {
+
+                    $scope.medicationCategoryList = data;
+                });
+            }
+
+
+            $scope.medication = {
+                
+                'Id': '',
+                'CategoryId': '',
+                'CategoryName': '',
+                'MedicationName': '',
+                'Code': '',
+                'Description': '',
+                'Amount': '',
+                'Dosage': '',
+            };
+
             //GET MEDICATIONS
 
             $http({
@@ -74,6 +218,112 @@
 
                 $scope.medicationsList = data;
             });
+
+            //ADD MEDICATIONS
+
+            $scope.showAddModal = function () {
+
+                $('#addModal').modal('toggle');
+
+                $scope.getMedicationCategories();
+
+                $scope.submitType = 'add';
+
+                $scope.disableInput = false;
+            }
+            
+
+            $scope.updateMedication = function () {
+
+                if ($scope.submitType == 'add') {
+
+                    $http({
+                        method: 'POST',
+                        url: '/Medications/addMedication',
+                        data: $.param({ medication: $scope.medication }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).success(function (data) {
+
+                        $scope.medication.Id = data;
+                        $scope.medicationsList.push($scope.medication);
+                    });
+                }
+
+                    $http({
+                        method: 'POST',
+                        url: '/Medications/editMedication',
+                        data: $.param({ medication: $scope.medication }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).success(function (data) {
+
+                        if (data == 'ok') {
+
+                            $scope.medicationsList.push($scope.medication);
+                        }             
+                    });
+
+            };
+
+
+            //DETAILS MEDICATION
+
+            $scope.showDetailModal = function (row) {
+
+                $scope.getMedicationCategories();
+
+                $scope.medication = row;
+
+                $('#addModal').modal('toggle');
+
+                $scope.disableInput = true;
+            }
+
+
+
+            //EDIT MEDICATION
+
+            $scope.showEditModal = function (row) {
+
+                $('#addModal').modal('toggle');
+
+                $scope.medication = row;
+
+                $scope.getMedicationCategories();
+
+                $scope.disableInput = false;
+            }
+
+
+
+            //DELETE MEDICATION
+
+            $scope.showDeleteModal = function (row) {
+
+                $scope.medication = row;
+
+                $('#deleteModal').modal('toggle');
+            }
+
+
+            $scope.deleteMedication = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/Medications/deleteMedication?id=' + $scope.medication.Id + ''
+
+                }).success(function (data) {
+
+                    if (data == 'ok') {
+
+                        var index = $scope.medicationsList.indexOf($scope.medication);
+
+                        $scope.medicationsList.splice(index, 1)
+                    }
+                });
+            }
+            
 
         });
 
