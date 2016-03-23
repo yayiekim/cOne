@@ -139,7 +139,7 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> editMedication(MedicationModel medication)
         {
-            var res = await db.Drugs.FindAsync();
+            var res = await db.Drugs.FindAsync(medication.Id);
 
             res.MedicineName = medication.MedicationName;
             res.Amount = medication.Amount;

@@ -115,6 +115,7 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> addDiagnosis(DiagnosisModel diagnosis)
         {
+
             Diagnosi model = new Diagnosi()
             {
                 Diagnosis = diagnosis.DiagnosisName,
@@ -131,7 +132,7 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> editDiagsosis(DiagnosisModel diagnosis)
         {
-            var res = await db.Diagnosis.FindAsync();
+            var res = await db.Diagnosis.FindAsync(diagnosis.Id);
 
             res.Diagnosis = diagnosis.DiagnosisName;
             res.Description = diagnosis.Description;

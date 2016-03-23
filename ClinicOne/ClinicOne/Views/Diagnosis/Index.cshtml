@@ -3,5 +3,283 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
+<div ng-app="app" ng-controller="cont">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group form-group-sm">
+                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Diagnosis</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+
+        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
+            <div class="panel-heading">Record Types</div>
+
+
+            <table st-table="diagnosisListDisplay" st-safe-src="diagnosisList" class="table table-condensed table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+
+                        <th>Diagnosis</th>
+                        <th>Category</th>
+                        <th>Description</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="row in diagnosisListDisplay">
+
+
+                        <td>{{row.DiagnosisName}}</td>
+                        <td>{{row.CategoryName}}</td>
+                        <td>{{row.Description}}</td>
+
+
+                        <td>
+
+                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
+
+                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="DiagnosisName">Diagnosis Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="diagnosis.DiagnosisName" ng-disabled="disableInput" class="form-control" id="DiagnosisName" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Diagnosis Category:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-options="cat.Id as cat.CategoryName for cat in diagnosisCategoryList" ng-model="diagnosis.CategoryId">
+                                    <option value="">-- Select Category --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="DiagnosisDescription">Description:</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="diagnosis.Description" ng-disabled="disableInput" class="form-control" id="DiagnosisDescription" />
+                            </div>
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="updateDiagnosis()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteDiagnosis()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+</div>
+
+
+@section Scripts {
+    
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+    <script>
+
+        angular.module('app', ['smart-table']).controller('cont', function ($scope, $http) {
+
+            $scope.diagnosisList = [];
+            $scope.diagnosisListDisplay = [].concat($scope.diagnosisList);
+
+            $scope.submitType;
+
+            $scope.diagnosisCategoryList = [];
+
+
+            $scope.diagnosis = {
+
+                'Id': '',
+                'CategoryId': '',
+                'CategoryName': '',
+                'DiagnosisName': '',
+                'Description': ''
+            };
+
+            //GET DIAGNOSIS
+
+            $http ({
+                method: 'GET',
+                url: '/Diagnosis/getDiagnosis'
+            }).success(function (data) {
+
+                $scope.diagnosisList = data;
+            });
+            
+            //ADD DIAGNOSIS
+
+            $scope.showAddModal = function () {
+
+                $('#addModal').modal('toggle');
+
+                $scope.getDiagnosisCategory();
+
+                $scope.submitType = 'add';
+            }
+
+            //FOR DROPDOWNLIST DIAGNOSIS CATEGORY
+
+            $scope.getDiagnosisCategory = function () {
+
+                $http({
+
+                    method: 'GET',
+                    url: '/Diagnosis/getDiagnosisCategories'
+                }).success(function (data) {
+
+                    $scope.diagnosisCategoryList = data;
+                });
+            }
+
+
+            //UPDATE DIAGNOSIS
+
+            $scope.updateDiagnosis = function () { 
+
+                if ($scope.submitType == 'add') {
+
+                    $http({
+                        method: 'POST',
+                        url: '/Diagnosis/addDiagnosis',
+                        data: $.param({ diagnosis: $scope.diagnosis }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).success(function (data) {
+
+                        $scope.diagnosis.Id = data;
+                        $scope.diagnosisList.push($scope.diagnosis);
+
+                    });
+                }
+                else {
+
+                    $http({
+                        method: 'POST',
+                        url: '/Diagnosis/editDiagsosis',
+                        data: $.param({ diagnosis: $scope.diagnosis }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).success(function (data) {              
+                        
+                        $scope.diagnosisList.push($scope.diagnosis);
+
+                    });
+                }
+            }
+
+
+            //DELETE DIAGNOSIS
+
+            $scope.showDeleteModal = function (row) {
+
+                $scope.diagnosis = row;
+
+                $('#deleteModal').modal('toggle');
+            }
+
+            $scope.deleteDiagnosis = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/Diagnosis/deleteDiagnosis?id=' + $scope.diagnosis.Id + ''
+
+                }).success(function (data) {
+
+                    if (data == 'ok') {
+
+                        var index = $scope.diagnosisList.indexOf($scope.diagnosis);
+
+                        $scope.diagnosisList.splice(index, 1)
+                    }
+                });
+            }
+
+
+            //EDIT DIAGNOSIS
+
+            $scope.showEditModal = function (row) {
+
+                $('#addModal').modal('toggle');
+
+                $scope.diagnosis = row;
+
+                $scope.submitType = 'edit';
+
+                $scope.getDiagnosisCategory();
+            }
+
+
+        });
+
+    </script>
+    
+    }
