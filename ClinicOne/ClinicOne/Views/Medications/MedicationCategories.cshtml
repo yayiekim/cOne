@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div ng-app="app" ng-controller="medicationsCtrl">
+<div ng-app="app" ng-controller="medicationCategoryCtrl">
 
 
     <div class="row">
@@ -125,11 +125,11 @@
 @section Scripts{
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-    <script src="~/Scripts/app/MedicationsController.js"></script>
+    <script src="~/Scripts/app/MedicationCategoryController.js"></script>
 
     <script>
 
-        var app = angular.module('app', ['smart-table', 'medicationsController']);
+        var app = angular.module('app', ['smart-table', 'medicationCategoryController']);
 
     </script>
 

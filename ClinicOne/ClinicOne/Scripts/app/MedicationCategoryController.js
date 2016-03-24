@@ -1,8 +1,8 @@
-﻿var medicationsController = angular.module('medicationsController', []);
+﻿var medicationCategoryController = angular.module('medicationCategoryController', []);
 
 
 
-medicationsController.controller('medicationsCtrl', function ($scope, $http) {
+medicationCategoryController.controller('medicationCategoryCtrl', function ($scope, $http) {
 
     $scope.MedicationCategoryList = [];
     $scope.MedicationCategoryListDisplay = [].concat($scope.MedicationCategoryList);
