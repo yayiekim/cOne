@@ -128,7 +128,7 @@ namespace ClinicOne.Controllers
             db.Diagnosis.Add(model);
             await db.SaveChangesAsync();
 
-            var catName = await db.DiagnosisCategories.FindAsync(model.DiagnosisCategoryId);
+            var catName = await db.DiagnosisCategories.FindAsync(diagnosis.CategoryId);
 
             DiagnosisModel resModel = new DiagnosisModel()
             {

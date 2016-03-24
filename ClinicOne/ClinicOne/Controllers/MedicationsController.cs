@@ -134,7 +134,7 @@ namespace ClinicOne.Controllers
             db.Drugs.Add(model);
             await db.SaveChangesAsync();
 
-            var catRes = await db.DrugsCategories.FindAsync(model.DrugCatergoryId);
+            var catRes = await db.DrugsCategories.FindAsync(medication.CategoryId);
 
             MedicationModel resModel = new MedicationModel()
             {
