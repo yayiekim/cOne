@@ -121,13 +121,28 @@ namespace ClinicOne.Controllers
                 Diagnosis = diagnosis.DiagnosisName,
                 Description = diagnosis.Description,
                 DiagnosisCategoryId = diagnosis.CategoryId
-
+               
+                
             };
 
             db.Diagnosis.Add(model);
             await db.SaveChangesAsync();
 
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+            var catName = await db.DiagnosisCategories.FindAsync(model.DiagnosisCategoryId);
+
+            DiagnosisModel resModel = new DiagnosisModel()
+            {
+                Id = model.Id,
+                DiagnosisName = model.Diagnosis,
+                CategoryId = model.DiagnosisCategoryId,
+                CategoryName = catName.Name,
+                Description = model.Description
+
+            };
+
+
+
+            return Json(resModel, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> editDiagsosis(DiagnosisModel diagnosis)

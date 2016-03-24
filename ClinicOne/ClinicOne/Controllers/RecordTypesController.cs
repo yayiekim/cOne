@@ -155,7 +155,21 @@ namespace ClinicOne.Controllers
             await db.SaveChangesAsync();
 
 
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+            var catRes = await db.RecordTypesCategories.FindAsync(model.RecordTypesCategoryId);
+
+            RecordTypeModel resModel = new RecordTypeModel()
+            {
+                Id = model.Id,
+                ValueTypeId = model.ValueTypeId,
+                ValueTypeName = model.ValueType.ValueType1,
+                RecordTypeName = model.Name,
+                RecordTypeCategoryId = model.RecordTypesCategoryId,
+                RecordTypeCategoryName = catRes.Name
+
+            };
+
+
+            return Json(resModel, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> editRecordType(RecordTypeModel recordType)

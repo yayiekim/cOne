@@ -134,7 +134,23 @@ namespace ClinicOne.Controllers
             db.Drugs.Add(model);
             await db.SaveChangesAsync();
 
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+            var catRes = await db.DrugsCategories.FindAsync(model.DrugCatergoryId);
+
+            MedicationModel resModel = new MedicationModel()
+            {
+                Id = model.Id,
+                MedicationName = model.MedicineName,
+                Amount = model.Amount.GetValueOrDefault(),
+                Code = model.Code,
+                Description = model.Description,
+                Dosage = model.Dosage,
+                CategoryId = model.DrugCatergoryId ,
+                CategoryName = catRes.Name
+
+
+            };
+
+            return Json(resModel, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> editMedication(MedicationModel medication)
