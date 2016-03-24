@@ -155,13 +155,14 @@ namespace ClinicOne.Controllers
             await db.SaveChangesAsync();
 
 
-            var catRes = await db.RecordTypesCategories.FindAsync(recordType.RecordTypeCategoryId);
+            var catRes = await db.RecordTypesCategories.FindAsync(model.RecordTypesCategoryId);
+            var valRes = await db.ValueTypes.FindAsync(model.ValueTypeId);
 
             RecordTypeModel resModel = new RecordTypeModel()
             {
                 Id = model.Id,
                 ValueTypeId = model.ValueTypeId,
-                ValueTypeName = model.ValueType.ValueType1,
+                ValueTypeName = valRes.ValueType1,
                 RecordTypeName = model.Name,
                 RecordTypeCategoryId = model.RecordTypesCategoryId,
                 RecordTypeCategoryName = catRes.Name
