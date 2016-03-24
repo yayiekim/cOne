@@ -45,7 +45,7 @@ namespace ClinicOne.Controllers
                 MiddleName = x.MiddleName,
                 LastName = x.LastName,
                 Gender = x.Gender
-                
+
             };
 
 
@@ -60,7 +60,7 @@ namespace ClinicOne.Controllers
 
 
             db.Waitings.Remove(res);
-           await db.SaveChangesAsync();
+            await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
 
@@ -79,7 +79,7 @@ namespace ClinicOne.Controllers
                 consultations = await db.Consultations.Where(i => i.TransactionDate == date && i.PatientId == patientId).ToListAsync();
             }
 
-          
+
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
             foreach (var consultaion in consultations)
@@ -111,7 +111,7 @@ namespace ClinicOne.Controllers
                         ConsultationId = consultaion.Id,
                         RecordTypeName = record.RecordType,
                         RecordValue = record.RecordValue
-                       
+
 
                     };
 
@@ -153,7 +153,7 @@ namespace ClinicOne.Controllers
                     serviceList.Add(serviceModel);
                 }
 
-                
+
                 var labs = await db.LabResults.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
                 List<PatientLabModel> labList = new List<PatientLabModel>();
                 foreach (var lab in labs)
@@ -165,7 +165,7 @@ namespace ClinicOne.Controllers
                         RecordValue = lab.RecordValue,
                         Remarks = lab.Remarks,
                         ConsultationId = consultaion.Id
-                        
+
                     };
 
                     labList.Add(serviceModel);
@@ -181,12 +181,12 @@ namespace ClinicOne.Controllers
                     PatientId = consultaion.PatientId,
                     TransactonDate = consultaion.TransactionDate,
                     Id = consultaion.Id,
-                    PatientfullName =  consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
+                    PatientfullName = consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
                     DiagnosisList = diagnosisList,
                     RecordList = recordsList,
                     PrescribeMedicationList = prescribeMedList,
                     OtherServiceList = serviceList,
-                    LabModelList = labList                   
+                    LabModelList = labList
 
 
                 };
@@ -197,21 +197,46 @@ namespace ClinicOne.Controllers
             }
 
 
-            return Json(consultationList,JsonRequestBehavior.AllowGet);
+            return Json(consultationList, JsonRequestBehavior.AllowGet);
 
 
         }
         public async Task<JsonResult> AddConsultation(ConsultationModel consultaion)
         {
+
+
             Consultation model = new Consultation()
             {
                 AspNetUserId = User.Identity.GetUserId(),
                 TransactionDate = consultaion.TransactonDate,
                 PatientId = consultaion.PatientId
-                
+
             };
 
             db.Consultations.Add(model);
+
+            if (consultaion.DiagnosisList.Count() != 0)
+            {
+
+                foreach (var x in consultaion.DiagnosisList)
+                {
+                    ConsultationsDiagnosi diagnosisModel = new ConsultationsDiagnosi()
+                    {
+                        ConsultationId = model.Id,
+                        Amount = x.Amount,
+                        Diagnosis = x.Diagnosis,
+                        Remarks = x.Remarks,
+
+                    };
+
+                    db.ConsultationsDiagnosis.Add(diagnosisModel);
+
+                }
+
+                
+            }
+            
+
             await db.SaveChangesAsync();
 
             return Json(model.Id, JsonRequestBehavior.AllowGet);
@@ -224,7 +249,7 @@ namespace ClinicOne.Controllers
 
             res.TransactionDate = consultaion.TransactonDate;
 
-          
+
             await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
@@ -422,7 +447,7 @@ namespace ClinicOne.Controllers
                 ConsultationId = lab.ConsultationId,
                 Remarks = lab.Remarks,
                 RecordType = lab.RecordTypeName,
-                RecordValue =lab.RecordValue
+                RecordValue = lab.RecordValue
 
 
             };

@@ -4,28 +4,117 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div ng-app="app" ng-controller="cont" >
+<div ng-app="app" ng-controller="cont">
 
-    <strong >{{admittedPatient.FirstName}}</strong>
+    <strong>{{admittedPatient.FirstName}}</strong>
+    <button ng-click="newConsultation()" >New Consultation</button>
+
+
+    <table st-table="consultationDiagnosisListDisplay" st-safe-src="consultationDiagnosisList" class="table table-condensed table-responsive table-striped table-bordered">
+        <thead>
+            <tr>
+
+                <th>Diagnosis</th>
+                <th>Remarks</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="row in consultationDiagnosisListDisplay">
+
+
+                <td>{{row.Diagnosis}}</td>
+                <td>{{row.Remarks}}</td>
+              
+
+                <td>
+
+                    <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
+
+                    <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+
+                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="ConsultationDiagnosisModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationDiagnosisModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="ConsultationDiagnosisModal-label">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                   
+                    <select class="form-control" ng-options="cat.Id as cat.CategoryName for cat in diagnosisCategoryList" ng-model="diagnosis.CategoryId">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 </div>
 
 @section Scripts{
+
+<script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+
     <script>
         angular.module('app', []).controller('cont', function ($scope, $http) {
-            
+
             $scope.admittedPatient;
 
+            $scope.diagnosis = [];
+
+            $scope.consultationDiagnosisList = [];
+            $scope.consultationDiagnosisListDisplay = [].concat($scope.consultationDiagnosisList);
+            $scope.consultationDiagnosis = {
+
+                "Diagnosis": "",
+                "Remarks": "",
+                "Amount": ""
+
+            };
+
+
+            $scope.consultation = {
+                              
+                "PatientId": "",
+                "TransactonDate": "",
+                "PatientfullName": "",
+
+                "DiagnosisList": $scope.consultationDiagnosisList
+ 
+
+            };
+
+
             $scope.getAdmitted = function () {
-                
+
                 $http({
                     method: 'GET',
                     url: '/Consultation/getAdmited'
                 }).success(function (data) {
 
                     $scope.admittedPatient = data;
-                   
+
 
                 }, function errorCallBack(data) {
 
@@ -33,13 +122,32 @@
 
             };
 
+            $scope.newConsultation = function () {
+
+                $scope.consultationDiagnosisList.push($scope.consultationDiagnosis);
+
+                $http({
+                    method: 'POST',
+                    url: '/Consultation/AddConsultation',
+                    data: $.param({ consultaion: $scope.consultation }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                }).success(function (data) {
+
+                    $scope.recordTypesList.push(data);
+                });
+
+
+
+            };
+
 
             $scope.getAdmitted();
 
-            
+
         });
 
 
     </script>
-     
-    }
+
+}
