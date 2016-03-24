@@ -132,6 +132,7 @@ namespace ClinicOne.Controllers
 
             DiagnosisModel resModel = new DiagnosisModel()
             {
+                Id = model.Id,
                 DiagnosisName = model.Diagnosis,
                 CategoryId = model.DiagnosisCategoryId,
                 CategoryName = catName.Name,
