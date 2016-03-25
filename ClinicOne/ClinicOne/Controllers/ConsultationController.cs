@@ -235,8 +235,48 @@ namespace ClinicOne.Controllers
 
                 
             }
-            
 
+            if (consultaion.PrescribeMedicationList.Count() != 0)
+            {
+
+                foreach (var x in consultaion.PrescribeMedicationList)
+                {
+                    PrescribedMedication medsModel = new PrescribedMedication()
+                    {
+                        ConsultationId = model.Id,
+                        Amount = x.Amount,
+                        Medication = x.Medication,
+                        Remarks = x.Remarks,
+                        Quantity = x.Quantity,
+
+                    };
+
+                    db.PrescribedMedications.Add(medsModel);
+
+                }
+
+
+            }
+
+            if (consultaion.RecordList.Count() != 0)
+            {
+
+                foreach (var x in consultaion.RecordList)
+                {
+                    PatientsRecord recordsModel = new PatientsRecord()
+                    {
+                        ConsultationId = model.Id,
+                        RecordType = x.RecordTypeName,
+                        RecordValue = x.RecordValue
+
+                    };
+
+                    db.PatientsRecords.Add(recordsModel);
+
+                }
+
+
+            }
             await db.SaveChangesAsync();
 
             return Json(model.Id, JsonRequestBehavior.AllowGet);
