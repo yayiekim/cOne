@@ -304,35 +304,66 @@
 
 
             //Consultation Children
-            $scope.showConsultationChildrenModal = function(modalName)
+            $scope.showConsultationChildrenModal = function(modalName, modalType, row)
             {
+              
+
+                if (modalType == 'edit') {
+
+                    if (modalName == 'ConsultationDiagnosisModal') {
+                      
+                        $scope.consultationDiagnosis = row;
+                    }
+                    else if (modalName == 'ConsultationMedicationModal') {
+                     
+                        $scope.consultationMedication = row;
+
+                    }
+                    else if (modalName == 'ConsultationRecordModal') {
+                     
+                        $scope.consultationRecord = row;
+
+                    }
+                 
+
+
+                } else {
+
+
+                }
+
+            
                 $('#' + modalName + '').modal('toggle');
 
-            
             };
             
-            $scope.addNewConsultationChildren = function (modalName)
+            $scope.addNewConsultationChildren = function (modalName, modalType)
             {
 
-                if (modalName == 'ConsultationDiagnosisModal')
-                {
-                    $scope.consultationDiagnosisList.push($scope.consultationDiagnosis);
-                           
-                }
-                else if (modalName == 'ConsultationMedicationModal')
-                {
-                    $scope.consultationMedicationList.push($scope.consultationMedication);
-                                       
-                }
-                else if (modalName == 'ConsultationRecordModal') {
-                    $scope.consultationRecordList.push($scope.consultationRecord);
-                }
-                else if (modalName == 'service') {
+                if (modalType == 'edit') {
+
 
                 }
-                else if (modalName == 'lab') {
+                else {
+
+
+                    if (modalName == 'ConsultationDiagnosisModal') {
+                        $scope.consultationDiagnosisList.push($scope.consultationDiagnosis);
+
+                    }
+                    else if (modalName == 'ConsultationMedicationModal') {
+                        $scope.consultationMedicationList.push($scope.consultationMedication);
+
+                    }
+                    else if (modalName == 'ConsultationRecordModal') {
+                        $scope.consultationRecordList.push($scope.consultationRecord);
+                    }
+
 
                 }
+
+
+             
 
                 $scope.resetConsultationChildren(modalName);
                 $('#'+ modalName +'').modal('toggle');
