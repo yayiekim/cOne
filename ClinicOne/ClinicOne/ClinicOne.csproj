@@ -1287,6 +1287,7 @@
     <Content Include="Views\Diagnosis\DiagnosisCategories.cshtml" />
     <Content Include="Views\Medications\MedicationCategories.cshtml" />
     <Content Include="Views\Diagnosis\Index.cshtml" />
+    <Content Include="Views\Consultation\ConsultationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

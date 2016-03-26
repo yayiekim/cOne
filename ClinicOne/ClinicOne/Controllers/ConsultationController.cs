@@ -20,6 +20,11 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public ActionResult ConsultationList()
+        {
+            return View();
+        }
+
         public async Task<JsonResult> getAdmited()
         {
             var res = await db.Waitings.Where(i => i.IsAdmitted == true).SingleAsync();
@@ -66,19 +71,12 @@ namespace ClinicOne.Controllers
 
         }
 
-        public async Task<JsonResult> getConsultaions(DateTime date, Guid? patientId)
+        public async Task<JsonResult> getConsultaions(DateTime date)
         {
             IEnumerable<Consultation> consultations;
 
-            if (patientId == null)
-            {
-                consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
-            }
-            else {
 
-                consultations = await db.Consultations.Where(i => i.TransactionDate == date && i.PatientId == patientId).ToListAsync();
-            }
-
+            consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
 
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
@@ -88,116 +86,148 @@ namespace ClinicOne.Controllers
                 List<ConsultationDiagnosisModel> diagnosisList = new List<ConsultationDiagnosisModel>();
                 foreach (var diagnost in diagnosis)
                 {
-                    ConsultationDiagnosisModel diagnostModel = new ConsultationDiagnosisModel()
+
+
+
+                    ConsultationModel model = new ConsultationModel()
                     {
-                        Id = diagnost.Id,
-                        Amount = diagnost.Amount.GetValueOrDefault(0m),
-                        Diagnosis = diagnost.Diagnosis,
-                        Remarks = diagnost.Remarks,
-                        ConsultationId = consultaion.Id
-                    };
-
-                    diagnosisList.Add(diagnostModel);
-                }
-
-
-                var records = await db.PatientsRecords.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
-                List<PatientRecordModel> recordsList = new List<PatientRecordModel>();
-                foreach (var record in records)
-                {
-                    PatientRecordModel recordModel = new PatientRecordModel()
-                    {
-                        Id = record.Id,
-                        ConsultationId = consultaion.Id,
-                        RecordTypeName = record.RecordType,
-                        RecordValue = record.RecordValue
-
+                        AspNetUserId = User.Identity.GetUserId(),
+                        PatientId = consultaion.PatientId,
+                        TransactonDate = consultaion.TransactionDate,
+                        Id = consultaion.Id,
+                        PatientfullName = consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
+                        DiagnosisList = diagnosisList,
 
                     };
 
-                    recordsList.Add(recordModel);
+                    consultationList.Add(model);
+
+
                 }
-
-
-
-                var prescribeMeds = await db.PrescribedMedications.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
-                List<PatientPrescribeMedicationModel> prescribeMedList = new List<PatientPrescribeMedicationModel>();
-                foreach (var prescribeMed in prescribeMeds)
-                {
-                    PatientPrescribeMedicationModel prescribeMedModel = new PatientPrescribeMedicationModel()
-                    {
-                        Id = prescribeMed.Id,
-                        Amount = prescribeMed.Amount.GetValueOrDefault(0m),
-                        Medication = prescribeMed.Medication,
-                        Remarks = prescribeMed.Remarks,
-                        ConsultationId = consultaion.Id
-                    };
-
-                    prescribeMedList.Add(prescribeMedModel);
-                }
-
-
-                var otherServices = await db.ConsultationsOtherServices.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
-                List<PatientOtherServiceModel> serviceList = new List<PatientOtherServiceModel>();
-                foreach (var otherService in otherServices)
-                {
-                    PatientOtherServiceModel serviceModel = new PatientOtherServiceModel()
-                    {
-                        Id = otherService.Id,
-                        Amount = otherService.Amount.GetValueOrDefault(0m),
-                        Description = otherService.Description,
-                        Remarks = otherService.Remarks,
-                        ConsultationId = consultaion.Id
-                    };
-
-                    serviceList.Add(serviceModel);
-                }
-
-
-                var labs = await db.LabResults.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
-                List<PatientLabModel> labList = new List<PatientLabModel>();
-                foreach (var lab in labs)
-                {
-                    PatientLabModel serviceModel = new PatientLabModel()
-                    {
-                        Id = lab.Id,
-                        RecordTypeName = lab.RecordType,
-                        RecordValue = lab.RecordValue,
-                        Remarks = lab.Remarks,
-                        ConsultationId = consultaion.Id
-
-                    };
-
-                    labList.Add(serviceModel);
-                }
-
-
-
-
-
-                ConsultationModel model = new ConsultationModel()
-                {
-                    AspNetUserId = User.Identity.GetUserId(),
-                    PatientId = consultaion.PatientId,
-                    TransactonDate = consultaion.TransactionDate,
-                    Id = consultaion.Id,
-                    PatientfullName = consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
-                    DiagnosisList = diagnosisList,
-                    RecordList = recordsList,
-                    PrescribeMedicationList = prescribeMedList,
-                    OtherServiceList = serviceList,
-                    LabModelList = labList
-
-
-                };
-
-                consultationList.Add(model);
 
 
             }
 
-
             return Json(consultationList, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> getConsultaionDetail(Guid ConsultationId)
+        {
+
+            var consultation = await db.Consultations.FindAsync(ConsultationId);
+
+
+            var diagnosis = await db.ConsultationsDiagnosis.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
+            List<ConsultationDiagnosisModel> diagnosisList = new List<ConsultationDiagnosisModel>();
+            foreach (var diagnost in diagnosis)
+            {
+                ConsultationDiagnosisModel diagnostModel = new ConsultationDiagnosisModel()
+                {
+                    Id = diagnost.Id,
+                    Amount = diagnost.Amount.GetValueOrDefault(0m),
+                    Diagnosis = diagnost.Diagnosis,
+                    Remarks = diagnost.Remarks,
+                    ConsultationId = consultation.Id
+                };
+
+                diagnosisList.Add(diagnostModel);
+            }
+
+
+            var records = await db.PatientsRecords.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
+            List<PatientRecordModel> recordsList = new List<PatientRecordModel>();
+            foreach (var record in records)
+            {
+                PatientRecordModel recordModel = new PatientRecordModel()
+                {
+                    Id = record.Id,
+                    ConsultationId = consultation.Id,
+                    RecordTypeName = record.RecordType,
+                    RecordValue = record.RecordValue
+
+
+                };
+
+                recordsList.Add(recordModel);
+            }
+
+
+
+            var prescribeMeds = await db.PrescribedMedications.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
+            List<PatientPrescribeMedicationModel> prescribeMedList = new List<PatientPrescribeMedicationModel>();
+            foreach (var prescribeMed in prescribeMeds)
+            {
+                PatientPrescribeMedicationModel prescribeMedModel = new PatientPrescribeMedicationModel()
+                {
+                    Id = prescribeMed.Id,
+                    Amount = prescribeMed.Amount.GetValueOrDefault(0m),
+                    Medication = prescribeMed.Medication,
+                    Remarks = prescribeMed.Remarks,
+                    ConsultationId = consultation.Id
+                };
+
+                prescribeMedList.Add(prescribeMedModel);
+            }
+
+
+            var otherServices = await db.ConsultationsOtherServices.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
+            List<PatientOtherServiceModel> serviceList = new List<PatientOtherServiceModel>();
+            foreach (var otherService in otherServices)
+            {
+                PatientOtherServiceModel serviceModel = new PatientOtherServiceModel()
+                {
+                    Id = otherService.Id,
+                    Amount = otherService.Amount.GetValueOrDefault(0m),
+                    Description = otherService.Description,
+                    Remarks = otherService.Remarks,
+                    ConsultationId = consultation.Id
+                };
+
+                serviceList.Add(serviceModel);
+            }
+
+
+            var labs = await db.LabResults.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
+            List<PatientLabModel> labList = new List<PatientLabModel>();
+            foreach (var lab in labs)
+            {
+                PatientLabModel serviceModel = new PatientLabModel()
+                {
+                    Id = lab.Id,
+                    RecordTypeName = lab.RecordType,
+                    RecordValue = lab.RecordValue,
+                    Remarks = lab.Remarks,
+                    ConsultationId = consultation.Id
+
+                };
+
+                labList.Add(serviceModel);
+            }
+
+
+
+
+
+            ConsultationModel model = new ConsultationModel()
+            {
+                AspNetUserId = User.Identity.GetUserId(),
+                PatientId = consultation.PatientId,
+                TransactonDate = consultation.TransactionDate,
+                Id = consultation.Id,
+                PatientfullName = consultation.Patient.FirstName + " " + consultation.Patient.MiddleName + " " + consultation.Patient.LastName,
+                DiagnosisList = diagnosisList,
+                RecordList = recordsList,
+                PrescribeMedicationList = prescribeMedList,
+                OtherServiceList = serviceList,
+                LabModelList = labList
+
+
+            };
+
+
+
+
+            return Json(model, JsonRequestBehavior.AllowGet);
 
 
         }
@@ -233,7 +263,7 @@ namespace ClinicOne.Controllers
 
                 }
 
-                
+
             }
 
             if (consultaion.PrescribeMedicationList.Count() != 0)
