@@ -52,6 +52,19 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
 
     $scope.showAddModal = function () {
 
+        $scope.medication = {
+
+            'Id': '',
+            'CategoryId': '',
+            'CategoryName': '',
+            'MedicationName': '',
+            'Code': '',
+            'Description': '',
+            'Amount': '',
+            'Dosage': '',
+        };
+
+
         $('#addModal').modal('toggle');
 
         $scope.getMedicationCategories();
@@ -85,11 +98,9 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
         }).success(function (data) {
-
-            if (data == 'ok') {
-
-                $scope.medicationsList.push($scope.medication);
-            }
+        
+            
+            $scope.medication.CategoryName = data.CategoryName;
         });
 
     };
