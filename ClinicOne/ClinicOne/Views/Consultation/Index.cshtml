@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h3>Consultation</h3>
+<hr />
+
 
 <div ng-app="app" ng-controller="cont">
 
@@ -11,8 +14,10 @@
 
         <div class="col-md-6">
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div class="panel-heading">
-                    <button class="btn btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'add', '')"><span class="fa fa-plus"></span> Diagnosis</button>
+               
+                <div style="height:50px" class="panel-heading">
+                    Diagnosis
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'add', '')"><span class="fa fa-plus"></span></button>
                 </div>
 
                 <div class="panel-body">
@@ -53,12 +58,13 @@
         <div class="col-md-6">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div class="panel-heading">
-
-                    <button class="btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span> Medication</button>
-
-
+               
+                <div style="height:50px" class="panel-heading">
+                    Medications
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span></button>
                 </div>
+
+
                 <div class="panel-body">
                     <table st-table="consultationMedicationList" class="table table-condensed table-responsive table-striped">
                         <thead>
@@ -99,10 +105,10 @@
         <div class="col-md-6">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div class="panel-heading">
-
-                    <button class="btn btn-default" ng-click="showConsultationChildrenModal('ConsultationRecordModal', 'add', '')"><span class="fa fa-plus"></span> Record</button>
-
+               
+                <div style="height:50px" class="panel-heading">
+                    Records
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationRecordModal', 'add', '')"><span class="fa fa-plus"></span></button>
                 </div>
 
                 <div class="panel-body">

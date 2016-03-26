@@ -104,14 +104,26 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> admitPatient(Guid id)
         {
-            var res = await db.Waitings.FindAsync(id);
+            var admitted = await db.Waitings.Where(i => i.IsAdmitted == true).ToListAsync();
 
-            res.IsAdmitted = true;
-                      
-            await db.SaveChangesAsync();
+            if (admitted.Count() == 0)
+            {
+                var res = await db.Waitings.FindAsync(id);
+
+                res.IsAdmitted = true;
+
+                await db.SaveChangesAsync();
 
 
-            return Json("ok", JsonRequestBehavior.AllowGet);
+                return Json("ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Action not allowed, patient "+ admitted.FirstOrDefault().Patient.FirstName + " " + admitted.FirstOrDefault().Patient.LastName + " is admitted.", JsonRequestBehavior.AllowGet);
+
+            }
+
+           
         }
 
     }

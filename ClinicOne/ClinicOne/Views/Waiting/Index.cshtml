@@ -4,11 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h3>Waiting Patients</h3>
+<hr />
+
 <div ng-app="app" ng-controller="waitingCtrl">
 
     <div class="row">
 
-
+        
         <!-- DISPLAY WAITING LIST -->
         <!-- DISPLAY WAITING LIST -->
         <!-- DISPLAY WAITING LIST -->
@@ -17,7 +20,7 @@
         <div class="col-sm-12">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div style="height:50px" class="panel-heading">Waiting Patients
+                <div style="height:50px" class="panel-heading">Patient list
                     <button class="pull-right btn-sm btn btn-default" ng-click="showAddWaitingModal()"><span class="fa fa-plus"></span></button> 
                 </div>
 
@@ -176,6 +179,23 @@
         </div>
     </div>
 
+    <div class="modal fade" id="AlertModal" tabindex="-1" role="dialog" aria-labelledby=""AlertModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id=""AlertModal-label"><span class="fa fa-exclamation-triangle"></span> Alert</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{alertMessage}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
 
 </div>
 

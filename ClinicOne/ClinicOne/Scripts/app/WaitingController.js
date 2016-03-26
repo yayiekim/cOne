@@ -13,7 +13,8 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
 
     //GET WAITINGLIST
 
-
+    $scope.alertMessage;
+   
     $scope.waitingList = [];
     $scope.waitingListDisplay = [].concat($scope.waitingList);
 
@@ -165,6 +166,13 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
                 var index = $scope.waitingList.indexOf(row);
 
                 $scope.waitingList.splice(index, 1);
+            }
+            else {
+
+
+                $scope.alertMessage = data;
+                $('#AlertModal').modal('toggle');
+
             }
 
         }, function errorCallback(data) {
