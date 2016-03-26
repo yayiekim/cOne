@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
 
 <div ng-app="app" ng-controller="recordTypeCtrl">
 
@@ -77,12 +78,20 @@
 
                     <form class="form-horizontal" role="form">
 
+                       
                         <div class="form-group">
                             <label class="control-label col-sm-2">Record Categories:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" ng-options="cat.Id as cat.Category for cat in recordTypeCategoryList" ng-model="recordTypes.RecordTypeCategoryId">
-                                    <option value="">-- Select Category --</option>
-                                </select>
+                                
+                                <ui-select ng-model="recordTypes.RecordTypeCategoryId">
+                                    <ui-select-match>
+                                        {{$select.selected.Category}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.Id as item in (recordTypeCategoryList | filter: $select.search)">
+                                        <span ng-bind="item.Category"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+
                             </div>
                         </div>
 
@@ -153,11 +162,12 @@
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/Scripts/app/RecordTypeController.js"></script>
-
+  
+<script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
 
     <script>
 
-        var app = angular.module('app', ['smart-table', 'recordTypeController']);
+        var app = angular.module('app', ['ui.select','smart-table', 'recordTypeController']);
 
     </script>
 
