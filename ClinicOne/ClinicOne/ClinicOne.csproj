@@ -269,6 +269,9 @@
     <Compile Include="Patient.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
+    <Compile Include="PatientInsurance.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="PatientsRecord.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>

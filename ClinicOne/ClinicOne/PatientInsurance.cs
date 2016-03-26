@@ -12,15 +12,15 @@ namespace ClinicOne
     using System;
     using System.Collections.Generic;
     
-    public partial class LabResult
+    public partial class PatientInsurance
     {
         public System.Guid Id { get; set; }
-        public System.Guid ConsultationId { get; set; }
-        public string Remarks { get; set; }
-        public string RecordType { get; set; }
-        public string RecordValue { get; set; }
-        public byte[] ImageValue { get; set; }
+        public string CardNumber { get; set; }
+        public string AccountNumber { get; set; }
+        public string InsuranceCompany { get; set; }
+        public System.Guid PatientId { get; set; }
+        public bool IsActive { get; set; }
     
-        public virtual Consultation Consultation { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

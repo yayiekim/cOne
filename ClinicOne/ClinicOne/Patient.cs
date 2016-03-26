@@ -19,6 +19,7 @@ namespace ClinicOne
         {
             this.Consultations = new HashSet<Consultation>();
             this.Waitings = new HashSet<Waiting>();
+            this.PatientInsurances = new HashSet<PatientInsurance>();
         }
     
         public System.Guid Id { get; set; }
@@ -42,5 +43,7 @@ namespace ClinicOne
         public virtual ICollection<Consultation> Consultations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Waiting> Waitings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientInsurance> PatientInsurances { get; set; }
     }
 }

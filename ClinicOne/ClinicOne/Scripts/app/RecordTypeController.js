@@ -57,15 +57,25 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
     $scope.recordTypes = {
 
-        'Id': '',
-        'RecordTypeName': '',
-        'RecordTypeCategoryId': '',
-        'RecordTypeCategoryName': '',
-        'ValueTypeId': '',
-        'ValueTypeName': ''
+        Id: '',
+        RecordTypeName: '',
+        RecordTypeCategoryId: '',
+        RecordTypeCategoryName: '',
+        ValueTypeId: '',
+        ValueTypeName: ''
     };
 
     $scope.showAddModal = function () {
+
+        $scope.recordTypes = {
+
+            Id: '',
+            RecordTypeName: '',
+            RecordTypeCategoryId: '',
+            RecordTypeCategoryName: '',
+            ValueTypeId: '',
+            ValueTypeName: ''
+        };
 
         $('#addModal').modal('toggle');
 
@@ -99,7 +109,8 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(function (data) {
 
-                $scope.recordTypesList.push($scope.recordTypes);
+                $scope.recordTypes.RecordTypeCategoryName = data.RecordTypeCategoryName;
+                $scope.recordTypes.ValueTypeName = data.ValueTypeName;
             });
 
         }

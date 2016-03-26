@@ -47,5 +47,6 @@ namespace ClinicOne
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<Diagnosi> Diagnosis { get; set; }
+        public virtual DbSet<PatientInsurance> PatientInsurances { get; set; }
     }
 }

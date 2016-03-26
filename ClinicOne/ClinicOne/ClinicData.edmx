@@ -163,6 +163,18 @@
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="RecordType" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="RecordValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageValue" Type="image" />
+        </EntityType>
+        <EntityType Name="PatientInsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="InsuranceCompany" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Patients">
           <Key>
@@ -192,6 +204,7 @@
           <Property Name="ConsultationId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RecordType" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="RecordValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageValue" Type="image" />
         </EntityType>
         <EntityType Name="PrescribedMedications">
           <Key>
@@ -445,6 +458,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInsurance_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PatientInsurance" Type="Self.PatientInsurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientInsurance">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Patients_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
@@ -568,6 +595,7 @@
           <EntitySet Name="Drugs" EntityType="Self.Drugs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DrugsCategories" EntityType="Self.DrugsCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LabResults" EntityType="Self.LabResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInsurance" EntityType="Self.PatientInsurance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientsRecords" EntityType="Self.PatientsRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescribedMedications" EntityType="Self.PrescribedMedications" Schema="dbo" store:Type="Tables" />
@@ -634,6 +662,10 @@
           <AssociationSet Name="FK_LabResults_Consultations" Association="Self.FK_LabResults_Consultations">
             <End Role="Consultations" EntitySet="Consultations" />
             <End Role="LabResults" EntitySet="LabResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInsurance_Patients" Association="Self.FK_PatientInsurance_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientInsurance" EntitySet="PatientInsurance" />
           </AssociationSet>
           <AssociationSet Name="FK_Patients_AspNetUsers" Association="Self.FK_Patients_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -783,6 +815,11 @@
             <End Role="DiagnosisCategory" EntitySet="DiagnosisCategories" />
             <End Role="Diagnosi" EntitySet="Diagnosis" />
           </AssociationSet>
+          <EntitySet Name="PatientInsurances" EntityType="ClinicOneModel.PatientInsurance" />
+          <AssociationSet Name="FK_PatientInsurance_Patients" Association="ClinicOneModel.FK_PatientInsurance_Patients">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PatientInsurance" EntitySet="PatientInsurances" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -923,6 +960,7 @@
           <Property Name="RecordType" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="RecordValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_LabResults_Consultations" FromRole="LabResult" ToRole="Consultation" />
+          <Property Name="ImageValue" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="PatientsRecord">
           <Key>
@@ -933,6 +971,7 @@
           <Property Name="RecordType" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="RecordValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PatientsRecords_Consultations" FromRole="PatientsRecord" ToRole="Consultation" />
+          <Property Name="ImageValue" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="PrescribedMedication">
           <Key>
@@ -1165,6 +1204,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="Patient" ToRole="AspNetUser" />
           <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_Patient" FromRole="Patient" ToRole="Consultation" />
           <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Patient" ToRole="Waiting" />
+          <NavigationProperty Name="PatientInsurances" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="Patient" ToRole="PatientInsurance" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1342,6 +1382,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PatientInsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="PatientInsurance" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK_PatientInsurance_Patients">
+          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.PatientInsurance" Role="PatientInsurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientInsurance">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1469,6 +1535,7 @@
           <EntitySetMapping Name="LabResults">
             <EntityTypeMapping TypeName="ClinicOneModel.LabResult">
               <MappingFragment StoreEntitySet="LabResults">
+                <ScalarProperty Name="ImageValue" ColumnName="ImageValue" />
                 <ScalarProperty Name="RecordValue" ColumnName="RecordValue" />
                 <ScalarProperty Name="RecordType" ColumnName="RecordType" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
@@ -1480,6 +1547,7 @@
           <EntitySetMapping Name="PatientsRecords">
             <EntityTypeMapping TypeName="ClinicOneModel.PatientsRecord">
               <MappingFragment StoreEntitySet="PatientsRecords">
+                <ScalarProperty Name="ImageValue" ColumnName="ImageValue" />
                 <ScalarProperty Name="RecordValue" ColumnName="RecordValue" />
                 <ScalarProperty Name="RecordType" ColumnName="RecordType" />
                 <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
@@ -1597,6 +1665,18 @@
                 <ScalarProperty Name="DiagnosisCategoryId" ColumnName="DiagnosisCategoryId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInsurances">
+            <EntityTypeMapping TypeName="ClinicOneModel.PatientInsurance">
+              <MappingFragment StoreEntitySet="PatientInsurance">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
