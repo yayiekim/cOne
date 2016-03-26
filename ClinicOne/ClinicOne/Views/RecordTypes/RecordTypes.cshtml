@@ -4,7 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
+<link href="~/.bin/bower_components/selectize/dist/css/selectize.default.css" rel="stylesheet" />
+
+
 
 <div ng-app="app" ng-controller="recordTypeCtrl">
 
@@ -31,7 +35,7 @@
                         <th>Record Type Name</th>
                         <th>Record Category Name</th>
                         <th>Value Type Name</th>
-                        
+
                     </tr>
                 </thead>
 
@@ -42,7 +46,7 @@
                         <td>{{row.RecordTypeName}}</td>
                         <td>{{row.RecordTypeCategoryName}}</td>
                         <td>{{row.ValueTypeName}}</td>
-                        
+
 
                         <td>
                             <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
@@ -78,19 +82,18 @@
 
                     <form class="form-horizontal" role="form">
 
-                       
+
                         <div class="form-group">
                             <label class="control-label col-sm-2">Record Categories:</label>
                             <div class="col-sm-10">
-                                
-                                <ui-select ng-model="recordTypes.RecordTypeCategoryId">
-                                    <ui-select-match>
-                                        {{$select.selected.Category}}
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.Id as item in (recordTypeCategoryList | filter: $select.search)">
+                                <ui-select ng-model="recordTypes.RecordTypeCategoryId" theme="selectize">
+                                    <ui-select-match placeholder="Select category">{{$select.selected.Category}}</ui-select-match>
+                                    <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
+                                   
                                         <span ng-bind="item.Category"></span>
                                     </ui-select-choices>
                                 </ui-select>
+
 
                             </div>
                         </div>
@@ -123,10 +126,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-
-
-
     <!-- DELETE MODAL -->
     <!-- DELETE MODAL -->
     <!-- DELETE MODAL -->
@@ -162,12 +161,13 @@
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/Scripts/app/RecordTypeController.js"></script>
-  
-<script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
+
+    <script src="~/.bin/bower_components/selectize/dist/js/selectize.min.js"></script>
+    <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
 
     <script>
 
-        var app = angular.module('app', ['ui.select','smart-table', 'recordTypeController']);
+        var app = angular.module('app', ['ui.select', 'smart-table', 'recordTypeController']);
 
     </script>
 
