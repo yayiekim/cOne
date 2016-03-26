@@ -35,6 +35,15 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
 
     $scope.showAddModal = function () {
 
+        $scope.diagnosis = {
+
+            'Id': '',
+            'CategoryId': '',
+            'CategoryName': '',
+            'DiagnosisName': '',
+            'Description': ''
+        };
+
         $('#addModal').modal('toggle');
 
         $scope.getDiagnosisCategory();
@@ -89,7 +98,7 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
 
             }).success(function (data) {
 
-                $scope.diagnosisList.push($scope.diagnosis);
+                $scope.diagnosis.CategoryName = data.CategoryName;
 
             });
         }
