@@ -180,11 +180,13 @@ namespace ClinicOne.Controllers
             res.Name = recordType.RecordTypeName;
             res.RecordTypesCategoryId = recordType.RecordTypeCategoryId;
             res.ValueTypeId = recordType.ValueTypeId;
-
-
+            
             await db.SaveChangesAsync();
 
-            return Json("ok", JsonRequestBehavior.AllowGet);
+            recordType.RecordTypeCategoryName = res.RecordTypesCategory.Name;
+            recordType.ValueTypeName = res.ValueType .ValueType1;
+
+            return Json(recordType, JsonRequestBehavior.AllowGet);
 
         }
 

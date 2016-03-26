@@ -329,9 +329,9 @@
 
                     $scope.consultationDiagnosis = {
 
-                        "Diagnosis": "",
-                        "Remarks": "",
-                        "Amount": ""
+                        Diagnosis : "",
+                        Remarks : "",
+                        Amount : ""
 
                     };
 
@@ -453,7 +453,7 @@
             $scope.showConsultationChildrenModal = function (modalName, modalType, row) {
 
                 $scope.selectedModal = modalName;
-
+                $scope.resetConsultationChildren();
 
                 if (modalType == 'edit') {
 
@@ -508,7 +508,7 @@
 
                 }
 
-                $scope.resetConsultationChildren();
+
                 $('#' + $scope.selectedModal + '').modal('toggle');
 
 

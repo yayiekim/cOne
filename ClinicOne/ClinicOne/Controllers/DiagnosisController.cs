@@ -155,7 +155,9 @@ namespace ClinicOne.Controllers
 
             await db.SaveChangesAsync();
 
-            return Json("ok", JsonRequestBehavior.AllowGet);
+            diagnosis.CategoryName = res.DiagnosisCategory.Name;
+
+            return Json(diagnosis, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> deleteDiagnosis(Guid id)

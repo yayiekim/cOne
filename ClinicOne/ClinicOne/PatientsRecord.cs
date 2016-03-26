@@ -18,6 +18,7 @@ namespace ClinicOne
         public System.Guid ConsultationId { get; set; }
         public string RecordType { get; set; }
         public string RecordValue { get; set; }
+        public byte[] ImageValue { get; set; }
     
         public virtual Consultation Consultation { get; set; }
     }

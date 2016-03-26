@@ -165,8 +165,11 @@ namespace ClinicOne.Controllers
             res.DrugCatergoryId = medication.CategoryId;
 
             await db.SaveChangesAsync();
-            
-            return Json("ok", JsonRequestBehavior.AllowGet);
+
+            medication.CategoryName = res.DrugsCategory.Name;
+          
+
+            return Json(medication, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> deleteMedication(Guid id)
