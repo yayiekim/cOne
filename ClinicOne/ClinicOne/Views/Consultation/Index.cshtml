@@ -19,7 +19,7 @@
                     <table st-table="consultationDiagnosisList" class="table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
-
+                                <th></th>
                                 <th>Diagnosis</th>
                                 <th>Remarks</th>
                                 <th></th>
@@ -30,10 +30,10 @@
                         <tbody>
                             <tr ng-repeat="row in consultationDiagnosisList">
 
-
+                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
                                 <td>{{row.Diagnosis}}</td>
                                 <td>{{row.Remarks}}</td>
-                                <td><button ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)">edit</button><button ng-click="showDeleteModal('ConsultationDiagnosisModal', row)">delete</button></td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationDiagnosisModal', row)"><span class="fa fa-remove"></span></button></td>
 
                             </tr>
                         </tbody>
