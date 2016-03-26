@@ -71,12 +71,12 @@ namespace ClinicOne.Controllers
 
         }
 
-        public async Task<JsonResult> getConsultaions(DateTime date)
+        public async Task<JsonResult> getConsultaions()
         {
             IEnumerable<Consultation> consultations;
 
 
-            consultations = await db.Consultations.Where(i => i.TransactionDate == date).ToListAsync();
+            consultations = await db.Consultations.ToListAsync();
 
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
