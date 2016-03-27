@@ -234,6 +234,7 @@
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\Test.cs" />
     <Compile Include="Controllers\WaitingController.cs" />
     <Compile Include="C__MigrationHistory.cs">
@@ -261,6 +262,7 @@
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\DiagnosisModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LogTransaction.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MedicationModels.cs" />
     <Compile Include="Models\PatientModel.cs" />
@@ -285,7 +287,19 @@
     <Compile Include="RecordTypesCategory.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
+    <Compile Include="SecurityLog.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="SubUser.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubUserRole.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubUsersInRole.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="ValueType.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
@@ -1296,6 +1310,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
+    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
