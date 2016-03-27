@@ -160,6 +160,7 @@ namespace ClinicOne.Controllers
                     Amount = prescribeMed.Amount.GetValueOrDefault(0m),
                     Medication = prescribeMed.Medication,
                     Remarks = prescribeMed.Remarks,
+                    Quantity = prescribeMed.Quantity.GetValueOrDefault(0),
                     ConsultationId = consultation.Id
                 };
 

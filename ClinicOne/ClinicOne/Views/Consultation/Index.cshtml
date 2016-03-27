@@ -6,8 +6,10 @@
 
 <h3>Consultation</h3>
 <hr />
-<link href="~/.bin/bower_components/selectize/dist/css/selectize.default.css" rel="stylesheet" />
+
 <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
+
+
 <div ng-app="app" ng-controller="cont">
 
     <div class="row">
@@ -55,55 +57,7 @@
             </div>
 
         </div>
-        <div class="col-md-6">
-
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-
-                <div style="height:50px" class="panel-heading">
-                    Medications
-                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span></button>
-                </div>
-
-
-                <div class="panel-body">
-                    <table st-table="consultationMedicationList" class="table table-condensed table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Medication</th>
-                                <th>Remarks</th>
-                                <th>Amount</th>
-                                <th>Quantity</th>
-                                <th></th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr ng-repeat="row in consultationMedicationList">
-
-                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
-                                <td>{{row.Medication}}</td>
-                                <td>{{row.Remarks}}</td>
-                                <td>{{row.Amount}}</td>
-                                <td>{{row.Quantity}}</td>
-                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationDiagnosisModal', row)"><span class="fa fa-remove"></span></button></td>
-
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-            </div>
-
-
-        </div>
+        
         <div class="col-md-6">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
@@ -144,6 +98,58 @@
                     </table>
                 </div>
             </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+                <div style="height:50px" class="panel-heading">
+                    Medications
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span></button>
+                </div>
+
+
+                <div class="panel-body">
+                    <table st-table="consultationMedicationList" class="table table-condensed table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Medication</th>
+                                <th>Description</th>
+                                <th>Remarks</th>
+                                <th>Amount</th>
+                                <th>Quantity</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in consultationMedicationList">
+
+                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
+                                <td>{{row.Medication}}</td>
+                                <td>{{row.Strength + " " + row.Volume + " " + row.Frequency + " " + row.Route }}</td>
+                                <td>{{row.Remarks}}</td>
+                                <td>{{row.Amount}}</td>
+                                <td>{{row.Quantity}}</td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationDiagnosisModal', row)"><span class="fa fa-remove"></span></button></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="10"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -201,19 +207,22 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="ConsultationDiagnosisModalDiagnosis">Diagnosis:</label>
-                        <ui-select id="ConsultationDiagnosisModalDiagnosis" ng-model="consultationDiagnosis.Diagnosis" theme="selectize">
-                            <ui-select-match placeholder="Select diagnosis">{{$select.selected.DiagnosisName}}</ui-select-match>
-                            <ui-select-choices repeat="item.DiagnosisName as item in diagnosisDropDown | filter: $select.search">
-                                <span ng-bind="item.DiagnosisName"></span>
-                            </ui-select-choices>
-                        </ui-select>
+                        <div class="input-group">
+                            <ui-select id="ConsultationDiagnosisModalDiagnosis" ng-model="consultationDiagnosis.Diagnosis">
+                                <ui-select-match placeholder="Select diagnosis">{{$select.selected.DiagnosisName}}</ui-select-match>
+                                <ui-select-choices repeat="item.DiagnosisName as item in diagnosisDropDown | filter: $select.search">
+                                    <span ng-bind="item.DiagnosisName"></span>
+                                </ui-select-choices>
+                            </ui-select>
 
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ConsultationDiagnosisModalRemarks">Remarks:</label>
-                        <textarea ng-model="consultationDiagnosis.Remarks" class="form-control" rows="5" id="ConsultationDiagnosisModalRemarks"></textarea>
+                        <textarea ng-model="consultationDiagnosis.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationDiagnosisModalRemarks"></textarea>
                     </div>
 
 
@@ -238,32 +247,36 @@
                 </div>
                 <div class="modal-body">
 
-                  
 
                     <div class="form-group">
-                        <label for="ConsultationMedicationModalMedication">Medication:</label>
-                        <ui-select id="ConsultationMedicationModalMedication" ng-model="consultationMedication.Medication" theme="selectize">
-                            <ui-select-match placeholder="Select diagnosis">{{$select.selected.MedicationName}}</ui-select-match>
-                            <ui-select-choices repeat="item.MedicationName as item in medicationDropDown | filter: $select.search">
-                                <span ng-bind="item.MedicationName"></span>
-                            </ui-select-choices>
-                        </ui-select>
+                        <div class="input-group">
 
+                            <ui-select id="ConsultationMedicationModalMedication" ng-model="consultationMedication.Medication">
+                                <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
+                                <ui-select-choices repeat="item.MedicationName as item in medicationDropDown | filter: $select.search">
+                                    <span ng-bind="item.MedicationName"></span>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ConsultationMedicationModalRemarks">Remarks:</label>
-                        <textarea ng-model="consultationMedication.Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
+
+                        <textarea ng-model="consultationMedication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="ConsultationMedicationModalAmount">Amount:</label>
-                        <input ng-model="consultationMedication.Amount" class="form-control" id="ConsultationMedicationModalAmount"/>
+
+                        <input ng-model="consultationMedication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
                     </div>
 
                     <div class="form-group">
-                        <label for="ConsultationMedicationModalQty">Quantity:</label>
-                        <input ng-model="consultationMedication.Quantity" class="form-control" id="ConsultationMedicationModalQty"/>
+
+                        <input ng-model="consultationMedication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
                     </div>
 
 
@@ -288,21 +301,27 @@
                 </div>
                 <div class="modal-body">
 
-                   
-                    <div class="form-group">
-                        <label for="ConsultationRecordModalRecords">Record:</label>
-                        <ui-select id="ConsultationRecordModalRecords" ng-model="consultationRecord.RecordTypeName" theme="selectize">
-                            <ui-select-match placeholder="Select diagnosis">{{$select.selected.RecordTypeName}}</ui-select-match>
-                            <ui-select-choices repeat="item.RecordTypeName as item in recordDropDown | filter: $select.search">
-                                <span ng-bind="item.RecordTypeName"></span>
-                            </ui-select-choices>
-                        </ui-select>
 
+                    <div class="form-group">
+                        <div class="input-group">
+
+                            <ui-select id="ConsultationRecordModalRecords" ng-model="consultationRecord.RecordTypeName">
+                                <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
+                                <ui-select-choices repeat="item.RecordTypeName as item in recordDropDown | filter: $select.search">
+                                    <span ng-bind="item.RecordTypeName"></span>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="ConsultationRecordModalRecordsValue">Value:</label>
-                        <input ng-model="consultationRecord.RecordValue" class="form-control" id="ConsultationRecordModalRecordsValue"/>
+
+                        <input ng-model="consultationRecord.RecordValue" placeholder="Value" class="form-control" id="ConsultationRecordModalRecordsValue" />
                     </div>
 
 
@@ -315,6 +334,69 @@
             </div>
         </div>
     </div>
+
+
+    
+    <div class="modal fade" id="consultationPreviewModal" tabindex="-1" role="dialog" aria-labelledby="consultationPreviewModal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <h2 class="text-center">Clinic One</h2>
+                    <address class="text-center">#0731 J. Ynares St., San Carlos Heights Subd. Tayuman Binangonan Rizal<br />Tel.: (02) 651-3742 * Mobile: +639995520579</address>
+                    <hr />
+
+                    <label>Name: </label> {{ admittedPatient.FirstName + " " + admittedPatient.MiddleName + " " + admittedPatient.LastName }}
+                    <br />
+                    <label>Address: </label> {{ admittedPatient.Address1 + " " + admittedPatient.Address2 }}
+                    <br />
+                    <label>Age: </label> {{ admittedPatient.Age }} <label>Gender: </label> {{ admittedPatient.Gender }} <label>Date: </label> {{ admittedPatient.FirstName }}
+                    <hr />
+                    <p><strong style="font-size:xx-large">R</strong><strong style="font-size:x-large">x</strong></p>
+                    <br />
+
+                    <div ng-repeat="row in consultationMedicationList">
+                        {{row.Medication + " " + row.Strength}}
+                        <br />
+                        {{row.Volume + " " + row.Route + " " + row.Frequency}}
+                        <br />
+                        {{row.Remarks}}
+                    </div>
+
+                    <div ng-repeat="row in consultationDiagnosisList">
+                        {{row.Diagnosis}}
+                        <br />
+                        {{row.Remarks}}
+                    </div>
+                   
+                   
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-6">
+                           
+                        </div>                  
+                        <div class="col-lg-6">
+                            <label>Physician's Signature: </label>
+                            <br />
+                            <label>Lic. No.: </label>
+                            <br />
+                            <label>PTR No.: </label>
+                            <br />
+                            <label>S2 No.: </label>
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -364,8 +446,12 @@
 
                 Medication: "",
                 Remarks: "",
-                Amount: 0.00,
-                Quantity: 0
+                Amount: "",
+                Quantity: "",
+                Strenght: "",
+                Volume: "",
+                Frequency: "",
+                Route: ""
 
             };
 
@@ -407,8 +493,8 @@
 
                         Medication: "",
                         Remarks: "",
-                        Amount: 0.00,
-                        Quantity: 0
+                        Amount: "",
+                        Quantity: ""
 
                     };
 
@@ -588,7 +674,7 @@
 
 
 
-                       
+
                     }
                     else if (modalName == 'ConsultationMedicationModal') {
 
@@ -602,7 +688,7 @@
 
                         });
 
-                   
+
 
                     }
                     else if (modalName == 'ConsultationRecordModal') {
@@ -616,7 +702,7 @@
                             $scope.recordDropDown = data;
                         });
 
-                     
+
 
                     }
 
@@ -661,27 +747,29 @@
             $scope.submitConsultation = function () {
 
 
-                $scope.consultation = {
+                $('#consultationPreviewModal').modal('toggle');
 
-                    PatientId: $scope.admittedPatient.Id,
+                //$scope.consultation = {
 
-                    DiagnosisList: $scope.consultationDiagnosisList,
-                    PrescribeMedicationList: $scope.consultationMedicationList,
-                    RecordList: $scope.consultationRecordList
+                //    PatientId: $scope.admittedPatient.Id,
 
-                };
+                //    DiagnosisList: $scope.consultationDiagnosisList,
+                //    PrescribeMedicationList: $scope.consultationMedicationList,
+                //    RecordList: $scope.consultationRecordList
+
+                //};
 
 
-                $http({
-                    method: 'POST',
-                    url: '/Consultation/AddConsultation',
-                    data: $.param({ consultaion: $scope.consultation }),
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                //$http({
+                //    method: 'POST',
+                //    url: '/Consultation/AddConsultation',
+                //    data: $.param({ consultaion: $scope.consultation }),
+                //    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-                }).success(function (data) {
+                //}).success(function (data) {
 
-                    $scope.resetAll();
-                });
+                //    $scope.resetAll();
+                //});
 
 
 

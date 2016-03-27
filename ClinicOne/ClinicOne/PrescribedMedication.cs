@@ -20,6 +20,10 @@ namespace ClinicOne
         public Nullable<int> Quantity { get; set; }
         public string Remarks { get; set; }
         public Nullable<decimal> Amount { get; set; }
+        public string Strength { get; set; }
+        public string Volume { get; set; }
+        public string Frequency { get; set; }
+        public string Route { get; set; }
     
         public virtual Consultation Consultation { get; set; }
     }

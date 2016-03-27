@@ -51,6 +51,10 @@ namespace ClinicOne.Models
         public int Quantity { get; set; }
         public string Remarks { get; set; }
         public decimal Amount { get; set; }
+        public string Strenght { get; set; }
+        public string Volume { get; set; }
+        public string Frequency { get; set; }
+        public string Route { get; set; }
 
     }
 
