@@ -73,17 +73,15 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> getConsultaions()
         {
-            IEnumerable<Consultation> consultations;
-
-
-            consultations = await db.Consultations.ToListAsync();
+          
+           var consultations = await db.Consultations.ToListAsync();
 
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
             foreach (var consultaion in consultations)
             {
                 var diagnosis = await db.ConsultationsDiagnosis.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
-                List<ConsultationDiagnosisModel> diagnosisList = new List<ConsultationDiagnosisModel>();
+               
                 foreach (var diagnost in diagnosis)
                 {
 
@@ -96,8 +94,7 @@ namespace ClinicOne.Controllers
                         TransactonDate = consultaion.TransactionDate,
                         Id = consultaion.Id,
                         PatientfullName = consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
-                        DiagnosisList = diagnosisList,
-
+                      
                     };
 
                     consultationList.Add(model);
