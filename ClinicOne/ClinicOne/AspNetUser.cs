@@ -27,6 +27,9 @@ namespace ClinicOne
             this.RecordTypesCategories = new HashSet<RecordTypesCategory>();
             this.Waitings = new HashSet<Waiting>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.SubUserRoles = new HashSet<SubUserRole>();
+            this.SubUsers = new HashSet<SubUser>();
+            this.SubUsersInRoles = new HashSet<SubUsersInRole>();
         }
     
         public string Id { get; set; }
@@ -68,5 +71,11 @@ namespace ClinicOne
         public virtual ICollection<Waiting> Waitings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubUserRole> SubUserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubUser> SubUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubUsersInRole> SubUsersInRoles { get; set; }
     }
 }

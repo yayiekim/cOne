@@ -169,7 +169,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CardNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="InsuranceCompany" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -232,6 +232,49 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SecurityLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+          <Property Name="SubUserId" Type="uniqueidentifier" />
+          <Property Name="SubUserIdentity" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TableModified" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FormAccessed " Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubUserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SubUsersInRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RolesId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="ValueTypes">
@@ -552,6 +595,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubUserRoles" Type="Self.SubUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUserRoles">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsers_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubUsers" Type="Self.SubUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsers">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SubUsersInRoles" Type="Self.SubUsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRoles">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_SubUserRoles">
+          <End Role="SubUserRoles" Type="Self.SubUserRoles" Multiplicity="1" />
+          <End Role="SubUsersInRoles" Type="Self.SubUsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubUserRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRoles">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_SubUsers">
+          <End Role="SubUsers" Type="Self.SubUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubUsersInRoles" Type="Self.SubUsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRoles">
+              <PropertyRef Name="SubUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Waiting_AspNetUser">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -601,6 +710,10 @@
           <EntitySet Name="PrescribedMedications" EntityType="Self.PrescribedMedications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordTypes" EntityType="Self.RecordTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordTypesCategories" EntityType="Self.RecordTypesCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityLogs" EntityType="Self.SecurityLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubUserRoles" EntityType="Self.SubUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubUsers" EntityType="Self.SubUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubUsersInRoles" EntityType="Self.SubUsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ValueTypes" EntityType="Self.ValueTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Waiting" EntityType="Self.Waiting" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Consultations_AspNetUsers" Association="Self.FK_Consultations_AspNetUsers">
@@ -690,6 +803,26 @@
           <AssociationSet Name="FK_RecordTypesCategories_AspNetUser" Association="Self.FK_RecordTypesCategories_AspNetUser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RecordTypesCategories" EntitySet="RecordTypesCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUserRoles_AspNetUsers" Association="Self.FK_SubUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SubUserRoles" EntitySet="SubUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsers_AspNetUsers" Association="Self.FK_SubUsers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SubUsers" EntitySet="SubUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_AspNetUsers" Association="Self.FK_SubUsersInRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SubUsersInRoles" EntitySet="SubUsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_SubUserRoles" Association="Self.FK_SubUsersInRoles_SubUserRoles">
+            <End Role="SubUserRoles" EntitySet="SubUserRoles" />
+            <End Role="SubUsersInRoles" EntitySet="SubUsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_SubUsers" Association="Self.FK_SubUsersInRoles_SubUsers">
+            <End Role="SubUsers" EntitySet="SubUsers" />
+            <End Role="SubUsersInRoles" EntitySet="SubUsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Waiting_AspNetUser" Association="Self.FK_Waiting_AspNetUser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -819,6 +952,30 @@
           <AssociationSet Name="FK_PatientInsurance_Patients" Association="ClinicOneModel.FK_PatientInsurance_Patients">
             <End Role="Patient" EntitySet="Patients" />
             <End Role="PatientInsurance" EntitySet="PatientInsurances" />
+          </AssociationSet>
+          <EntitySet Name="SecurityLogs" EntityType="ClinicOneModel.SecurityLog" />
+          <EntitySet Name="SubUserRoles" EntityType="ClinicOneModel.SubUserRole" />
+          <EntitySet Name="SubUsers" EntityType="ClinicOneModel.SubUser" />
+          <EntitySet Name="SubUsersInRoles" EntityType="ClinicOneModel.SubUsersInRole" />
+          <AssociationSet Name="FK_SubUserRoles_AspNetUsers" Association="ClinicOneModel.FK_SubUserRoles_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SubUserRole" EntitySet="SubUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsers_AspNetUsers" Association="ClinicOneModel.FK_SubUsers_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SubUser" EntitySet="SubUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_AspNetUsers" Association="ClinicOneModel.FK_SubUsersInRoles_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SubUsersInRole" EntitySet="SubUsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_SubUserRoles" Association="ClinicOneModel.FK_SubUsersInRoles_SubUserRoles">
+            <End Role="SubUserRole" EntitySet="SubUserRoles" />
+            <End Role="SubUsersInRole" EntitySet="SubUsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubUsersInRoles_SubUsers" Association="ClinicOneModel.FK_SubUsersInRoles_SubUsers">
+            <End Role="SubUser" EntitySet="SubUsers" />
+            <End Role="SubUsersInRole" EntitySet="SubUsersInRoles" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -1181,6 +1338,9 @@
           <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="AspNetUser" ToRole="Waiting" />
           <NavigationProperty Name="AspNetRoles" Relationship="ClinicOneModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SubUserRoles" Relationship="ClinicOneModel.FK_SubUserRoles_AspNetUsers" FromRole="AspNetUser" ToRole="SubUserRole" />
+          <NavigationProperty Name="SubUsers" Relationship="ClinicOneModel.FK_SubUsers_AspNetUsers" FromRole="AspNetUser" ToRole="SubUser" />
+          <NavigationProperty Name="SubUsersInRoles" Relationship="ClinicOneModel.FK_SubUsersInRoles_AspNetUsers" FromRole="AspNetUser" ToRole="SubUsersInRole" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -1386,7 +1546,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1405,6 +1565,122 @@
             </Principal>
             <Dependent Role="PatientInsurance">
               <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SecurityLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubUserId" Type="Guid" />
+          <Property Name="SubUserIdentity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TableModified" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormAccessed_" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileGUID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubUserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_SubUserRoles_AspNetUsers" FromRole="SubUserRole" ToRole="AspNetUser" />
+          <NavigationProperty Name="SubUsersInRoles" Relationship="ClinicOneModel.FK_SubUsersInRoles_SubUserRoles" FromRole="SubUserRole" ToRole="SubUsersInRole" />
+        </EntityType>
+        <EntityType Name="SubUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_SubUsers_AspNetUsers" FromRole="SubUser" ToRole="AspNetUser" />
+          <NavigationProperty Name="SubUsersInRoles" Relationship="ClinicOneModel.FK_SubUsersInRoles_SubUsers" FromRole="SubUser" ToRole="SubUsersInRole" />
+        </EntityType>
+        <EntityType Name="SubUsersInRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubUserId" Type="Guid" Nullable="false" />
+          <Property Name="RolesId" Type="Guid" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_SubUsersInRoles_AspNetUsers" FromRole="SubUsersInRole" ToRole="AspNetUser" />
+          <NavigationProperty Name="SubUserRole" Relationship="ClinicOneModel.FK_SubUsersInRoles_SubUserRoles" FromRole="SubUsersInRole" ToRole="SubUserRole" />
+          <NavigationProperty Name="SubUser" Relationship="ClinicOneModel.FK_SubUsersInRoles_SubUsers" FromRole="SubUsersInRole" ToRole="SubUser" />
+        </EntityType>
+        <Association Name="FK_SubUserRoles_AspNetUsers">
+          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.SubUserRole" Role="SubUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUserRole">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsers_AspNetUsers">
+          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.SubUser" Role="SubUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUser">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_AspNetUsers">
+          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ClinicOneModel.SubUsersInRole" Role="SubUsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRole">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_SubUserRoles">
+          <End Type="ClinicOneModel.SubUserRole" Role="SubUserRole" Multiplicity="1" />
+          <End Type="ClinicOneModel.SubUsersInRole" Role="SubUsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubUserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRole">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubUsersInRoles_SubUsers">
+          <End Type="ClinicOneModel.SubUser" Role="SubUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.SubUsersInRole" Role="SubUsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubUsersInRole">
+              <PropertyRef Name="SubUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1677,6 +1953,53 @@
                 <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityLogs">
+            <EntityTypeMapping TypeName="ClinicOneModel.SecurityLog">
+              <MappingFragment StoreEntitySet="SecurityLogs">
+                <ScalarProperty Name="FileGUID" ColumnName="FileGUID" />
+                <ScalarProperty Name="FormAccessed_" ColumnName="FormAccessed " />
+                <ScalarProperty Name="TableModified" ColumnName="TableModified" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="SubUserIdentity" ColumnName="SubUserIdentity" />
+                <ScalarProperty Name="SubUserId" ColumnName="SubUserId" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubUserRoles">
+            <EntityTypeMapping TypeName="ClinicOneModel.SubUserRole">
+              <MappingFragment StoreEntitySet="SubUserRoles">
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubUsers">
+            <EntityTypeMapping TypeName="ClinicOneModel.SubUser">
+              <MappingFragment StoreEntitySet="SubUsers">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubUsersInRoles">
+            <EntityTypeMapping TypeName="ClinicOneModel.SubUsersInRole">
+              <MappingFragment StoreEntitySet="SubUsersInRoles">
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+                <ScalarProperty Name="SubUserId" ColumnName="SubUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
