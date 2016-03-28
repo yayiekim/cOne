@@ -6,35 +6,31 @@
 
 
 <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
-<link href="~/.bin/bower_components/selectize/dist/css/selectize.default.css" rel="stylesheet" />
+
 
 
 
 <div ng-app="app" ng-controller="recordTypeCtrl">
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group form-group-sm">
-                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Record Type</button>
-
-            </div>
-        </div>
-    </div>
-
-
+   
     <div class="col-sm-12">
 
         <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
-            <div class="panel-heading">Record Types</div>
+            <div style="height:50px" class="panel-heading">
+                Record Types
+                <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal(row)"><span class="fa fa-plus"></span></button>
+            </div>
 
 
             <table st-table="recordTypesListDisplay" st-safe-src="recordTypesList" class="table table-condensed table-responsive table-striped table-bordered">
                 <thead>
                     <tr>
 
+                        <th></th>
                         <th>Record Type Name</th>
                         <th>Record Category Name</th>
                         <th>Value Type Name</th>
+                        <th></th>
 
                     </tr>
                 </thead>
@@ -42,17 +38,13 @@
                 <tbody>
                     <tr ng-repeat="row in recordTypesListDisplay">
 
-
+                        <td><button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
                         <td>{{row.RecordTypeName}}</td>
                         <td>{{row.RecordTypeCategoryName}}</td>
                         <td>{{row.ValueTypeName}}</td>
+                        <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
 
-                        <td>
-                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
-
-                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
-                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -71,7 +63,7 @@
 
 
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
@@ -79,32 +71,41 @@
                 </div>
                 <div class="modal-body">
 
+                        <div class="form-group">
 
-                    <form class="form-horizontal" role="form">
+                            
+                                <input type="text" placeholder="Record Type Name" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                            
+                        </div>
 
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2">Record Categories:</label>
-                            <div class="col-sm-10">
-                                <ui-select ng-model="recordTypes.RecordTypeCategoryId" theme="selectize">
-                                    <ui-select-match placeholder="Select category">{{$select.selected.Category}}</ui-select-match>
-                                    <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
-                                   
-                                        <span ng-bind="item.Category"></span>
-                                    </ui-select-choices>
-                                </ui-select>
+                            <div class="input-group">
+                        
+                                    <ui-select ng-model="recordTypes.RecordTypeCategoryId">
+                                        <ui-select-match placeholder="Select Record Type Category">{{$select.selected.Category}}</ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
+
+                                            <span ng-bind="item.Category"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
 
 
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                    </div>
+
+                              
                             </div>
                         </div>
 
 
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2">Value Type:</label>
-                            <div class="col-sm-10">
-                                <ui-select ng-model="recordTypes.ValueTypeId" theme="selectize">
-                                    <ui-select-match placeholder="Select category">{{$select.selected.ValueTypeName}}</ui-select-match>
+                           
+                            
+                                <ui-select ng-model="recordTypes.ValueTypeId">
+                                    <ui-select-match placeholder="Select Value Type Category">{{$select.selected.ValueTypeName}}</ui-select-match>
                                     <ui-select-choices repeat="item.Id as item in valueTypeList | filter: $select.search">
 
                                         <span ng-bind="item.ValueTypeName"></span>
@@ -112,17 +113,8 @@
                                 </ui-select>
 
 
-                            </div>
+                            
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="RecordTypeName">RecordType Name:</label>
-                            <div class="col-sm-10">
-                                <input type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
-                            </div>
-                        </div>
-
-                    </form>
 
 
                 </div>
