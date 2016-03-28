@@ -234,6 +234,7 @@
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\Test.cs" />
     <Compile Include="Controllers\WaitingController.cs" />
     <Compile Include="C__MigrationHistory.cs">
@@ -261,6 +262,7 @@
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\DiagnosisModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LogTransaction.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MedicationModels.cs" />
     <Compile Include="Models\PatientModel.cs" />
