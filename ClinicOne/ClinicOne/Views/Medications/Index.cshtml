@@ -7,25 +7,20 @@
 
 <div ng-app="app" ng-controller="medicationCtrl">
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group form-group-sm">
-                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Medications</button>
-
-            </div>
-        </div>
-    </div>
-
     <div class="col-sm-12">
 
         <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
-            <div class="panel-heading">Medications</div>
+            
+            <div style="height:50px" class="panel-heading">
+                Medications
+                <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
+            </div>
 
 
-            <table st-table="medicationsListDisplay" st-safe-src="medicationsList" class="table table-condensed table-responsive table-striped table-bordered">
+            <table st-table="medicationsListDisplay" st-safe-src="medicationsList" class="table table-condensed table-responsive table-striped">
                 <thead>
                     <tr>
-
+                        <th></th>
                         <th>Medication Name</th>
                         <th>Medication Category Name</th>
 
@@ -36,17 +31,13 @@
                 <tbody>
                     <tr ng-repeat="row in medicationsListDisplay">
 
-
+                        <td><button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
                         <td>{{row.MedicationName}}</td>
                         <td>{{row.CategoryName}}</td>
 
 
                         <td>
                             <button class="btn-sm btn btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span> Details</button>
-
-                            <button class="btn-sm btn btn-success" ng-click="showEditModal(row)"><span class="fa fa-edit"></span> Edit</button>
-
-                            <button class="btn-sm btn btn-warning" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span> Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -80,18 +71,18 @@
                     <form class="form-horizontal" role="form">
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="medicationName">Medication Name:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+                                <input type="text" placeholder="Medication Name" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2">Medication Category:</label>
+                            
                             <div class="col-sm-10">
-                                <ui-select ng-model="medication.CategoryId" theme="selectize">
-                                    <ui-select-match placeholder="Select category">{{$select.selected.CategoryName}}</ui-select-match>
+                                <ui-select ng-model="medication.CategoryId">
+                                    <ui-select-match placeholder="Select Medication Category">{{$select.selected.CategoryName}}</ui-select-match>
                                     <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
 
                                         <span ng-bind="item.CategoryName"></span>
@@ -104,30 +95,30 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="medicationCode">Code:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                                <input type="text" placeholder="Medication Code" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="medicationDescription">Description:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="medication.Description" ng-disabled="disableInput" class="form-control" id="medicationDescription" />
+                                <input type="text" placeholder="Description" ng-model="medication.Description" ng-disabled="disableInput" class="form-control" id="medicationDescription" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="medicationAmount">Amount:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                                <input type="text" placeholder="Amount" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="medicationDosage">Dosage:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="medication.Dosage" ng-disabled="disableInput" class="form-control" id="medicationDosage" />
+                                <input type="text" placeholder="Dosage" ng-model="medication.Dosage" ng-disabled="disableInput" class="form-control" id="medicationDosage" />
                             </div>
                         </div>
 

@@ -6,20 +6,6 @@
 
 <div ng-app="app" ng-controller="patientCtrl">
 
-
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="form-group form-group-sm">
-                <button style="box-shadow: 3px 3px 2px #888888" class="btn btn-primary" ng-click="showAddModal()"><span class="fa fa-plus"></span> Add Patient</button>
-
-
-            </div>
-
-        </div>
-    </div>
-
-
     <!-- DISPLAY PATIENT LIST -->
     <!-- DISPLAY PATIENT LIST -->
     <!-- DISPLAY PATIENT LIST -->
@@ -28,9 +14,12 @@
         <div class="col-sm-12">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
-                <div class="panel-heading">Patients List</div>
-
-
+                
+                <div style="height:50px" class="panel-heading">
+                    Patients
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
+                </div>
+                
                 <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped table-bordered">
 
 
@@ -108,80 +97,80 @@
                     <form class="form-horizontal" role="form">
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="FirstName">First Name:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.FirstName" ng-disabled="disableInput" class="form-control" id="FirstName" />
+                                <input type="text" placeholder="First Name" ng-model="Patient.FirstName" ng-disabled="disableInput" class="form-control" id="FirstName" />
                             </div>
                         </div>
                         
 
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="MiddleName">Middle Name:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
+                                <input type="text" placeholder="Middle Name" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="LastName">Last Name:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.LastName" ng-disabled="disableInput" class="form-control" id="LastName" />
+                                <input type="text" placeholder="Last Name" ng-model="Patient.LastName" ng-disabled="disableInput" class="form-control" id="LastName" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="Gender">Gender:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.Gender" ng-disabled="disableInput" class="form-control" id="Gender" />
+                                <input type="text" placeholder="Gender" ng-model="Patient.Gender" ng-disabled="disableInput" class="form-control" id="Gender" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="BirthDate">BirthDate:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.BirthDate" ng-disabled="disableInput" class="form-control" id="BirthDate" />
+                                <input type="text" placeholder="Birth Date" ng-model="Patient.BirthDate" ng-disabled="disableInput" class="form-control" id="BirthDate" />
                             </div>
                         </div>
                         
                         <div class="form-group" ng-show="showAge">
-                            <label class="control-label col-sm-2" for="Age">Age:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.Age" ng-disabled="disableInput" class="form-control" id="Age" />
+                                <input type="text" placeholder="Age" ng-model="Patient.Age" ng-disabled="disableInput" class="form-control" id="Age" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="BloodType">Blood Type:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.BloodType" ng-disabled="disableInput" class="form-control" id="BloodType" />
+                                <input type="text" placeholder="Blood Type" ng-model="Patient.BloodType" ng-disabled="disableInput" class="form-control" id="BloodType" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="ContactNumber1">Contact No. 1:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.ContactNumber1" ng-disabled="disableInput" class="form-control" id="ContactNumber1" />
+                                <input type="text" placeholder="Contact #1" ng-model="Patient.ContactNumber1" ng-disabled="disableInput" class="form-control" id="ContactNumber1" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="ContactNumber2">Contact No. 2:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.ContactNumber2" ng-disabled="disableInput" class="form-control" id="ContactNumber2" />
+                                <input type="text" placeholder="Contact #2" ng-model="Patient.ContactNumber2" ng-disabled="disableInput" class="form-control" id="ContactNumber2" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="Address1">Address 1:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.Address1" ng-disabled="disableInput" class="form-control" id="Address1" />
+                                <input type="text" placeholder="Address #1" ng-model="Patient.Address1" ng-disabled="disableInput" class="form-control" id="Address1" />
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="Address2">Address 2:</label>
+                            
                             <div class="col-sm-10">
-                                <input type="text" ng-model="Patient.Address2" ng-disabled="disableInput" class="form-control" id="Address2" />
+                                <input type="text" placeholder="Address #2" ng-model="Patient.Address2" ng-disabled="disableInput" class="form-control" id="Address2" />
                             </div>
                         </div>           
                      
