@@ -301,38 +301,53 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="ConsultationRecordModal-label">Modal title</h4>
                 </div>
-                <div class="modal-body">
 
+                <form name="recordConsultationForm">
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                        <div class="input-group">
+                        <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTypeSelect.$invalid }">
+                            <div class="input-group" >
 
-                            <ui-select id="ConsultationRecordModalRecords" ng-model="consultationRecord.RecordTypeName">
-                                <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
-                                <ui-select-choices repeat="item.RecordTypeName as item in recordDropDown | filter: $select.search">
-                                    <span ng-bind="item.RecordTypeName"></span>
-                                </ui-select-choices>
-                            </ui-select>
+                                <ui-select ng-required="true" name="ConsultationFormValueTypeSelect" id="ConsultationRecordModalRecords" ng-model="consultationRecord.RecordTypeName">
+                                    <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
+                                    <ui-select-choices repeat="item.RecordTypeName as item in recordDropDown | filter: $select.search">
+                                        <span ng-bind="item.RecordTypeName"></span>
+                                    </ui-select-choices>
+                                </ui-select>
 
-                            <div class="input-group-btn">
-                                <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                </div>
+                                                             
+
                             </div>
+
+                            <span class="help-block"
+                                  ng-show="recordConsultationForm.ConsultationFormValueTypeSelect.$invalid">
+                                Please select a record type.
+                            </span>
                         </div>
+
+
+                        <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine }">
+
+                            <input name="ConsultationFormValueTb" ng-required="true" ng-model="consultationRecord.RecordValue" placeholder="Value" class="form-control" id="ConsultationRecordModalRecordsValue" />
+                            <span class="help-block"
+                                  ng-show="recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine">
+                                Record value is required.
+                            </span>
+                        
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" ng-disabled="!recordConsultationForm.$valid" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
                     </div>
 
+                </form>
 
-                    <div class="form-group">
-
-                        <input ng-model="consultationRecord.RecordValue" placeholder="Value" class="form-control" id="ConsultationRecordModalRecordsValue" />
-                    </div>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
-                </div>
             </div>
         </div>
     </div>
@@ -725,22 +740,29 @@
 
 
                     if ($scope.selectedModal == 'ConsultationDiagnosisModal') {
-                        $scope.consultationDiagnosisList.push($scope.consultationDiagnosis);
 
+                            $scope.consultationDiagnosisList.push($scope.consultationDiagnosis);
+                            $('#' + $scope.selectedModal + '').modal('toggle');
+                      
                     }
                     else if ($scope.selectedModal == 'ConsultationMedicationModal') {
+
                         $scope.consultationMedicationList.push($scope.consultationMedication);
+                        $('#' + $scope.selectedModal + '').modal('toggle');
+
 
                     }
                     else if ($scope.selectedModal == 'ConsultationRecordModal') {
-                        $scope.consultationRecordList.push($scope.consultationRecord);
+
+                            $scope.consultationRecordList.push($scope.consultationRecord);
+                            $('#' + $scope.selectedModal + '').modal('toggle');
+
+                       
+                                              
                     }
 
 
                 }
-
-
-                $('#' + $scope.selectedModal + '').modal('toggle');
 
 
             };
