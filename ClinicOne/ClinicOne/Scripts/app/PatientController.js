@@ -51,6 +51,23 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
     $scope.showAddModal = function () {
 
+        $scope.Patient = {
+
+            Id: '',
+            FirstName: '',
+            MiddleName: '',
+            LastName: '',
+            Gender: '',
+            BirthDate: '',
+            Age: '',
+            BloodType: '',
+            ContactNumber1: '',
+            ContactNumber2: '',
+            Address1: '',
+            Address2: ''
+
+        };
+
         $('#addModal').modal('toggle');
 
         $scope.submitType = 'add';
@@ -79,26 +96,6 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
     };
 
-    $scope.clearAddModal = function () {
-
-        $scope.Patient = {
-
-            FirstName: '',
-            MiddleName: '',
-            LastName: '',
-            Gender: '',
-            BirthDate: '',
-            Age: '',
-            BloodType: '',
-            ContactNumber1: '',
-            ContactNumber2: '',
-            Address1: '',
-            Address2: ''
-
-        };
-
-    }
-
     $scope.updatePatient = function () {
 
         if ($scope.submitType == 'add') {
@@ -116,9 +113,6 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
                 $scope.patientsList.push(data);
 
-                $scope.clearAddModal();
-
-
             });
 
         }
@@ -131,10 +125,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(function (data) {
 
-                $scope.patientsList.push(data);
-
-                $scope.clearAddModal();
-
+                $scope.patientsList.push($scope.Patient);
 
             });
         }
@@ -148,7 +139,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
     $scope.showEditModal = function (row) {
 
-        $scope.showAddModal();
+        $('#addModal').modal('toggle');
 
         $('#modalTitle').text('Edit Patient');
 
@@ -166,7 +157,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
     $scope.showDetailModal = function (row) {
 
-        $scope.showAddModal();
+        $('#addModal').modal('toggle');
 
         $('#modalTitle').text('Patient Details');
 

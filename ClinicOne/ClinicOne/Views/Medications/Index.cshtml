@@ -1,65 +1,61 @@
 ﻿
 
 <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
-<link href="~/.bin/bower_components/selectize/dist/css/selectize.default.css" rel="stylesheet" />
-
-
-
+<h2>Medications</h2>
+<hr />
 <div ng-app="app" ng-controller="medicationCtrl">
+    <div class="row" >
+        <div class="col-sm-6">
 
-    <div class="col-sm-12">
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
 
-        <div style="box-shadow: 5px 5px 2px #888888" class="panel-primary">
-            
-            <div style="height:50px" class="panel-heading">
-                Medications
-                <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
+                <div style="height:50px" class="panel-heading">
+                    Medication List
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
+                </div>
+
+                <div class="panel-body">
+                    <table st-table="medicationsListDisplay" st-safe-src="medicationsList" class="table table-condensed table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in medicationsListDisplay">
+
+                                <td>
+                                    <button class="btn btn-xs btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span></button>
+                                    <button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button>
+                                </td>
+
+                                <td>{{row.MedicationName}}</td>
+                                <td>{{row.CategoryName}}</td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
             </div>
-
-
-            <table st-table="medicationsListDisplay" st-safe-src="medicationsList" class="table table-condensed table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Medication Name</th>
-                        <th>Medication Category Name</th>
-
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="row in medicationsListDisplay">
-
-                        <td><button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
-                        <td>{{row.MedicationName}}</td>
-                        <td>{{row.CategoryName}}</td>
-
-
-                        <td>
-                            <button class="btn-sm btn btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span> Details</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-
-                        <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                    </tr>
-                </tfoot>
-            </table>
 
         </div>
 
     </div>
-
-
-
-
-
-
+    
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
@@ -72,56 +68,58 @@
 
                         <div class="form-group">
                             
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Medication Name" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+                            <div class="col-sm-12">
+                                <label>Name</label>
+                                <input type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
                             </div>
+                        </div>
+
+
+                        <div class="form-group">                           
+                                
+                            <div class="col-sm-12">
+                                <label>Category</label>
+                                <div class="input-group">
+                                    <ui-select ng-model="medication.CategoryId">
+                                        <ui-select-match placeholder="Select Value">{{$select.selected.CategoryName}}</ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
+
+                                            <span ng-bind="item.CategoryName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
 
 
                         <div class="form-group">
-                            
-                            <div class="col-sm-10">
-                                <ui-select ng-model="medication.CategoryId">
-                                    <ui-select-match placeholder="Select Medication Category">{{$select.selected.CategoryName}}</ui-select-match>
-                                    <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
 
-                                        <span ng-bind="item.CategoryName"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-
-
+                            <div class="col-sm-6">
+                                <label>Code</label>
+                                <input type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
                             </div>
+
+                            <div class="col-sm-6">
+                                <label>Amount</label>
+                                <input type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                            </div>
+
                         </div>
+
 
 
                         <div class="form-group">
                             
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Medication Code" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                            <div class="col-sm-12">
+                                <label>Description</label>
+                               <textarea ng-model="medication.Description" ng-disabled="disableInput" rows="5" class="form-control" id="medicationDescription"></textarea>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Description" ng-model="medication.Description" ng-disabled="disableInput" class="form-control" id="medicationDescription" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Amount" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Dosage" ng-model="medication.Dosage" ng-disabled="disableInput" class="form-control" id="medicationDosage" />
-                            </div>
-                        </div>
-
+                          
                     </form>
 
 
@@ -173,7 +171,7 @@
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/Scripts/app/MedicationController.js"></script>
 
-    <script src="~/.bin/bower_components/selectize/dist/js/selectize.min.js"></script>
+   
     <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
 
     <script>
