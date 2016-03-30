@@ -4,11 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Waiting Patients</h3>
-<hr />
-
 <div ng-app="app" ng-controller="waitingCtrl">
-
+    <h2>Waiting List</h2>
+    <hr />
     <div class="row">
 
         
@@ -20,7 +18,7 @@
         <div class="col-sm-12">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div style="height:50px" class="panel-heading">Patient list
+                <div style="height:50px" class="panel-heading">Patient List
                     <button class="pull-right btn-sm btn btn-default" ng-click="showAddWaitingModal()"><span class="fa fa-plus"></span></button> 
                 </div>
 
