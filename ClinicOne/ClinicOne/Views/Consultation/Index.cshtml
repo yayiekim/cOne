@@ -154,21 +154,11 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
+        
 
     <strong>{{admittedPatient.FirstName}}</strong>
 
-    <button ng-click="submitConsultation()">submit consultation</button>
+    <button ng-click="showPreview()">submit consultation</button>
 
 
 
@@ -408,7 +398,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button ng-click="submitConsultation()" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -767,33 +757,36 @@
 
             };
 
+            $scope.showPreview = function ()
+            {
+                $('#consultationPreviewModal').modal('toggle');
+
+            };
+
 
             $scope.submitConsultation = function () {
 
+                $scope.consultation = {
 
-                $('#consultationPreviewModal').modal('toggle');
+                    PatientId: $scope.admittedPatient.Id,
 
-                //$scope.consultation = {
+                    DiagnosisList: $scope.consultationDiagnosisList,
+                    PrescribeMedicationList: $scope.consultationMedicationList,
+                    RecordList: $scope.consultationRecordList
 
-                //    PatientId: $scope.admittedPatient.Id,
-
-                //    DiagnosisList: $scope.consultationDiagnosisList,
-                //    PrescribeMedicationList: $scope.consultationMedicationList,
-                //    RecordList: $scope.consultationRecordList
-
-                //};
+                };
 
 
-                //$http({
-                //    method: 'POST',
-                //    url: '/Consultation/AddConsultation',
-                //    data: $.param({ consultaion: $scope.consultation }),
-                //    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                $http({
+                    method: 'POST',
+                    url: '/Consultation/AddConsultation',
+                    data: $.param({ consultaion: $scope.consultation }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-                //}).success(function (data) {
+                }).success(function (data) {
+                    $('#consultationPreviewModal').modal('toggle');
 
-                //    $scope.resetAll();
-                //});
+                });
 
 
 

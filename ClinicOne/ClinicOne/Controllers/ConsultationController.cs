@@ -243,7 +243,7 @@ namespace ClinicOne.Controllers
 
             db.Consultations.Add(model);
 
-            if (consultaion.DiagnosisList.Count() != 0)
+            if (consultaion.DiagnosisList != null)
             {
 
                 foreach (var x in consultaion.DiagnosisList)
@@ -264,7 +264,7 @@ namespace ClinicOne.Controllers
 
             }
 
-            if (consultaion.PrescribeMedicationList.Count() != 0)
+            if (consultaion.PrescribeMedicationList != null)
             {
 
                 foreach (var x in consultaion.PrescribeMedicationList)
@@ -286,7 +286,7 @@ namespace ClinicOne.Controllers
 
             }
 
-            if (consultaion.RecordList.Count() != 0)
+            if (consultaion.RecordList != null)
             {
 
                 foreach (var x in consultaion.RecordList)
