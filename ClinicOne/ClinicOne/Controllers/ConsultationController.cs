@@ -276,6 +276,10 @@ namespace ClinicOne.Controllers
                         Medication = x.Medication,
                         Remarks = x.Remarks,
                         Quantity = x.Quantity,
+                        Frequency = x.Frequency,
+                        Route = x.Route,
+                        Strength = x.Strength,
+                        Volume = x.Volume
 
                     };
 
