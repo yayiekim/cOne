@@ -19,21 +19,26 @@
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
                 
                 <div style="height:50px" class="panel-heading">
-                    Patient list
+                    Patient List
                     <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
                 </div>
                 
                 <div class="panel-body">
                     <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped">
-
-
+                        
                         <thead>
                             <tr>
+
+                                <th colspan="8"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                            </tr>
+                            <tr>
                                 <th></th>
-                                <th>Full Name</th>
-                                <th>Gender</th>
-                                <th>Age</th>
-                                <th>Birth Date</th>
+                                <th st-sort="FirstName">First Name</th>
+                                <th st-sort="MiddleName">Middle Name</th>
+                                <th st-sort="LastName">Last Name</th>
+                                <th st-sort="Gender">Gender</th>
+                                <th st-sort="Age">Age</th>
+                                <th st-sort="BirthDate">Birth Date</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -44,7 +49,9 @@
                                     <button class="btn btn-xs btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span></button>
                                     <button class="btn btn-xs btn-primary" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button>
                                 </td>
-                                <td>{{row.FirstName + " " + row.MiddleName + " " + row.LastName}}</td>
+                                <td>{{row.FirstName}}</td>
+                                <td>{{row.MiddleName}}</td>
+                                <td>{{row.LastName}}</td>
                                 <td>{{row.Gender}}</td>
                                 <td>{{row.Age}}</td>
                                 <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
@@ -56,7 +63,7 @@
                         <tfoot>
                             <tr>
 
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="8"></td>
                             </tr>
                         </tfoot>
                     </table>

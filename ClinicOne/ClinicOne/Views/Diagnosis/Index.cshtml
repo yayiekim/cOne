@@ -25,10 +25,14 @@
                 <table st-table="diagnosisListDisplay" st-safe-src="diagnosisList" class="table table-condensed table-responsive table-striped">
                     <thead>
                         <tr>
+
+                            <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                        </tr>
+                        <tr>
                             <th></th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Description</th>
+                            <th st-sort="DiagnosisName">Name</th>
+                            <th st-sort="CategoryName">Category</th>
+                            <th st-sort="Description">Description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -36,7 +40,7 @@
                     <tbody>
                         <tr ng-repeat="row in diagnosisListDisplay">
 
-                            <td><button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
+                            <td><button class="btn btn-xs btn-primary" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
                             <td>{{row.DiagnosisName}}</td>
                             <td>{{row.CategoryName}}</td>
                             <td>{{row.Description}}</td>
