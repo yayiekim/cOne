@@ -267,6 +267,7 @@
     <Compile Include="Models\MedicationModels.cs" />
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\RecordTypeModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\WaitingModels.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
@@ -1305,12 +1306,12 @@
     <Content Include="Views\Medications\MedicationCategories.cshtml" />
     <Content Include="Views\Diagnosis\Index.cshtml" />
     <Content Include="Views\Consultation\ConsultationList.cshtml" />
+    <Content Include="Views\Reports\PatientRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
-    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
