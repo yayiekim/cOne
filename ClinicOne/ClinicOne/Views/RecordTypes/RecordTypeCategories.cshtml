@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Name</th>
+                                <th st-sort="Category">Name</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -33,7 +33,7 @@
                         <tbody>
                             <tr ng-repeat="row in recordTypeCategoryListDisplay">
 
-                                <td><button class="btn btn-xs btn-default" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
+                                <td><button class="btn btn-xs btn-primary" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
                                 <td>{{row.Category}}</td>
                                 <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
