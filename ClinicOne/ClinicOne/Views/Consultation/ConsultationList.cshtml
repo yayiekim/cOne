@@ -54,7 +54,7 @@
 
 
     <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
@@ -90,7 +90,64 @@
                     </table>
 
 
+                    <br />
 
+                    <table st-table="consultationRecordDisplay" st-safe-src="consultationRecord" class="table table-condensed table-responsive table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in consultationRecordDisplay">
+
+                                <td>{{row.RecordTypeName}}</td>
+                                <td>{{row.RecordValue}}</td>
+                                
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+                    <table st-table="consultationMedicationDisplay" st-safe-src="consultationMedication" class="table table-condensed table-responsive table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in consultationMedicationDisplay">
+
+                                <td>{{row.Medication}}</td>
+                                <td>{{row.Amount}}</td>
+                                <td>{{row.Quantity}}</td>
+                                <td>{{row.Remarks}}</td>
+
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
 
 
@@ -103,13 +160,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-
-
-
-
-
-
 
 
 
@@ -130,6 +180,12 @@
 
             $scope.consultationDiagnosis = [];
             $scope.consultationDiagnosisDisplay = [].concat($scope.consultationDiagnosis);
+
+            $scope.consultationRecord = [];
+            $scope.consultationRecordDisplay = [].concat($scope.consultationRecord);
+
+            $scope.consultationMedication = [];
+            $scope.consultationMedicationDisplay = [].concat($scope.consultationMedication);
 
             $scope.selectedRow;
 
@@ -171,12 +227,32 @@
                 $http({
 
                     method: 'GET',
-                    url: '/Consultation/getConsultaionDetail?ConsultationId='+ row.Id +''
+                    url: '/Consultation/getConsultaionDetail?ConsultationId=' + row.Id + ''
 
                 }).success(function (data) {
 
                     $scope.consultationDiagnosis = data.DiagnosisList;
-                })
+                });
+
+                $http({
+
+                    method: 'GET',
+                    url: '/Consultation/getConsultaionDetail?ConsultationId=' + row.Id + ''
+
+                }).success(function (data) {
+
+                    $scope.consultationRecord = data.RecordList;
+                });
+
+                $http({
+
+                    method: 'GET',
+                    url: '/Consultation/getConsultaionDetail?ConsultationId=' + row.Id + ''
+
+                }).success(function (data) {
+
+                    $scope.consultationMedication = data.PrescribeMedicationList;
+                });
             }
 
         });
