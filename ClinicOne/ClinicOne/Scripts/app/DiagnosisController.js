@@ -50,6 +50,7 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
 
         $scope.submitType = 'add';
 
+        $('#modalTitle').text('New');
     }
 
     //FOR DROPDOWNLIST DIAGNOSIS CATEGORY
@@ -145,6 +146,8 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
         $scope.submitType = 'edit';
 
         $scope.getDiagnosisCategory();
+
+        $('#modalTitle').text('Edit');
     }
 
 });

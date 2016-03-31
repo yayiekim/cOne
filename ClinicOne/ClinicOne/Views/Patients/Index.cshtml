@@ -37,8 +37,8 @@
                                 <th st-sort="MiddleName">Middle Name</th>
                                 <th st-sort="LastName">Last Name</th>
                                 <th st-sort="Gender">Gender</th>
-                                <th st-sort="Age">Age</th>
                                 <th st-sort="BirthDate">Birth Date</th>
+                                <th st-sort="Age">Age</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -52,9 +52,9 @@
                                 <td>{{row.FirstName}}</td>
                                 <td>{{row.MiddleName}}</td>
                                 <td>{{row.LastName}}</td>
-                                <td>{{row.Gender}}</td>
-                                <td>{{row.Age}}</td>
+                                <td>{{row.Gender}}</td>                                
                                 <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                                <td>{{row.Age}}</td>
                                 <td><button class="btn btn-xs btn-danger" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
                             </tr>
                         </tbody>
@@ -86,97 +86,118 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                    <h4 class="modal-title" id="modalTitle"></h4>
                 </div>
-                <div class="modal-body">
-                    
-                        
-                        <form role="form" class="form-horizontal">
 
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <label>First Name</label>
-                                    <input type="text" ng-model="Patient.FirstName" ng-disabled="disableInput" class="form-control" id="FirstName" />
-                                </div>
 
-                                <div class="col-sm-4">
-                                    <label>Middle Name</label>
-                                    <input type="text" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
-                                </div>
+                <form name="patientForm" role="form" class="form-horizontal">
 
-                                <div class="col-sm-4">
-                                    <label>Last Name</label>
-                                    <input type="text" ng-model="Patient.LastName" ng-disabled="disableInput" class="form-control" id="LastName" />
-                                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormFirstName.$invalid && !patientForm.FormFirstName.$pristine }">
+                                <label>First Name</label>
+                                <input name="FormFirstName" ng-required="true" type="text" ng-model="Patient.FirstName" ng-disabled="disableInput" class="form-control" id="FirstName" />
+                                <span class="help-block" ng-show="patientForm.FormFirstName.$invalid && !patientForm.FormFirstName.$pristine">
+                                    First name is required.
+                                </span>
                             </div>
 
-                            <div class="form-group">
-
-                                <div class="col-sm-4">
-                                    <label>Birth Date</label>
-                                    <input type="text" ng-model="Patient.BirthDate" ng-disabled="disableInput" class="form-control" id="BirthDate" />
-                                </div>
-
-                                <div class="col-sm-2" ng-show="showAge">
-                                    <label>Age</label>
-                                    <input type="text" ng-model="Patient.Age" ng-disabled="disableInput" class="form-control" id="Age" />
-                                </div>
-
+                            <div class="col-sm-4">
+                                <label>Middle Name</label>
+                                <input type="text" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
                             </div>
 
-                            <div class="form-group">
-                                
-                                <div class="col-sm-4">
-                                    <label>Gender</label>
-                                    <input type="text" ng-model="Patient.Gender" ng-disabled="disableInput" class="form-control" id="Gender" />
-                                </div>
+                            <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormLastName.$invalid && !patientForm.FormLastName.$pristine }">
+                                <label>Last Name</label>
+                                <input name="FormLastName" ng-required="true" type="text" ng-model="Patient.LastName" ng-disabled="disableInput" class="form-control" id="LastName" />
+                                <span class="help-block" ng-show="patientForm.FormLastName.$invalid && !patientForm.FormLastName.$pristine">
+                                    Last name is required.
+                                </span>
+                            </div>
+                        </div>
 
-                                <div class="col-sm-4">
-                                    <label>Blood Type</label>
-                                    <input type="text" ng-model="Patient.BloodType" ng-disabled="disableInput" class="form-control" id="BloodType" />
-                                </div>
+                        <div class="form-group">
 
+                            <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormBirthDate.$invalid && !patientForm.FormBirthDate.$pristine }">
+                                <label>Birth Date</label>
+                                <input name="FormBirthDate" ng-required="true" type="text" ng-model="Patient.BirthDate" ng-disabled="disableInput" class="form-control" id="BirthDate" />
+                                <span class="help-block" ng-show="patientForm.FormBirthDate.$invalid && !patientForm.FormBirthDate.$pristine">
+                                   Birth date is required.
+                                </span>
                             </div>
 
-                            <div class="form-group">
-
-                                <div class="col-sm-4">
-                                    <label>Contact #1</label>
-                                    <input type="text" ng-model="Patient.ContactNumber1" ng-disabled="disableInput" class="form-control" id="ContactNumber1" />
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label>Contact #2</label>
-                                    <input type="text" ng-model="Patient.ContactNumber2" ng-disabled="disableInput" class="form-control" id="ContactNumber2" />
-                                </div>
-
+                            <div class="col-sm-2" ng-show="showAge">
+                                <label>Age</label>
+                                <input type="text" ng-model="Patient.Age" ng-disabled="disableInput" class="form-control" id="Age" />
                             </div>
 
-                            <div class="form-group">
+                        </div>
 
-                                <div class="col-sm-12">
-                                    <label>Address #1</label>
-                                    <input type="text" ng-model="Patient.Address1" ng-disabled="disableInput" class="form-control" id="Address1" />
-                                </div>
+                        <div class="form-group">
 
+                            <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormGender.$invalid && !patientForm.FormGender.$pristine }">
+                                <label>Gender</label>
+                                <input name="FormGender" ng-required="true" type="text" ng-model="Patient.Gender" ng-disabled="disableInput" class="form-control" id="Gender" />
+                                <span class="help-block" ng-show="patientForm.FormGender.$invalid && !patientForm.FormGender.$pristine">
+                                    Gender is required.
+                                </span>
                             </div>
 
-                            <div class="form-group">
-
-                                <div class="col-sm-12">
-                                    <label>Address #2</label>
-                                    <input type="text" ng-model="Patient.Address2" ng-disabled="disableInput" class="form-control" id="Address2" />
-                                </div>
+                            <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormBloodType.$invalid && !patientForm.FormBloodType.$pristine }">
+                                <label>Blood Type</label>
+                                <input name="FormBloodType" ng-required="true" type="text" ng-model="Patient.BloodType" ng-disabled="disableInput" class="form-control" id="BloodType" />
+                                <span class="help-block" ng-show="patientForm.FormBloodType.$invalid && !patientForm.FormBloodType.$pristine">
+                                    Blood type is required.
+                                </span>
                             </div>
 
-                        </form>                 
-                                       
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-4">
+                                <label>Landline #</label>
+                                <input type="text" ng-model="Patient.ContactNumber1" ng-disabled="disableInput" class="form-control" id="ContactNumber1" />
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label>Mobile #</label>
+                                <input type="text" ng-model="Patient.ContactNumber2" ng-disabled="disableInput" class="form-control" id="ContactNumber2" />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12" ng-class="{ 'has-error' : patientForm.FormAdd1.$invalid && !patientForm.FormAdd1.$pristine }">
+                                <label>Number/Street/Brgy</label>
+                                <input name="FormAdd1" ng-required="true" type="text" ng-model="Patient.Address1" ng-disabled="disableInput" class="form-control" id="Address1" />
+                                <span class="help-block" ng-show="patientForm.FormAdd1.$invalid && !patientForm.FormAdd1.$pristine">
+                                    (Number, Street, Brgy, etc.) is required.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12" ng-class="{ 'has-error' : patientForm.FormAdd2.$invalid && !patientForm.FormAdd2.$pristine }">
+                                <label>City/State</label>
+                                <input name="FormAdd2" ng-required="true" type="text" ng-model="Patient.Address2" ng-disabled="disableInput" class="form-control" id="Address2" />
+                                <span class="help-block" ng-show="patientForm.FormAdd2.$invalid && !patientForm.FormAdd2.$pristine">
+                                    (City, State, etc.) is required.
+                                </span>
+                            </div>
+                        </div>                  
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="updatePatient()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    <button type="button" ng-disabled="!patientForm.$valid" ng-click="updatePatient()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
                 </div>
+            </form>
+
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -195,7 +216,7 @@
                     <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
                 </div>
                 <div class="modal-body">
-                    <h5>Are you sure you want to remove <span><strong id="deletePatientFullName"></strong></span> from patient list?</h5>
+                    <h5>Are you sure you want to remove?</h5>
 
 
                 </div>

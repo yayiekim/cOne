@@ -63,28 +63,34 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                    <h4 class="modal-title" id="modalTitle"></h4>
                 </div>
-                <div class="modal-body">
 
 
-                    <form class="form-horizontal" role="form">
+                <form name="medicationForm" class="form-horizontal" role="form">
 
-                        <div class="form-group">
-                            
+                    <div class="modal-body">
+
+                        <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine }">
+
                             <div class="col-sm-12">
                                 <label>Name</label>
-                                <input type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+                                <input name="FormMedicationName" ng-required="true" type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+
+                                <span class="help-block" ng-show="medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine">
+                                    Medication is required.
+                                </span>
                             </div>
+
                         </div>
 
 
-                        <div class="form-group">                           
-                                
+                        <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationCategory.$invalid }">
+
                             <div class="col-sm-12">
                                 <label>Category</label>
                                 <div class="input-group">
-                                    <ui-select ng-model="medication.CategoryId">
+                                    <ui-select ng-disabled="disableInput" name="FormMedicationCategory" ng-required="true" ng-model="medication.CategoryId">
                                         <ui-select-match placeholder="Select Value">{{$select.selected.CategoryName}}</ui-select-match>
                                         <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
 
@@ -92,46 +98,53 @@
                                         </ui-select-choices>
                                     </ui-select>
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                        <button ng-disabled="disableInput" class="btn btn-default"><span class="fa fa-plus"></span></button>
                                     </div>
                                 </div>
+
+                                <span class="help-block" ng-show="medicationForm.FormMedicationCategory.$invalid">
+                                    Please select a category.
+                                </span>
                             </div>
-                            
+
                         </div>
 
 
                         <div class="form-group">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine }">
                                 <label>Code</label>
-                                <input type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                                <input name="FormMedicationCode" ng-required="true" type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                                <span class="help-block" ng-show="medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine">
+                                    Code is required.
+                                </span>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine }">
                                 <label>Amount</label>
-                                <input type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                                <input name="FormMedicationAmount" ng-required="true" type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                                <span class="help-block" ng-show="medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine">
+                                    Code is required.
+                                </span>
                             </div>
 
                         </div>
 
-
-
                         <div class="form-group">
-                            
+
                             <div class="col-sm-12">
                                 <label>Description</label>
-                               <textarea ng-model="medication.Description" ng-disabled="disableInput" rows="5" class="form-control" id="medicationDescription"></textarea>
+                                <textarea ng-model="medication.Description" ng-disabled="disableInput" rows="5" class="form-control" id="medicationDescription"></textarea>
                             </div>
                         </div>
-                          
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!medicationForm.$valid" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
-                </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

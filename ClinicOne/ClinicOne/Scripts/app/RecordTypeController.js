@@ -82,6 +82,8 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
         $scope.getRecordTypeCategories();
 
         $scope.submitType = 'add';
+
+        $('#modalTitle').text('New');
     };
 
 
@@ -126,6 +128,7 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
         $scope.recordTypes = row;
 
         $('#deleteModal').modal('toggle');
+
     }
 
 
@@ -158,6 +161,8 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
         $scope.submitType = 'edit';
 
         $scope.getRecordTypeCategories();
+
+        $('#modalTitle').text('Edit');
     }
 
 });

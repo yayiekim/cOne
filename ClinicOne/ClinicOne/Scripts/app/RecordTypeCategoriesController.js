@@ -36,6 +36,8 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
 
         $scope.submitType = 'add';
 
+        $('#modalTitle').text('New');
+
     }
 
 
@@ -85,12 +87,9 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
         $scope.Category = row;
 
         $scope.submitType = 'edit';
+
+        $('#modalTitle').text('Edit');
     }
-
-
-
-
-
 
 
     //DELETE CATEGORY
@@ -103,6 +102,8 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
         $('#deleteModal').modal('toggle');
 
         $('#CategoryName').text();
+
+        $('#modalTitle').text('Delete');
     }
 
 

@@ -76,27 +76,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modalTitle">Modal title</h4>
+                    <h4 class="modal-title" id="modalTitle"></h4>
                 </div>
-                <div class="modal-body">
 
+                <form name="recordTypeForm">
 
-                    <form class="margin-bottom-40" role="form">
+                    <div class="modal-body">
 
-
-                        <div class="form-group">    
+                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine }">
                             <label for="RecordTypeName">Name</label>
-                            <input type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                            <input name="FormRecordTypeName" ng-required="true" type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                            <span class="help-block" ng-show="recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine">
+                                Record is required.
+                            </span>
                         </div>
-                       
 
-                        <div class="form-group">
+
+                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordCategoryName.$invalid }">
                             <label>Category</label>
                             <div class="input-group">
-                                <ui-select ng-model="recordTypes.RecordTypeCategoryId">
+                                <ui-select name="FormRecordCategoryName" ng-required="true" ng-model="recordTypes.RecordTypeCategoryId">
                                     <ui-select-match placeholder="Select Value">{{$select.selected.Category}}</ui-select-match>
                                     <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
-
                                         <span ng-bind="item.Category"></span>
                                     </ui-select-choices>
                                 </ui-select>
@@ -104,12 +105,16 @@
                                     <button class="btn btn-default"><span class="fa fa-plus"></span></button>
                                 </div>
                             </div>
+
+                            <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
+                                Please select a category.
+                            </span>
                         </div>
 
-                        <div class="form-group">                                
+                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormValueTypeName.$invalid }">
                             <label>Value</label>
                             <div class="input-group">
-                                <ui-select ng-model="recordTypes.ValueTypeId">
+                                <ui-select name="FormValueTypeName" ng-required="true" ng-model="recordTypes.ValueTypeId">
                                     <ui-select-match placeholder="Select Value">{{$select.selected.ValueTypeName}}</ui-select-match>
                                     <ui-select-choices repeat="item.Id as item in valueTypeList | filter: $select.search">
 
@@ -120,18 +125,28 @@
                                     <button class="btn btn-default"><span class="fa fa-plus"></span></button>
                                 </div>
                             </div>
+
+                            <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
+                                Please select a category.
+                            </span>
                         </div>
-                    </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!recordTypeForm.$valid" ng-click="updateRecordType()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                </form>
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="updateRecordType()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
-                </div>
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
+
     <!-- DELETE MODAL -->
     <!-- DELETE MODAL -->
     <!-- DELETE MODAL -->
@@ -168,7 +183,7 @@
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/Scripts/app/RecordTypeController.js"></script>
 
-    <script src="~/.bin/bower_components/selectize/dist/js/selectize.min.js"></script>
+   
     <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
 
     <script>

@@ -37,6 +37,8 @@ medicationCategoryController.controller('medicationCategoryCtrl', function ($sco
 
         $scope.submitType = 'add';
 
+        $('#modalTitle').text('New');
+
     }
 
 
@@ -86,6 +88,8 @@ medicationCategoryController.controller('medicationCategoryCtrl', function ($sco
         $scope.Category = row;
 
         $scope.submitType = 'edit';
+
+        $('#modalTitle').text('Edit');
     }
 
 

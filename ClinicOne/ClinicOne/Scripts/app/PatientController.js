@@ -72,7 +72,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
         $scope.submitType = 'add';
 
-        $('#modalTitle').text('Add New Patient');
+        $('#modalTitle').text('New');
 
         $scope.disableInput = false;
 
@@ -141,7 +141,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
         $('#addModal').modal('toggle');
 
-        $('#modalTitle').text('Edit Patient');
+        $('#modalTitle').text('Edit');
 
         $scope.Patient = row;
 
@@ -159,7 +159,7 @@ patientController.controller('patientCtrl', function ($scope, $http) {
 
         $('#addModal').modal('toggle');
 
-        $('#modalTitle').text('Patient Details');
+        $('#modalTitle').text('Details');
 
         $scope.Patient = row;
 

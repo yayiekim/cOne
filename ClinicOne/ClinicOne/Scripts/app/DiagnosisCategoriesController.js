@@ -37,6 +37,8 @@ diagnosisCategoriesController.controller('diagnosisCategoriesCtrl', function ($s
 
         $scope.submitType = 'add';
 
+
+        $('#modalTitle').text('New');
     }
 
 
@@ -86,6 +88,8 @@ diagnosisCategoriesController.controller('diagnosisCategoriesCtrl', function ($s
         $scope.Category = row;
 
         $scope.submitType = 'edit';
+
+        $('#modalTitle').text('Edit');
     }
 
 

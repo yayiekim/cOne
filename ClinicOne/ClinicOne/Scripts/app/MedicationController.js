@@ -72,6 +72,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
         $scope.submitType = 'add';
 
         $scope.disableInput = false;
+
+        $('#modalTitle').text('New');
     }
 
 
@@ -117,6 +119,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
         $('#addModal').modal('toggle');
 
         $scope.disableInput = true;
+
+        $('#modalTitle').text('Details');
     }
 
 
@@ -132,6 +136,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
         $scope.getMedicationCategories();
 
         $scope.disableInput = false;
+
+        $('#modalTitle').text('Edit');
     }
 
 
