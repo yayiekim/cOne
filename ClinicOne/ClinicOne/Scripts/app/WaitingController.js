@@ -1,7 +1,7 @@
 ﻿var waitingController = angular.module('waitingController', []);
 
 
-waitingController.controller('waitingCtrl', function ($scope, $http) {
+waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
 
 
     function ToJavaScriptDate(value) {
@@ -14,6 +14,8 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
     //GET WAITINGLIST
 
     $scope.alertMessage;
+
+    $scope.disable = true;
    
     $scope.waitingList = [];
     $scope.waitingListDisplay = [].concat($scope.waitingList);
@@ -74,31 +76,46 @@ waitingController.controller('waitingCtrl', function ($scope, $http) {
 
     $scope.addWaiting = function (Id) {
 
-        $scope.waitingModel = {
-            'Id': '',
-            'PatientId': Id,
-            'Schedule': '',
-            'Remarks': $('#remarksTb').val()
 
-        };
+        var myRedObjects = $filter('filter')($scope.waitingList, { PatientId: Id });
 
-        $http({
-            method: 'POST',
-            url: '/Waiting/addWaitingPatient',
-            data: $.param({ patient: $scope.waitingModel }),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }).success(function (data) {
+        if (myRedObjects.length > 0) {
 
-                  
+            $('#quickAddModal').modal('toggle');
+            $('#notif').text('Already in waiting list');
+            $scope.disable = false;
+        }
+        else {
 
-            var Schedule = new Date(ToJavaScriptDate(data.Schedule))
-            data.Schedule = Schedule;
-                    
-            $scope.waitingList.push(data);
+            $scope.waitingModel = {
+                'Id': '',
+                'PatientId': Id,
+                'Schedule': '',
+                'Remarks': $('#remarksTb').val()
 
-            $('#addModal').modal('toggle');
-        });
+            };
 
+            $http({
+                method: 'POST',
+                url: '/Waiting/addWaitingPatient',
+                data: $.param({ patient: $scope.waitingModel }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).success(function (data) {
+
+
+
+                var Schedule = new Date(ToJavaScriptDate(data.Schedule))
+                data.Schedule = Schedule;
+
+                $scope.waitingList.push(data);
+
+                $('#addModal').modal('toggle');
+            });
+
+
+        }
+
+        
     };
 
 

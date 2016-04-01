@@ -55,6 +55,45 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
 
     //FOR DROPDOWNLIST DIAGNOSIS CATEGORY
 
+
+
+    $scope.showQuickAdd = function () {
+
+        $('#quickAddModal').modal('toggle');
+
+    };
+
+
+    $scope.Category = {
+        Id: '',
+        CategoryName: ''
+    };
+
+
+    $scope.updateCategory = function () {
+
+            $http({
+                method: 'POST',
+                url: '/Diagnosis/addDiagnosisCategory/',
+                data: $.param({ category: $scope.Category }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+            }).success(function (data) {
+
+                $scope.Category.Id = data;
+                $scope.diagnosisCategoryList.push($scope.Category);
+
+                $scope.Category = {
+                    Id: '',
+                    CategoryName: ''
+                };
+
+            });
+
+    }
+
+
+
     $scope.getDiagnosisCategory = function () {
 
         $http({

@@ -12,7 +12,43 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
 
     $scope.disableInput = false;
 
+    $scope.showSave = false;
+
     //FOR DROPDOWN MEDICATION CATEGORY
+
+    $scope.showQuickAdd = function () {
+
+        $('#quickAddModal').modal('toggle');
+
+    };
+
+
+    $scope.Category = {
+        Id: '',
+        CategoryName: ''
+    };
+
+    $scope.updateCategory = function () {
+
+            $http({
+                method: 'POST',
+                url: '/Medications/addMedicationCategory/',
+                data: $.param({ category: $scope.Category }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+            }).success(function (data) {
+
+                $scope.Category.Id = data;
+                $scope.medicationCategoryList.push($scope.Category);
+
+                $scope.Category = {
+                    Id: '',
+                    CategoryName: ''
+                };
+
+            });
+      
+    }
 
     $scope.getMedicationCategories = function () {
 
@@ -51,6 +87,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
     //ADD MEDICATIONS
 
     $scope.showAddModal = function () {
+
+        $scope.showSave = true;
 
         $scope.medication = {
 
@@ -112,6 +150,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
 
     $scope.showDetailModal = function (row) {
 
+        $scope.showSave = false;
+
         $scope.getMedicationCategories();
 
         $scope.medication = row;
@@ -121,6 +161,9 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
         $scope.disableInput = true;
 
         $('#modalTitle').text('Details');
+
+        $scope.disableSave = false;
+
     }
 
 
@@ -128,6 +171,8 @@ medicationController.controller('medicationCtrl', function ($scope, $http) {
     //EDIT MEDICATION
 
     $scope.showEditModal = function (row) {
+
+        $scope.showSave = true;
 
         $('#addModal').modal('toggle');
 

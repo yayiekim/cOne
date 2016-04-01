@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped table-bordered">
+                    <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
                                 <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
@@ -121,7 +121,7 @@
                         <tfoot>
                             <tr>
 
-                                <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -195,7 +195,28 @@
             </div>
         </div>
     </div>
-   
+    
+    
+    <div class="modal fade" id="quickAddModal" tabindex="-1" role="dialog" aria-labelledby="quickAddModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="quickAddModal-label">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <p id="notif"></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-show="disableSave" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 

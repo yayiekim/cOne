@@ -16,6 +16,41 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
     //FOR DROPDOWN LIST RECORD CATEGORIES
 
+
+    $scope.showQuickAdd = function () {
+
+        $('#quickAddModal').modal('toggle');
+
+    };
+
+    $scope.Category = {
+        Id: '',
+        Category: ''
+    };
+
+
+    $scope.updateCategory = function () {
+
+            $http({
+                method: 'POST',
+                url: '/RecordTypes/addRecordCategory/',
+                data: $.param({ category: $scope.Category }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+            }).success(function (data) {
+
+                $scope.Category.Id = data;
+                $scope.recordTypeCategoryList.push($scope.Category);
+
+                $scope.Category = {
+                    Id: '',
+                    Category: ''
+                };
+            });
+    }
+
+
+
     $scope.getRecordTypeCategories = function () {
 
         $http({

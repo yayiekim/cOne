@@ -12,20 +12,20 @@
     <!-- DISPLAY PATIENT LIST -->
     <!-- DISPLAY PATIENT LIST -->
     <!-- DISPLAY PATIENT LIST -->
+    <div class="row">
 
-
-        <div class="col-sm-12">
+        <div class="col-sm-10">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                
+
                 <div style="height:50px" class="panel-heading">
                     Patient List
                     <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal()"><span class="fa fa-plus"></span></button>
                 </div>
-                
+
                 <div class="panel-body">
                     <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped">
-                        
+
                         <thead>
                             <tr>
 
@@ -34,11 +34,9 @@
                             <tr>
                                 <th></th>
                                 <th st-sort="FirstName">First Name</th>
-                                <th st-sort="MiddleName">Middle Name</th>
                                 <th st-sort="LastName">Last Name</th>
                                 <th st-sort="Gender">Gender</th>
                                 <th st-sort="BirthDate">Birth Date</th>
-                                <th st-sort="Age">Age</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -50,11 +48,9 @@
                                     <button class="btn btn-xs btn-primary" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button>
                                 </td>
                                 <td>{{row.FirstName}}</td>
-                                <td>{{row.MiddleName}}</td>
                                 <td>{{row.LastName}}</td>
-                                <td>{{row.Gender}}</td>                                
+                                <td>{{row.Gender}}</td>
                                 <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
-                                <td>{{row.Age}}</td>
                                 <td><button class="btn btn-xs btn-danger" ng-click="showConfirmDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
                             </tr>
                         </tbody>
@@ -63,7 +59,7 @@
                         <tfoot>
                             <tr>
 
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="8"></td>
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -73,7 +69,7 @@
 
         </div>
 
-
+    </div>
 
     <!-- ADD PATIENTS LIST -->
     <!-- ADD PATIENTS LIST -->

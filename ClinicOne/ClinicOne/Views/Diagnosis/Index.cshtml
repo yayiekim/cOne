@@ -69,7 +69,7 @@
                     <h4 class="modal-title" id="modalTitle"></h4>
                 </div>
 
-                <form name="diagnosisForm">
+                <form name="diagnosisForm" novalidate>
 
                     <div class="modal-body">
 
@@ -94,7 +94,7 @@
                                         </ui-select-choices>
                                     </ui-select>
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                        <button class="btn btn-default" ng-click="showQuickAdd()"><span class="fa fa-plus"></span></button>
                                     </div>
                                 </div>
                                 <span class="help-block" ng-show="diagnosisForm.FormDiagnosisCategory.$invalid">
@@ -145,6 +145,41 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+
+    <div class="modal fade" id="quickAddModal" tabindex="3" role="dialog" aria-labelledby="quickAddModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="quickAddModal-label">Modal title</h4>
+                </div>
+
+
+
+                <form name="diagnosisCategoryForm">
+                    <div class="modal-body">
+                        <div class="form-group" ng-class="{ 'has-error' : diagnosisCategoryForm.FormCategoryName.$invalid && !diagnosisCategoryForm.FormCategoryName.$pristine }">
+                            <label>Name</label>
+                            <input name="FormCategoryName" ng-required="true" type="text" ng-model="Category.CategoryName" ng-disabled="disableInput" class="form-control" id="CategoryName" />
+
+                            <span class="help-block" ng-show="diagnosisCategoryForm.FormCategoryName.$invalid && !diagnosisCategoryForm.FormCategoryName.$pristine">
+                                Diagnosis Category Name is required.
+                            </span>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!diagnosisCategoryForm.$valid" ng-click="updateCategory()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
 
 
 </div>

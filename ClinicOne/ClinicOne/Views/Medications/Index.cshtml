@@ -58,6 +58,10 @@
 
     </div>
     
+    
+
+
+
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -67,7 +71,7 @@
                 </div>
 
 
-                <form name="medicationForm" class="form-horizontal" role="form">
+                <form name="medicationForm" class="form-horizontal" novalidate role="form">
 
                     <div class="modal-body">
 
@@ -98,7 +102,7 @@
                                         </ui-select-choices>
                                     </ui-select>
                                     <div class="input-group-btn">
-                                        <button ng-disabled="disableInput" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                        <button ng-disabled="disableInput" ng-click="showQuickAdd()" class="btn btn-default"><span class="fa fa-plus"></span></button>
                                     </div>
                                 </div>
 
@@ -140,7 +144,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" ng-disabled="!medicationForm.$valid" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                        <button type="button" ng-disabled="!medicationForm.$valid" ng-show="showSave" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
 
@@ -179,7 +183,39 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <div class="modal fade" id="quickAddModal" tabindex="3" role="dialog" aria-labelledby="quickAddModal-label" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="quickAddModal-label">Modal title</h4>
+                </div>
+                <form name="medicationCategoryForm">
+                    <div class="modal-body">
 
+
+                        <div class="modal-body">
+                            <div class="form-group" ng-class="{ 'has-error' : medicationCategoryForm.FormCategoryName.$invalid && !medicationCategoryForm.FormCategoryName.$pristine }">
+                                <label for="CategoryName">Name</label>
+                                <input name="FormCategoryName" ng-required="true" type="text" ng-model="Category.CategoryName" ng-disabled="disableInput" class="form-control" id="CategoryName" />
+
+                                <span class="help-block" ng-show="medicationCategoryForm.FormCategoryName.$invalid && !medicationCategoryForm.FormCategoryName.$pristine">
+                                    Medication Category Name is required.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!medicationCategoryForm.$valid" ng-click="updateCategory()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
