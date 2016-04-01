@@ -73,50 +73,55 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
 
     }
 
+    $scope.selectedId;
 
-    $scope.addWaiting = function (Id) {
 
+    $scope.showConfirm = function (Id) {
+
+        $scope.selectedId = Id;
 
         var myRedObjects = $filter('filter')($scope.waitingList, { PatientId: Id });
 
         if (myRedObjects.length > 0) {
-
-            $('#quickAddModal').modal('toggle');
-            $('#notif').text('Already in waiting list');
-            $scope.disable = false;
+            
+            $('#warningModal').modal('toggle');
         }
         else {
 
-            $scope.waitingModel = {
-                'Id': '',
-                'PatientId': Id,
-                'Schedule': '',
-                'Remarks': $('#remarksTb').val()
-
-            };
-
-            $http({
-                method: 'POST',
-                url: '/Waiting/addWaitingPatient',
-                data: $.param({ patient: $scope.waitingModel }),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function (data) {
-
-
-
-                var Schedule = new Date(ToJavaScriptDate(data.Schedule))
-                data.Schedule = Schedule;
-
-                $scope.waitingList.push(data);
-
-                $('#addModal').modal('toggle');
-            });
-
-
+            $('#quickAddModal').modal('toggle');
         }
-
-        
     };
+
+
+    $scope.addWaiting = function () {
+
+
+        $scope.waitingModel = {
+            'Id': '',
+            'PatientId': $scope.selectedId,
+            'Schedule': '',
+            'Remarks': $('#remarksTb').val()
+
+        };
+
+        $http({
+            method: 'POST',
+            url: '/Waiting/addWaitingPatient',
+            data: $.param({ patient: $scope.waitingModel }),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (data) {
+
+
+
+            var Schedule = new Date(ToJavaScriptDate(data.Schedule))
+            data.Schedule = Schedule;
+
+            $scope.waitingList.push(data);
+
+        });
+
+
+    }
 
 
     //DELETE WAITING PATIENTS
