@@ -4,15 +4,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Consultation</h2>
-<hr />
 
 <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
 
 
 <div ng-app="app" ng-controller="cont">
 
+  
     <div class="row">
+        
+        <div class="col-md-6" >
+
+            <h2>Consultation</h2>
+            <hr />
+            <div class="btn-group-sm">
+                <button ng-click="getAdmitted()" class="btn btn-primary">Get admitted patient</button>
+                <button ng-disabled="disableCancelAdmitionBtn" class="btn btn-default">Cancel admition</button>
+                <button class="btn btn-success" ng-click="showPreview()">View prescription</button>
+                <button class="btn btn-primary">Select patient</button>
+            </div>
+        </div>
+        <p></p>
+        <div class="col-md-6">
+
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
+                <div class="panel-heading">Patient info</div>
+               <table class="small table table-bordered table-condensed table-responsive">
+                   <tbody>
+                       <tr>
+                           <th>Name</th>
+                           <th>Birth date</th>
+                           <th>Age</th>
+                           <th>Blood Type</th>
+                           <th>Address</th>
+                       </tr>
+                       <tr>
+                           <td>{{admittedPatient.FullName}}</td>
+                           <td>{{admittedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                           <td>{{admittedPatient.Age}}</td>
+                           <td>{{admittedPatient.BloodType}}</td>
+                           <td>{{admittedPatient.FullAddress}}</td>
+                       </tr>
+                      
+                   </tbody>
+               </table>
+                <div class="panel-body">
+                </div>
+            </div>
+
+        </div>
+      
 
         <div class="col-md-6">
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
@@ -23,7 +64,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <table st-table="consultationDiagnosisList" class="table table-condensed table-responsive table-striped">
+                    <table st-table="consultationDiagnosisList" class="small table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
                                 <th></th>
@@ -68,7 +109,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <table st-table="consultationRecordList" class="table table-condensed table-responsive table-striped">
+                    <table st-table="consultationRecordList" class="small table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
 
@@ -112,7 +153,7 @@
 
 
                 <div class="panel-body">
-                    <table st-table="consultationMedicationList" class="table table-condensed table-responsive table-striped">
+                    <table st-table="consultationMedicationList" class="small table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
                                 <th></th>
@@ -156,13 +197,7 @@
     </div>
         
 
-    <strong>{{admittedPatient.FirstName}}</strong>
-
-    <button ng-click="showPreview()">submit consultation</button>
-
-
-
-
+   
 
     <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal-label" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -437,17 +472,20 @@
 
     <script>
 
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return dt;
+        }
 
-        window.addEventListener("beforeunload", function (e) {
-            var confirmationMessage = 'It looks like you have been editing something. '
-                                    + 'If you leave before saving, your changes will be lost.';
-
-            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-        });
+       
 
         angular.module('app', ['ui.select']).controller('cont', function ($scope, $http) {
+                  
 
+            $scope.disableCancelAdmitionBtn = true;
+          
             $scope.showAddBtn = true;
 
             $scope.admittedPatient;
@@ -467,7 +505,7 @@
                 Amount: ""
 
             };
-
+            
             $scope.consultationMedicationList = [];
 
             $scope.consultationMedication = {
@@ -545,14 +583,32 @@
 
 
             $scope.resetAll = function () {
-
-                $scope.resetConsultationDiagnosis();
-                $scope.resetConsultationMedication();
+                $scope.admittedPatient = '';
                 $scope.consultationDiagnosisList = [];
-
+                $scope.consultationRecordList = [];
+                $scope.consultationMedicationList = [];
+               
             };
 
 
+            window.addEventListener("beforeunload", function (e) {
+
+               
+
+                if ($scope.consultationDiagnosisList.length > 0 || $scope.consultationMedicationList.length > 0 || $scope.consultationRecordList.length > 0) {
+
+                    var confirmationMessage = 'It looks like you have been editing something. '
+                                     + 'If you leave before saving, your changes will be lost.';
+                    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+                    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+                    
+                }
+                else {
+
+                }
+
+                
+            });
 
 
             $scope.getAdmitted = function () {
@@ -561,6 +617,10 @@
                     method: 'GET',
                     url: '/Consultation/getAdmited'
                 }).success(function (data) {
+
+
+                    var BirthDate = new Date(ToJavaScriptDate(data.BirthDate))
+                    data.BirthDate = BirthDate;
 
                     $scope.admittedPatient = data;
 
@@ -806,15 +866,13 @@
 
                 }).success(function (data) {
                     $('#consultationPreviewModal').modal('toggle');
-
+                    $scope.resetAll();
                 });
 
 
 
             };
-
-
-            $scope.getAdmitted();
+                     
 
 
         });
