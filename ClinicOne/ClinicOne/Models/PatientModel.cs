@@ -19,6 +19,8 @@ namespace ClinicOne.Models
         public string ContactNumber2 { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
+        public string FullName { get; set; }
+        public string FullAddress { get; set; }
 
 
         public virtual List<ConsultationModel> Consultations { get; set; }

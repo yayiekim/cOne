@@ -39,17 +39,14 @@ namespace ClinicOne.Controllers
             PatientModel model = new PatientModel()
             {
                 Id = x.Id,
-                Address1 = x.Address1,
-                Address2 = x.Address2,
                 Age = Age.Year - 1,
                 BirthDate = x.BirthDate,
                 BloodType = x.BloodType,
                 ContactNumber1 = x.ContactNumber1,
                 ContactNumber2 = x.ContactNumber2,
-                FirstName = x.FirstName,
-                MiddleName = x.MiddleName,
-                LastName = x.LastName,
-                Gender = x.Gender
+                FullName = x.FirstName + " " + x.MiddleName + " " + x.LastName,
+                Gender = x.Gender,
+                FullAddress = x.Address1 + ", " + x.Address2
 
             };
 
@@ -309,8 +306,13 @@ namespace ClinicOne.Controllers
 
 
             }
+
+            var res = await db.Waitings.Where(i => i.IsAdmitted == true).SingleAsync();
+            db.Waitings.Remove(res);
+
             await db.SaveChangesAsync();
 
+           
             return Json(model.Id, JsonRequestBehavior.AllowGet);
 
         }
