@@ -1,0 +1,9 @@
+1. UI for pharma.
+2. Create 1 click setup from list of clinic template.
+3. 1 click enable user based clinic one.
+4. Good Login UI.
+5. General Loader gif on all page.
+6. Email Client.
+7. Notifications.
+8. Appointments Scheaduling.
+9. Main Page Dash Board.
