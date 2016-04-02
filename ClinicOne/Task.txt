@@ -7,3 +7,8 @@
 7. Notifications.
 8. Appointments Scheaduling.
 9. Main Page Dash Board.
+10. Icons on all Panel and Modals.
+11. Loader gif on Modal.
+12. Technical Support Chat.
+13. Image upload for image record types.
+14. 
