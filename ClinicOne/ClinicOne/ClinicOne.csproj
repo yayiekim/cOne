@@ -843,6 +843,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include=".bin\bower.cmd" />
+    <Content Include="Images\Loader.gif" />
     <Content Include="Scripts\app\DiagnosisCategoriesController.js" />
     <Content Include="Scripts\app\DiagnosisController.js" />
     <Content Include="Scripts\app\MedicationCategoryController.js" />

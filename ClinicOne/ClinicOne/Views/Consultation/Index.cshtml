@@ -403,7 +403,7 @@
     <div class="modal fade" id="consultationPreviewModal" tabindex="-1" role="dialog" aria-labelledby="consultationPreviewModal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-body" id="printThis">
 
                     <h2 class="text-center">Clinic One</h2>
                     <address class="text-center">#0731 J. Ynares St., San Carlos Heights Subd. Tayuman Binangonan Rizal<br />Tel.: (02) 651-3742 * Mobile: +639995520579</address>
@@ -453,6 +453,7 @@
 
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-success" id="btnPrint" >Print</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button ng-click="submitConsultation()" type="button" class="btn btn-primary">Save</button>
                 </div>
@@ -479,6 +480,25 @@
             return dt;
         }
 
+        document.getElementById("btnPrint").onclick = function () {
+    printElement(document.getElementById("printThis"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
        
 
         angular.module('app', ['ui.select']).controller('cont', function ($scope, $http) {
