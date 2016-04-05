@@ -55,6 +55,19 @@ namespace ClinicOne.Controllers
 
         }
 
+
+        public async Task<JsonResult> cancelAdmitted(Guid id)
+        {
+            var res = await db.Waitings.Where(i=>i.PatientId == id).SingleAsync();
+
+            res.IsAdmitted = false;
+
+            await db.SaveChangesAsync();
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+
+        }
+
         public async Task<JsonResult> endConsultation(Guid PatientId)
         {
 
