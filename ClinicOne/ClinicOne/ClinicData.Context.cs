@@ -52,5 +52,6 @@ namespace ClinicOne
         public virtual DbSet<SubUserRole> SubUserRoles { get; set; }
         public virtual DbSet<SubUser> SubUsers { get; set; }
         public virtual DbSet<SubUsersInRole> SubUsersInRoles { get; set; }
+        public virtual DbSet<RecordTypesCategoryClass> RecordTypesCategoryClasses { get; set; }
     }
 }

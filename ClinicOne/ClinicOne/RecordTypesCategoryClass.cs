@@ -12,22 +12,18 @@ namespace ClinicOne
     using System;
     using System.Collections.Generic;
     
-    public partial class RecordTypesCategory
+    public partial class RecordTypesCategoryClass
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RecordTypesCategory()
+        public RecordTypesCategoryClass()
         {
-            this.RecordTypes = new HashSet<RecordType>();
+            this.RecordTypesCategories = new HashSet<RecordTypesCategory>();
         }
     
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string AspNetUserId { get; set; }
-        public int ClassId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecordType> RecordTypes { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual RecordTypesCategoryClass RecordTypesCategoryClass { get; set; }
+        public virtual ICollection<RecordTypesCategory> RecordTypesCategories { get; set; }
     }
 }
