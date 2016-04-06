@@ -490,9 +490,7 @@
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
-   
-<link href="~/.bin/bower_components/angular-hotkeys/build/hotkeys.min.css" rel="stylesheet" />
-<script src="~/.bin/bower_components/angular-hotkeys/build/hotkeys.js"></script>
+
 
     <script>
 
@@ -524,44 +522,9 @@
         }
 
 
-        angular.module('app', ['ui.select', 'cfp.hotkeys']).controller('cont', function ($scope, $http, hotkeys) {
+        angular.module('app', ['ui.select']).controller('cont', function ($scope, $http, hotkeys) {
            
                        
-
-            hotkeys.add({
-                combo: 'ctrl+left',
-                description: 'This one goes to 11',
-                callback: function () {
-                   
-                    $scope.showConsultationChildrenModal('ConsultationDiagnosisModal', 'add', '');
-
-
-                }
-            });
-
-            hotkeys.add({
-                combo: 'ctrl+right',
-                description: 'This one goes to 11',
-                callback: function () {
-
-                    $scope.showConsultationChildrenModal('ConsultationRecordModal', 'add', '');
-
-
-                }
-            });
-
-            hotkeys.add({
-                combo: 'ctrl+down',
-                description: 'This one goes to 11',
-                callback: function () {
-
-                    $scope.showConsultationChildrenModal('ConsultationMedicationModal', 'add', '');
-
-
-                }
-            });
-
-
             $scope.disableCancelAdmitionBtn = true;
 
             $scope.showAddBtn = true;
