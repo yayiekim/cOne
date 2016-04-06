@@ -312,6 +312,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".bin\bower_components\angular-hotkeys\build\hotkeys.css" />
+    <Content Include=".bin\bower_components\angular-hotkeys\build\hotkeys.js" />
+    <Content Include=".bin\bower_components\angular-hotkeys\build\hotkeys.min.css" />
+    <Content Include=".bin\bower_components\angular-hotkeys\build\hotkeys.min.js" />
+    <Content Include=".bin\bower_components\angular-hotkeys\Gruntfile.js" />
+    <Content Include=".bin\bower_components\angular-hotkeys\src\hotkeys.css" />
+    <Content Include=".bin\bower_components\angular-hotkeys\src\hotkeys.js" />
     <Content Include=".bin\bower_components\angular-sanitize\angular-sanitize.js" />
     <Content Include=".bin\bower_components\angular-sanitize\angular-sanitize.min.js" />
     <Content Include=".bin\bower_components\angular-sanitize\index.js" />
@@ -1237,6 +1244,11 @@
     <Content Include=".bin\bower_components\angular-ui-select\LICENSE" />
     <Content Include=".bin\bower_components\angular-ui-select\package.json" />
     <Content Include=".bin\bower_components\angular-ui-select\README.md" />
+    <Content Include=".bin\bower_components\angular-hotkeys\.bower.json" />
+    <Content Include=".bin\bower_components\angular-hotkeys\bower.json" />
+    <Content Include=".bin\bower_components\angular-hotkeys\LICENSE" />
+    <Content Include=".bin\bower_components\angular-hotkeys\package.json" />
+    <Content Include=".bin\bower_components\angular-hotkeys\README.md" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <EntityDeploy Include="ClinicData.edmx">
