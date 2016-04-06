@@ -60,6 +60,8 @@
         <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_AspNetUsers" />
         <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_SubUserRoles" />
         <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_SubUsers" />
+        <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategoryClass" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

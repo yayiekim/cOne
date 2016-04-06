@@ -237,6 +237,14 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecordTypesCategoryClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SecurityLogs">
           <Key>
@@ -599,6 +607,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecordTypesCategories_CategoryClass">
+          <End Role="RecordTypesCategoryClass" Type="Self.RecordTypesCategoryClass" Multiplicity="1" />
+          <End Role="RecordTypesCategories" Type="Self.RecordTypesCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypesCategoryClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypesCategories">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubUserRoles_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -714,6 +734,7 @@
           <EntitySet Name="PrescribedMedications" EntityType="Self.PrescribedMedications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordTypes" EntityType="Self.RecordTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordTypesCategories" EntityType="Self.RecordTypesCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordTypesCategoryClass" EntityType="Self.RecordTypesCategoryClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityLogs" EntityType="Self.SecurityLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubUserRoles" EntityType="Self.SubUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubUsers" EntityType="Self.SubUsers" Schema="dbo" store:Type="Tables" />
@@ -806,6 +827,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_RecordTypesCategories_AspNetUser" Association="Self.FK_RecordTypesCategories_AspNetUser">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RecordTypesCategories" EntitySet="RecordTypesCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypesCategories_CategoryClass" Association="Self.FK_RecordTypesCategories_CategoryClass">
+            <End Role="RecordTypesCategoryClass" EntitySet="RecordTypesCategoryClass" />
             <End Role="RecordTypesCategories" EntitySet="RecordTypesCategories" />
           </AssociationSet>
           <AssociationSet Name="FK_SubUserRoles_AspNetUsers" Association="Self.FK_SubUserRoles_AspNetUsers">
@@ -980,6 +1005,11 @@
           <AssociationSet Name="FK_SubUsersInRoles_SubUsers" Association="ClinicOneModel.FK_SubUsersInRoles_SubUsers">
             <End Role="SubUser" EntitySet="SubUsers" />
             <End Role="SubUsersInRole" EntitySet="SubUsersInRoles" />
+          </AssociationSet>
+          <EntitySet Name="RecordTypesCategoryClasses" EntityType="ClinicOneModel.RecordTypesCategoryClass" />
+          <AssociationSet Name="FK_RecordTypesCategories_CategoryClass" Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass">
+            <End Role="RecordTypesCategoryClass" EntitySet="RecordTypesCategoryClasses" />
+            <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -1170,6 +1200,8 @@
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecordTypes" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordTypesCategory" ToRole="RecordType" />
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="RecordTypesCategory" ToRole="AspNetUser" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RecordTypesCategoryClass" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategory" ToRole="RecordTypesCategoryClass" />
         </EntityType>
         <EntityType Name="ValueType">
           <Key>
@@ -1692,6 +1724,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RecordTypesCategoryClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategoryClass" ToRole="RecordTypesCategory" />
+        </EntityType>
+        <Association Name="FK_RecordTypesCategories_CategoryClass">
+          <End Type="ClinicOneModel.RecordTypesCategoryClass" Role="RecordTypesCategoryClass" Multiplicity="1" />
+          <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypesCategoryClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypesCategory">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1868,6 +1920,7 @@
           <EntitySetMapping Name="RecordTypesCategories">
             <EntityTypeMapping TypeName="ClinicOneModel.RecordTypesCategory">
               <MappingFragment StoreEntitySet="RecordTypesCategories">
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2012,6 +2065,14 @@
                 <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
                 <ScalarProperty Name="RolesId" ColumnName="RolesId" />
                 <ScalarProperty Name="SubUserId" ColumnName="SubUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordTypesCategoryClasses">
+            <EntityTypeMapping TypeName="ClinicOneModel.RecordTypesCategoryClass">
+              <MappingFragment StoreEntitySet="RecordTypesCategoryClass">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

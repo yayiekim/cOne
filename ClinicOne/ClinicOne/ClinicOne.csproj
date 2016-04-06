@@ -288,6 +288,9 @@
     <Compile Include="RecordTypesCategory.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
+    <Compile Include="RecordTypesCategoryClass.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="SecurityLog.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
