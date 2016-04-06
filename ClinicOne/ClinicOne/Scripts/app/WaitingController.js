@@ -51,25 +51,32 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
 
         $('#addModal').modal('toggle');
 
-        $http({
-            method: 'GET',
-            url: '/Patients/getPatients'
-        }).success(function (data) {
 
-            angular.forEach(data, function (resdata) {
+        if ($scope.patientsList.length == 0) {
+
+            $http({
+                method: 'GET',
+                url: '/Patients/getPatients'
+            }).success(function (data) {
 
 
-                var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
-                resdata.BirthDate = BirthDate;
+                angular.forEach(data, function (resdata) {
 
+
+                    var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
+                    resdata.BirthDate = BirthDate;
+
+
+                });
+
+                $scope.patientsList = data;
+
+            }, function errorCallback(data) {
 
             });
+        }
 
-            $scope.patientsList = data;
-
-        }, function errorCallback(data) {
-
-        });
+       
 
     }
 

@@ -36,7 +36,7 @@
                                 <td><button class="btn btn-xs btn-info" ng-click="showDetailModal(row)"><span class="fa fa-info-circle"></span></button></td>
                                 <td>{{row.TransactonDate | date: 'MMM dd, yyyy'}}</td>
                                 <td>{{row.PatientfullName}}</td>
-                                <td><button class="btn btn-xs btn-danger" ng-click=""><span class="fa fa-remove"></span></button></td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
                             </tr>
                         </tbody>
@@ -120,14 +120,14 @@
                                     <td><button class="btn btn-xs btn-primary" ng-click=""><span class="fa fa-edit"></span></button></td>
                                     <td>{{row.RecordTypeName}}</td>
                                     <td>{{row.RecordValue}}</td>
-
+                                   
 
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
 
-                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="3"></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -157,6 +157,7 @@
                                     <td>{{row.Amount}}</td>
                                     <td>{{row.Quantity}}</td>
                                     <td>{{row.Remarks}}</td>
+                                    <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
 
                                 </tr>
@@ -179,6 +180,26 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteConsultation()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
 </div>
@@ -274,6 +295,37 @@
                     $scope.consultationMedication = data.PrescribeMedicationList;
                 });
             }
+
+
+            $scope.showDeleteModal = function (row) {
+
+                $scope.selectedRow = row;
+
+                $('#deleteModal').modal('toggle');
+            }
+
+            $scope.deleteConsultation = function () {
+
+                $http({
+                    method: 'GET',
+                    url: '/Consultation/DeleteConsultation?id=' + $scope.selectedRow.Id + ''
+
+                }).success(function (data) {
+
+                    if (data == 'ok') {
+
+                        var index = $scope.consultationList.indexOf($scope.selectedRow);
+
+                        $scope.consultationList.splice(index, 1)
+                    }
+                });
+            }
+
+           
+
+
+
+
 
         });
 
