@@ -1311,6 +1311,8 @@
     <Content Include="Views\Diagnosis\Index.cshtml" />
     <Content Include="Views\Consultation\ConsultationList.cshtml" />
     <Content Include="Views\Reports\PatientRecords.cshtml" />
+    <Content Include="Views\RecordTypes\LabRecordCategories.cshtml" />
+    <Content Include="Views\RecordTypes\LabRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

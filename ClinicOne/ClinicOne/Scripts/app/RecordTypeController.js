@@ -26,6 +26,7 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
     $scope.Category = {
         Id: '',
         Category: ''
+    
     };
 
 
@@ -48,14 +49,12 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
                 };
             });
     }
-
-
-
+    
     $scope.getRecordTypeCategories = function () {
 
         $http({
             method: 'GET',
-            url: '/RecordTypes/geRecordCategories/'
+            url: '/RecordTypes/getRecordCategories?ClassId=1/'
         }).success(function (data) {
 
             $scope.recordTypeCategoryList = data;
@@ -81,7 +80,7 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '/RecordTypes/geRecordTypes/'
+        url: '/RecordTypes/getRecordTypes/'
     }).success(function (data) {
 
         $scope.recordTypesList = data;
