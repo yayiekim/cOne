@@ -10,7 +10,7 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
         var dt = new Date(parseFloat(results[1]));
         return dt;
     }
-
+    
     //GET WAITINGLIST
 
     $scope.alertMessage;
