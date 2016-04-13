@@ -121,8 +121,7 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-
-
+                            
                             <li>
                                 <a href="#"><i class="fa fa-2x fa-medkit fa-fw"></i> Medications<span class="fa fa-2x arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -141,6 +140,17 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-2x fa-flask fa-fw"></i> Laboratory<span class="fa fa-2x arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Lab records", "RecordTypeCategories", "RecordTypes")</li>
+                                    <li>@Html.ActionLink("Lab Items", "RecordTypes", "RecordTypes")</li>
+
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
                             <li>
 
                                 <a href="@Url.Action("Index", "Consultation")"><i class="fa fa-2x fa-question-circle fa-fw"></i> Help</a>

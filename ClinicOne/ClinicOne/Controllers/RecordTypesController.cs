@@ -48,19 +48,21 @@ namespace ClinicOne.Controllers
             return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> geRecordCategories()
+        public async Task<JsonResult> getRecordCategories(int ClassId)
         {
 
             List<RecordCategoryModel> thelist = new List<RecordCategoryModel>();
 
-            var res = await db.RecordTypesCategories.ToListAsync();
+            var res = await db.RecordTypesCategories.Where(i=>i.ClassId == ClassId).ToListAsync();
 
             foreach (var x in res)
             {
                 RecordCategoryModel  model = new RecordCategoryModel()
                 {
                     Id = x.Id,
-                    Category = x.Name
+                    Category = x.Name,
+                    CategoryClassId = x.ClassId,
+                    CategoryClassName = x.RecordTypesCategoryClass.Name
 
                 };
 
@@ -76,7 +78,8 @@ namespace ClinicOne.Controllers
             RecordTypesCategory model = new RecordTypesCategory()
             {
                 Name = category.Category,
-                AspNetUserId = User.Identity.GetUserId()
+                AspNetUserId = User.Identity.GetUserId(),
+                ClassId = category.CategoryClassId
                 
             };
 
@@ -92,6 +95,7 @@ namespace ClinicOne.Controllers
 
             var res = await db.RecordTypesCategories.FindAsync(category.Id);
             res.Name = category.Category;
+            res.ClassId = category.CategoryClassId;
 
             await db.SaveChangesAsync();
 
@@ -111,7 +115,7 @@ namespace ClinicOne.Controllers
         }
 
 
-        public async Task<JsonResult> geRecordTypes()
+        public async Task<JsonResult> getRecordTypes()
         {
 
             var UserId =  User.Identity.GetUserId();
@@ -201,7 +205,7 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> getRecordClasses()
+        public async Task<JsonResult> getRecordCategoryClasses()
         {
 
          
@@ -224,6 +228,18 @@ namespace ClinicOne.Controllers
             }
 
             return Json(thelist, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LabRecordCategories()
+        {
+
+            return View();
+        }
+
+        public ActionResult LabRecords()
+        {
+
+            return View();
         }
 
 

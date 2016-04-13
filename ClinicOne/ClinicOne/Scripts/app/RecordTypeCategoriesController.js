@@ -12,7 +12,7 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
 
     $http({
         method: 'GET',
-        url: '/RecordTypes/geRecordCategories/'
+        url: '/RecordTypes/getRecordCategories?ClassId=1'
     }).success(function (data) {
 
         $scope.recordTypeCategoryList = data;
@@ -25,7 +25,8 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
 
     $scope.Category = {
         Id: '',
-        Category: ''
+        Category: '',
+        CategoryClassId: ''
     };
 
     $scope.showAddModal = function (row) {
@@ -42,6 +43,9 @@ recordTypeCategoriesController.controller('recordTypeCategoriesCtrl', function (
 
 
     $scope.updateCategory = function () {
+
+        $scope.Category.CategoryClassId = 1;
+
 
         if ($scope.submitType == 'add') {
 

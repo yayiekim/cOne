@@ -8,7 +8,7 @@ namespace ClinicOne.Models
     public class RecordTypeModel
     {
         public Guid Id { get; set; }
-        public string RecordTypeName {get;set;}
+        public string RecordTypeName { get; set; }
         public Guid RecordTypeCategoryId { get; set; }
         public int ValueTypeId { get; set; }
         public string RecordTypeCategoryName { get; set; }
@@ -18,10 +18,12 @@ namespace ClinicOne.Models
     public class RecordCategoryModel
     {
 
-       public Guid Id { get; set; }
-       public string Category { get; set; } 
-                  
-    
+        public Guid Id { get; set; }
+        public string Category { get; set; }
+        public int CategoryClassId { get; set; }
+        public string CategoryClassName { get; set; }
+
+
     }
 
     public class ValueTypeModel
