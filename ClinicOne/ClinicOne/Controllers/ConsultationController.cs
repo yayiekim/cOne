@@ -242,8 +242,6 @@ namespace ClinicOne.Controllers
         public async Task<JsonResult> AddConsultation(ConsultationModel consultaion)
         {
 
-
-
             Consultation model = new Consultation()
             {
                 AspNetUserId = User.Identity.GetUserId(),

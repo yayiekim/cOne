@@ -244,7 +244,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SecurityLogs">
           <Key>
@@ -1729,7 +1729,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategoryClass" ToRole="RecordTypesCategory" />
         </EntityType>
         <Association Name="FK_RecordTypesCategories_CategoryClass">
