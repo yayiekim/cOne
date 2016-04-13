@@ -243,6 +243,7 @@ namespace ClinicOne.Controllers
         {
 
 
+
             Consultation model = new Consultation()
             {
                 AspNetUserId = User.Identity.GetUserId(),
