@@ -54,8 +54,7 @@ diagnosisController.controller('diagnosisCtrl', function ($scope, $http) {
     }
 
     //FOR DROPDOWNLIST DIAGNOSIS CATEGORY
-
-
+    
 
     $scope.showQuickAdd = function () {
 
