@@ -32,5 +32,13 @@ namespace ClinicOne.Models
 
 
     }
+    public class RecordTypeClassModel
+    {
+
+        public int Id { get; set; }
+        public string ClassName { get; set; }
+
+
+    }
 
 }
