@@ -201,6 +201,30 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<JsonResult> getRecordClasses()
+        {
+
+         
+            List<RecordTypeClassModel> thelist = new List<RecordTypeClassModel>();
+
+            var res = await db.RecordTypesCategoryClasses.ToListAsync();
+
+            foreach (var x in res)
+            {
+                RecordTypeClassModel model = new RecordTypeClassModel()
+                {
+                    Id = x.Id,
+                   ClassName = x.Name
+
+                };
+
+                thelist.Add(model);
+
+
+            }
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
