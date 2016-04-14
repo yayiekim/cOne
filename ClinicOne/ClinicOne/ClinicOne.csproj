@@ -229,6 +229,8 @@
     <Compile Include="Controllers\ClinicController.cs" />
     <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\EmailServer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
@@ -1313,6 +1315,8 @@
     <Content Include="Views\Reports\PatientRecords.cshtml" />
     <Content Include="Views\RecordTypes\LabRecordCategories.cshtml" />
     <Content Include="Views\RecordTypes\LabRecords.cshtml" />
+    <Content Include="Views\Email\Index.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

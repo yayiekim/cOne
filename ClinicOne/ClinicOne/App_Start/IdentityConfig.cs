@@ -11,15 +11,31 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ClinicOne.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace ClinicOne
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage Email)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            MailMessage mail = new MailMessage();
+
+            SmtpClient smtpServer = new SmtpClient("smtp.live.com");
+            smtpServer.Credentials = new NetworkCredential("kimberly_abacco@live.com", "k91y27");
+            smtpServer.Port = 587; // Gmail works on this port
+            smtpServer.EnableSsl = true;
+
+            mail.From = new MailAddress("kimberly_abacco@live.com");
+            mail.To.Add(Email.Destination);
+            mail.Body = Email.Body;
+            mail.IsBodyHtml = true;
+            mail.Subject = "Clinic One Confirmation";
+
+            await smtpServer.SendMailAsync(mail);
+
+
         }
     }
 
