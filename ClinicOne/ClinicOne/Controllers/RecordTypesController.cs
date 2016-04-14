@@ -115,14 +115,14 @@ namespace ClinicOne.Controllers
         }
 
 
-        public async Task<JsonResult> getRecordTypes()
+        public async Task<JsonResult> getRecordTypes(int classId)
         {
 
             var UserId =  User.Identity.GetUserId();
 
             List<RecordTypeModel> thelist = new List<RecordTypeModel>();
 
-            var res = await db.RecordTypes.Where(i=>i.RecordTypesCategory.AspNetUserId == UserId).ToListAsync();
+            var res = await db.RecordTypes.Where(i=>i.RecordTypesCategory.AspNetUserId == UserId && i.RecordTypesCategory.ClassId == classId).ToListAsync();
 
             foreach (var x in res)
             {

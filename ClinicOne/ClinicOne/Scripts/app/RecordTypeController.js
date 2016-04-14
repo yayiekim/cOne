@@ -25,12 +25,14 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
     $scope.Category = {
         Id: '',
-        Category: ''
-    
+        Category: '',
+        CategoryClassId: ''
     };
 
 
     $scope.updateCategory = function () {
+
+        $scope.Category.CategoryClassId = 1;
 
             $http({
                 method: 'POST',
@@ -45,7 +47,8 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
                 $scope.Category = {
                     Id: '',
-                    Category: ''
+                    Category: '',
+                    CategoryClassId: ''
                 };
             });
     }
@@ -54,7 +57,7 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
         $http({
             method: 'GET',
-            url: '/RecordTypes/getRecordCategories?ClassId=1/'
+            url: '/RecordTypes/getRecordCategories?ClassId=1'
         }).success(function (data) {
 
             $scope.recordTypeCategoryList = data;
@@ -80,7 +83,7 @@ recordTypeController.controller('recordTypeCtrl', function ($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '/RecordTypes/getRecordTypes/'
+        url: '/RecordTypes/getRecordTypes?classId=1'
     }).success(function (data) {
 
         $scope.recordTypesList = data;

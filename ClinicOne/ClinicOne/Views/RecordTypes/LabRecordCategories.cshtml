@@ -4,5 +4,257 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>LabRecordCategories</h2>
+<div ng-app="app" ng-controller="cont">
 
+    <h2>Lab Record Categories</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+                <div style="height:50px" class="panel-heading">
+                    Category List
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showAddModal(row)"><span class="fa fa-plus"></span></button>
+                </div>
+
+                <div class="panel-body">
+                    <table st-table="labRecordCategoryListDisplay" st-safe-src="labRecordCategoryList" class="table table-condensed table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th st-sort="Category">Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in labRecordCategoryListDisplay">
+
+                                <td><button class="btn btn-xs btn-primary" ng-click="showEditModal(row)"><span class="fa fa-edit"></span></button></td>
+                                <td>{{row.Category}}</td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle"></h4>
+                </div>
+
+
+                <form name="recordTypeCategoryForm">
+
+                    <div class="modal-body">
+
+                        <div class="form-group" ng-class="{ 'has-error' : recordTypeCategoryForm.FormCategoryName.$invalid && !recordTypeCategoryForm.FormCategoryName.$pristine }">
+                            <label for="CategoryName">Name</label>
+                            <input name="FormCategoryName" ng-required="true" type="text" ng-model="Category.Category" ng-disabled="disableInput" class="form-control" id="CategoryName" />
+
+                            <span class="help-block" ng-show="recordTypeCategoryForm.FormCategoryName.$invalid && !recordTypeCategoryForm.FormCategoryName.$pristine">
+                                Record Category Name is required.
+                            </span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!recordTypeCategoryForm.$valid" ng-click="updateCategory()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                </form>
+
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to remove?</h5>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn-sm btn btn-primary" ng-click="deleteCategory()" data-dismiss="modal">  Yes  </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+</div>
+
+@section Scripts {
+    
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    
+    <script>
+
+        angular.module('app', ['smart-table']).controller('cont', function ($scope, $http) {
+
+            $scope.labRecordCategoryList = [];
+            $scope.labRecordCategoryListDisplay = [].concat($scope.labRecordCategoryList);
+
+            $scope.submitType;
+
+            $scope.disableInput = false;
+
+            $http ({
+                method: 'GET',
+                url: '/RecordTypes/getRecordCategories?ClassId=2'
+
+            }).success(function (data) {
+                $scope.labRecordCategoryList = data;
+
+            });
+
+            //ADD CATEGORY
+
+            $scope.Category = {
+                Id: '',
+                Category: '',
+                CategoryClassId: ''
+            };
+
+            $scope.showAddModal = function (row) {
+
+                $scope.Category = row;
+
+                $('#addModal').modal('toggle');
+
+                $scope.submitType = 'add';
+
+                $('#modalTitle').text('New');
+
+            }
+
+            $scope.updateCategory = function () {
+
+                $scope.Category.CategoryClassId = 2;
+
+
+                if ($scope.submitType == 'add') {
+
+                    $http({
+                        method: 'POST',
+                        url: '/RecordTypes/addRecordCategory/',
+                        data: $.param({ category: $scope.Category }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).success(function (data) {
+
+                        $scope.Category.Id = data;
+                        $scope.labRecordCategoryList.push($scope.Category);
+                    });
+                }
+                else {
+
+                    $http({
+                        method: 'POST',
+                        url: '/RecordTypes/editRecordCategory',
+                        data: $.param({ category: $scope.Category }),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                    }).success(function (data) {
+
+                        if (data == 'ok') {
+
+                            $scope.labRecordCategoryList.push($scope.Category);
+                        }
+
+                    });
+                }
+
+            }
+            
+            //EDIT CATEGORY
+
+
+            $scope.showEditModal = function (row) {
+
+                $('#addModal').modal('toggle');
+
+                $scope.Category = row;
+
+                $scope.submitType = 'edit';
+
+                $('#modalTitle').text('Edit');
+            }
+
+
+            //DELETE CATEGORY
+
+
+            $scope.showDeleteModal = function (row) {
+
+                $scope.Category = row;
+
+                $('#deleteModal').modal('toggle');
+
+                $('#CategoryName').text();
+
+                $('#modalTitle').text('Delete');
+            }
+
+
+            $scope.deleteCategory = function () {
+
+
+                $http({
+                    method: 'GET',
+                    url: '/RecordTypes/delete?id=' + $scope.Category.Id + ''
+                }).success(function (data) {
+
+                    if (data == "ok") {
+
+                        var index = $scope.labRecordCategoryList.indexOf($scope.Category);
+
+                        $scope.labRecordCategoryList.splice(index, 1);
+                    }
+
+                }, function errorCallback(data) {
+
+                });
+            };
+
+        });
+
+    </script>
+    
+    }
