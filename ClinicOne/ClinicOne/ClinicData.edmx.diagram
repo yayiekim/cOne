@@ -52,14 +52,6 @@
         <EntityTypeShape EntityType="ClinicOneModel.PatientInsurance" Width="1.5" PointX="18.875" PointY="20.625" />
         <AssociationConnector Association="ClinicOneModel.FK_PatientInsurance_Patients" />
         <EntityTypeShape EntityType="ClinicOneModel.SecurityLog" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ClinicOneModel.SubUserRole" Width="1.5" PointX="15.5" PointY="23" />
-        <EntityTypeShape EntityType="ClinicOneModel.SubUser" Width="1.5" PointX="15.5" PointY="25.75" />
-        <EntityTypeShape EntityType="ClinicOneModel.SubUsersInRole" Width="1.5" PointX="17.75" PointY="24.625" />
-        <AssociationConnector Association="ClinicOneModel.FK_SubUserRoles_AspNetUsers" />
-        <AssociationConnector Association="ClinicOneModel.FK_SubUsers_AspNetUsers" />
-        <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_AspNetUsers" />
-        <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_SubUserRoles" />
-        <AssociationConnector Association="ClinicOneModel.FK_SubUsersInRoles_SubUsers" />
         <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategoryClass" Width="1.5" PointX="3.375" PointY="0.875" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" />
         </Diagram>

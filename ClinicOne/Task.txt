@@ -1,3 +1,26 @@
+Urgent
+
+Front End:
+1. Create UI for Receptionist initial Patient Status
+2. Create Angular component for Client Record
+3. Create UI for Printing Charges
+
+
+BackEnd:
+1. Create Crud Method for Receptionist Initial Patient Check
+2. Create Method for Getting Patient Summarized record
+3. Create Method for Pulling Charges for printing
+
+
+
+
+
+
+
+
+
+
+
 1. UI for pharma.
 2. Create 1 click setup from list of clinic template.
 3. 1 click enable user based clinic one.

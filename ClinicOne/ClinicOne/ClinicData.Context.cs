@@ -49,9 +49,6 @@ namespace ClinicOne
         public virtual DbSet<Diagnosi> Diagnosis { get; set; }
         public virtual DbSet<PatientInsurance> PatientInsurances { get; set; }
         public virtual DbSet<SecurityLog> SecurityLogs { get; set; }
-        public virtual DbSet<SubUserRole> SubUserRoles { get; set; }
-        public virtual DbSet<SubUser> SubUsers { get; set; }
-        public virtual DbSet<SubUsersInRole> SubUsersInRoles { get; set; }
         public virtual DbSet<RecordTypesCategoryClass> RecordTypesCategoryClasses { get; set; }
     }
 }

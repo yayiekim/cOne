@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -234,6 +234,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
+    <Compile Include="Controllers\PatientInitialRecordController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\RecordTypesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -297,15 +298,6 @@
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="SubUser.cs">
-      <DependentUpon>ClinicData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SubUserRole.cs">
-      <DependentUpon>ClinicData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SubUsersInRole.cs">
-      <DependentUpon>ClinicData.tt</DependentUpon>
-    </Compile>
     <Compile Include="ValueType.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
@@ -1317,6 +1309,7 @@
     <Content Include="Views\RecordTypes\LabRecords.cshtml" />
     <Content Include="Views\Email\Index.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\PatientInitialRecord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
