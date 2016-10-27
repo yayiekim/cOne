@@ -232,6 +232,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmailServer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LabTestController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicationsController.cs" />
     <Compile Include="Controllers\PatientInitialRecordController.cs" />
@@ -1310,6 +1311,7 @@
     <Content Include="Views\Email\Index.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\PatientInitialRecord\Index.cshtml" />
+    <Content Include="Views\LabTest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
