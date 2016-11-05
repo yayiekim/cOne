@@ -21,6 +21,7 @@ namespace ClinicOne
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/.bin/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
                       "~/.bin/bower_components/bootstrap/dist/js/bootstrap.min.js",
                        "~/.bin/bower_components/metisMenu/dist/metisMenu.min.js",
                       "~/.bin/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js",

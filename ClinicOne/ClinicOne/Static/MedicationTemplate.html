@@ -1,0 +1,118 @@
+﻿<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        Medications
+        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showDialogModalAdd()"><span class="fa fa-plus"></span></button>
+    </div>
+
+
+    <div class="panel-body">
+        <table st-table="medicationsListDisplay"  st-safe-src="$ctrl.medications" class="small table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Medication</th>
+                    <th>Description</th>
+                    <th>Remarks</th>
+                    <th>Amount</th>
+                    <th>Quantity</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.medicationsListDisplay">
+
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showConsultationChildrenModal('ConsultationMedicationModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
+                    <td>{{row.Medication}}</td>
+                    <td>{{row.Strength + " " + row.Volume + " " + row.Frequency + " " + row.Route }}</td>
+                    <td>{{row.Remarks}}</td>
+                    <td>{{row.Amount}}</td>
+                    <td>{{row.Quantity}}</td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal('ConsultationMedicationModal', row)"><span class="fa fa-remove"></span></button></td>
+
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="10"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="ConsultationMedicationModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationMedicationModal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ConsultationMedicationModal-label">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group">
+                    <div class="input-group">
+
+                        <ui-select id="ConsultationMedicationModalMedication" ng-model="$ctrl.consultationMedication.Medication">
+                            <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
+                            <ui-select-choices repeat="item.MedicationName as item in $ctrl.medicationDropDown | filter: $select.search">
+                                <span ng-bind="item.MedicationName"></span>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <div class="input-group-btn">
+                            <button ng-click="$ctrl.showQuickAddModalMedication()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Strength" placeholder="Strength" class="form-control" id="ConsultationMedicationModalStrength" />
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Volume" placeholder="Volume" class="form-control" id="ConsultationMedicationModalVolume" />
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Frequency" placeholder="Frequency" class="form-control" id="ConsultationMedicationModalFrequency" />
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Route" placeholder="Route" class="form-control" id="ConsultationMedicationModalRoute" />
+                </div>
+
+                <div class="form-group">
+
+                    <textarea ng-model="$ctrl.consultationMedication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
+                </div>
+
+                <div class="form-group">
+
+                    <input ng-model="$ctrl.consultationMedication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

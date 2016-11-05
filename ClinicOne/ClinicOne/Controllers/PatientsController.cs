@@ -41,20 +41,17 @@ namespace ClinicOne.Controllers
                 PatientModel model = new PatientModel()
                 {
                     Id = x.Id,
-                    Address1 = x.Address1,
-                    Address2 = x.Address2,
                     Age = Age.Year - 1,
-                    BirthDate = x.BirthDate,
+                    BirthDate = dob,
                     BloodType = x.BloodType,
                     ContactNumber1 = x.ContactNumber1,
                     ContactNumber2 = x.ContactNumber2,
+                    FullName = x.FirstName + " " + x.MiddleName + " " + x.LastName,
+                    Gender = x.Gender,
+                    FullAddress = x.Address1 + ", " + x.Address2,
                     FirstName = x.FirstName,
-                    MiddleName = x.MiddleName,
-                    LastName = x.LastName,
-                    Gender = x.Gender
+                    LastName = x.LastName
                     
-                    
-
                 };
 
                 thelist.Add(model);

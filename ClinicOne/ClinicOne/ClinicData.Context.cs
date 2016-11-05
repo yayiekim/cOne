@@ -44,11 +44,11 @@ namespace ClinicOne
         public virtual DbSet<RecordTypesCategory> RecordTypesCategories { get; set; }
         public virtual DbSet<ValueType> ValueTypes { get; set; }
         public virtual DbSet<Waiting> Waitings { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<Diagnosi> Diagnosis { get; set; }
         public virtual DbSet<PatientInsurance> PatientInsurances { get; set; }
         public virtual DbSet<SecurityLog> SecurityLogs { get; set; }
         public virtual DbSet<RecordTypesCategoryClass> RecordTypesCategoryClasses { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -24,8 +24,8 @@ namespace ClinicOne
         public string Name { get; set; }
         public string AspNetUserId { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Diagnosi> Diagnosis { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

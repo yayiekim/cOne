@@ -39,7 +39,7 @@ namespace ClinicOne
         public virtual ICollection<PatientsRecord> PatientsRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrescribedMedication> PrescribedMedications { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Patient Patient { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

@@ -1,0 +1,118 @@
+﻿
+<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        Records
+        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showRecordsModalAdd()"><span class="fa fa-plus"></span></button>
+    </div>
+
+    <div class="panel-body">
+        <table st-table="$ctrl.recordListDisplay" st-safe-src="$ctrl.records" class="small table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Record</th>
+                    <th>Value</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.recordListDisplay track by $index">
+
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showRecordsModalEdit(row)"><span class="fa fa-edit"></span></button></td>
+                    <td>{{row.RecordTypeName}}</td>
+                    <td>{{row.RecordValue}}</td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="ConsultationRecordModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationRecordModal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ConsultationRecordModal-label">Modal title</h4>
+            </div>
+
+            <form name="recordConsultationForm">
+                <div class="modal-body">
+
+                    <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTypeSelect.$invalid }">
+                        <div class="input-group">
+
+                            <ui-select ng-required="true" name="ConsultationFormValueTypeSelect" ng-model="$ctrl.record.RecordTypeName">
+                                <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
+                                <ui-select-choices repeat="item.RecordTypeName as item in $ctrl.recordTypesListDropDown | filter: $select.search">
+                                    <span ng-bind="item.RecordTypeName"></span>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <div class="input-group-btn">
+                                <button ng-click="$ctrl.showQuickAddModalRecord()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            </div>
+
+
+                        </div>
+
+                        <span class="help-block"
+                              ng-show="recordConsultationForm.ConsultationFormValueTypeSelect.$invalid">
+                            Please select a record type.
+                        </span>
+                    </div>
+
+
+                    <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine }">
+
+                        <input name="ConsultationFormValueTb" ng-required="true" ng-model="$ctrl.record.RecordValue" placeholder="Value" class="form-control" id="ConsultationRecordModalRecordsValue" />
+                        <span class="help-block"
+                              ng-show="recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine">
+                            Record value is required.
+                        </span>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" ng-disabled="!recordConsultationForm.$valid" ng-click="$ctrl.updateRecord()" class="btn btn-primary">Save</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deleteModalRecord" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deleteRecord($ctrl.selectedRecord)" data-dismiss="modal">  Yes  </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -9,711 +9,629 @@
 
 
 <div ng-app="app" ng-controller="cont">
-
-
     <div class="row">
-
-        <div class="col-md-6">
-
-            <h2>Consultation</h2>
-            <hr />
-            <div class="btn-group-sm">
-                <button ng-click="getAdmitted()" class="btn btn-primary">Get admitted patient</button>
-                <button ng-disabled="disableCancelAdmitionBtn" ng-click="showCancelAdmitModal()" class="btn btn-default">Cancel admition</button>
-                <button class="btn btn-success" ng-click="showPreview()">View prescription</button>
-                <button class="btn btn-primary">Select patient</button>
-            </div>
-        </div>
-        <p></p>
-        <div class="col-md-6">
-
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
-                <div class="panel-heading">Patient info</div>
-                <table class="small table table-bordered table-condensed table-responsive">
-                    <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <th>Birth date</th>
-                            <th>Age</th>
-                            <th>Blood Type</th>
-                            <th>Address</th>
-                        </tr>
-                        <tr>
-                            <td>{{admittedPatient.FullName}}</td>
-                            <td>{{admittedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
-                            <td>{{admittedPatient.Age}}</td>
-                            <td>{{admittedPatient.BloodType}}</td>
-                            <td>{{admittedPatient.FullAddress}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <div class="panel-body">
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="col-md-6">
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-
-                <div style="height:50px" class="panel-heading">
-                    Diagnosis
-                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'add', '')"><span class="fa fa-plus"></span></button>
-                </div>
-
-                <div class="panel-body">
-                    <table st-table="consultationDiagnosisList" class="small table table-condensed table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Diagnosis</th>
-                                <th>Remarks</th>
-                                <th></th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr ng-repeat="row in consultationDiagnosisList">
-
-                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
-                                <td>{{row.Diagnosis}}</td>
-                                <td>{{row.Remarks}}</td>
-                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationDiagnosisModal', row)"><span class="fa fa-remove"></span></button></td>
-
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-
-                <div style="height:50px" class="panel-heading">
-                    Records
-                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationRecordModal', 'add', '')"><span class="fa fa-plus"></span></button>
-                </div>
-
-                <div class="panel-body">
-                    <table st-table="consultationRecordList" class="small table table-condensed table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Record</th>
-                                <th>Value</th>
-                                <th></th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr ng-repeat="row in consultationRecordList">
-
-                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationRecordModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
-                                <td>{{row.RecordTypeName}}</td>
-                                <td>{{row.RecordValue}}</td>
-                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationRecordModal', row)"><span class="fa fa-remove"></span></button></td>
-
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
         <div class="col-md-12">
+            <div class="col-md-4">
 
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+                <h2>Consultation</h2>
+                <hr />
+                <div class="btn-group-sm">
+                    <button ng-click="getAdmitted()" class="btn btn-primary">Get admitted patient</button>
+                    <button ng-disabled="disableCancelAdmitionBtn" ng-click="showCancelAdmitModal()" class="btn btn-default">Cancel admition</button>
+                    <button class="btn btn-success" ng-click="showPreview()">View prescription</button>
+                    <button class="btn btn-primary">Select patient</button>
+                </div>
+            </div>
+            <p></p>
 
-                <div style="height:50px" class="panel-heading">
-                    Medications
-                    <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span></button>
+            <div class="col-md-4">
+
+                <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
+                    <div class="panel-heading">Patient info</div>
+
+                    <div class="panel-body">
+                        <table class="small table table-bordered table-condensed table-responsive">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{admittedPatient.FullName}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Birth date</th>
+                                    <td>{{admittedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Age</th>
+                                    <td>{{admittedPatient.Age}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Blood Type</th>
+                                    <td>{{admittedPatient.BloodType}}</td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{admittedPatient.FullAddress}}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
+            </div>
 
-                <div class="panel-body">
-                    <table st-table="consultationMedicationList" class="small table table-condensed table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Medication</th>
-                                <th>Description</th>
-                                <th>Remarks</th>
-                                <th>Amount</th>
-                                <th>Quantity</th>
-                                <th></th>
+            <patient-record patient="admittedPatient"></patient-record>
 
-                            </tr>
-                        </thead>
+        </div>
 
-                        <tbody>
-                            <tr ng-repeat="row in consultationMedicationList">
 
-                                <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
-                                <td>{{row.Medication}}</td>
-                                <td>{{row.Strength + " " + row.Volume + " " + row.Frequency + " " + row.Route }}</td>
-                                <td>{{row.Remarks}}</td>
-                                <td>{{row.Amount}}</td>
-                                <td>{{row.Quantity}}</td>
-                                <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationMedicationModal', row)"><span class="fa fa-remove"></span></button></td>
+    </div>
+        <div class="row">
+                    
+            <div class="col-md-6">
+                <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
 
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
+                    <div style="height:50px" class="panel-heading">
+                        Diagnosis
+                        <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'add', '')"><span class="fa fa-plus"></span></button>
+                    </div>
 
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="10"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="panel-body">
+                        <table st-table="consultationDiagnosisList" class="small table table-condensed table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Diagnosis</th>
+                                    <th>Remarks</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="row in consultationDiagnosisList">
+
+                                    <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationDiagnosisModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
+                                    <td>{{row.Diagnosis}}</td>
+                                    <td>{{row.Remarks}}</td>
+                                    <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationDiagnosisModal', row)"><span class="fa fa-remove"></span></button></td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+
+                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <new-patient-record></new-patient-record>
+
+            </div>
+
+            <div class="col-md-12">
+
+                <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+                    <div style="height:50px" class="panel-heading">
+                        Medications
+                        <button class="pull-right btn-sm btn btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'add', '')"><span class="fa fa-plus"></span></button>
+                    </div>
+
+
+                    <div class="panel-body">
+                        <table st-table="consultationMedicationList" class="small table table-condensed table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Medication</th>
+                                    <th>Description</th>
+                                    <th>Remarks</th>
+                                    <th>Amount</th>
+                                    <th>Quantity</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="row in consultationMedicationList">
+
+                                    <td><button class="btn btn-xs btn-default" ng-click="showConsultationChildrenModal('ConsultationMedicationModal', 'edit', row)"><span class="fa fa-edit"></span></button></td>
+                                    <td>{{row.Medication}}</td>
+                                    <td>{{row.Strength + " " + row.Volume + " " + row.Frequency + " " + row.Route }}</td>
+                                    <td>{{row.Remarks}}</td>
+                                    <td>{{row.Amount}}</td>
+                                    <td>{{row.Quantity}}</td>
+                                    <td><button class="btn btn-xs btn-danger" ng-click="showDeleteModal('ConsultationMedicationModal', row)"><span class="fa fa-remove"></span></button></td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+
+                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="10"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-
-    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="DeleteModal-label">Modal title</h4>
-                </div>
-                <div class="modal-body">
 
 
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button ng-click="DeleteChildren()" type="button" class="btn btn-primary">delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="modal fade" id="ConsultationDiagnosisModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationDiagnosisModal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="ConsultationDiagnosisModal-label">Modal title</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <ui-select id="ConsultationDiagnosisModalDiagnosis" ng-model="consultationDiagnosis.Diagnosis">
-                                <ui-select-match placeholder="Select diagnosis">{{$select.selected.DiagnosisName}}</ui-select-match>
-                                <ui-select-choices repeat="item.DiagnosisName as item in diagnosisDropDown | filter: $select.search">
-                                    <span ng-bind="item.DiagnosisName"></span>
-                                </ui-select-choices>
-                            </ui-select>
-
-                            <div class="input-group-btn">
-                                <button ng-click="showQuickAddModalDiagnosis()" class="btn btn-default"><span class="fa fa-plus"></span></button>
-                            </div>
-                        </div>
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="DeleteModal-label">Modal title</h4>
                     </div>
-
-                    <div class="form-group">
-                        <textarea ng-model="consultationDiagnosis.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationDiagnosisModalRemarks"></textarea>
-                    </div>
-
-
-                </div>
-
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="modal fade" id="ConsultationMedicationModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationMedicationModal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="ConsultationMedicationModal-label">Modal title</h4>
-                </div>
-                <div class="modal-body">
-
-
-                    <div class="form-group">
-                        <div class="input-group">
-
-                            <ui-select id="ConsultationMedicationModalMedication" ng-model="consultationMedication.Medication">
-                                <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
-                                <ui-select-choices repeat="item.MedicationName as item in medicationDropDown | filter: $select.search">
-                                    <span ng-bind="item.MedicationName"></span>
-                                </ui-select-choices>
-                            </ui-select>
-
-                            <div class="input-group-btn">
-                                <button ng-click="showQuickAddModalMedication()" class="btn btn-default"><span class="fa fa-plus"></span></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Strength" placeholder="Strength" class="form-control" id="ConsultationMedicationModalStrength" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Volume" placeholder="Volume" class="form-control" id="ConsultationMedicationModalVolume" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Frequency" placeholder="Frequency" class="form-control" id="ConsultationMedicationModalFrequency" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Route" placeholder="Route" class="form-control" id="ConsultationMedicationModalRoute" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <textarea ng-model="consultationMedication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="consultationMedication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
-                    </div>
-
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="modal fade" id="ConsultationRecordModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationRecordModal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="ConsultationRecordModal-label">Modal title</h4>
-                </div>
-
-                <form name="recordConsultationForm">
                     <div class="modal-body">
 
-                        <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTypeSelect.$invalid }">
-                            <div class="input-group">
-
-                                <ui-select ng-required="true" name="ConsultationFormValueTypeSelect" id="ConsultationRecordModalRecords" ng-model="consultationRecord.RecordTypeName">
-                                    <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
-                                    <ui-select-choices repeat="item.RecordTypeName as item in recordDropDown | filter: $select.search">
-                                        <span ng-bind="item.RecordTypeName"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-
-                                <div class="input-group-btn">
-                                    <button ng-click="showQuickAddModalRecord()" class="btn btn-default"><span class="fa fa-plus"></span></button>
-                                </div>
-
-
-                            </div>
-
-                            <span class="help-block"
-                                  ng-show="recordConsultationForm.ConsultationFormValueTypeSelect.$invalid">
-                                Please select a record type.
-                            </span>
-                        </div>
-
-
-                        <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine }">
-
-                            <input name="ConsultationFormValueTb" ng-required="true" ng-model="consultationRecord.RecordValue" placeholder="Value" class="form-control" id="ConsultationRecordModalRecordsValue" />
-                            <span class="help-block"
-                                  ng-show="recordConsultationForm.ConsultationFormValueTb.$invalid && !recordConsultationForm.ConsultationFormValueTb.$pristine">
-                                Record value is required.
-                            </span>
-
-                        </div>
 
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" ng-disabled="!recordConsultationForm.$valid" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
+                        <button ng-click="DeleteChildren()" type="button" class="btn btn-primary">delete</button>
                     </div>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="modal fade" id="consultationPreviewModal" tabindex="-1" role="dialog" aria-labelledby="consultationPreviewModal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body" id="printThis">
-
-                    <h2 class="text-center">Clinic One</h2>
-                    <address class="text-center">#0731 J. Ynares St., San Carlos Heights Subd. Tayuman Binangonan Rizal<br />Tel.: (02) 651-3742 * Mobile: +639995520579</address>
-                    <hr />
-
-                    <label>Name: </label> {{ admittedPatient.FirstName + " " + admittedPatient.MiddleName + " " + admittedPatient.LastName }}
-                    <br />
-                    <label>Address: </label> {{ admittedPatient.Address1 + " " + admittedPatient.Address2 }}
-                    <br />
-                    <label>Age: </label> {{ admittedPatient.Age }} <label>Gender: </label> {{ admittedPatient.Gender }} <label>Date: </label> {{ admittedPatient.FirstName }}
-                    <hr />
-                    <p><strong style="font-size:xx-large">R</strong><strong style="font-size:x-large">x</strong></p>
-                    <br />
-
-                    <div ng-repeat="row in consultationMedicationList">
-                        {{row.Medication + " " + row.Strength}}
-                        <br />
-                        {{row.Volume + " " + row.Route + " " + row.Frequency}}
-                        <br />
-                        {{row.Remarks}}
-                    </div>
-
-                    <div ng-repeat="row in consultationDiagnosisList">
-                        {{row.Diagnosis}}
-                        <br />
-                        {{row.Remarks}}
-                    </div>
-
-
-
-                    <hr />
-                    <div class="row">
-                        <div class="col-lg-6">
-
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Physician's Signature: </label>
-                            <br />
-                            <label>Lic. No.: </label>
-                            <br />
-                            <label>PTR No.: </label>
-                            <br />
-                            <label>S2 No.: </label>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" id="btnPrint">Print</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button ng-click="submitConsultation()" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="modal fade" id="cancelAdmitModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
-                </div>
-                <div class="modal-body">
-                    <h5>Are you sure you want to cancel <span><strong id=""></strong></span> </h5>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn-sm btn btn-primary" ng-click="CancelAdmit()" data-dismiss="modal">  Yes  </button>
-
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
 
 
 
-    <!-- Quick add modal for Diagnosis -->
-    <!-- Quick add modal for Diagnosis -->
-    <div class="modal fade" id="quickAddModalDiagnosis" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
-                </div>
-                
-                <form name="diagnosisForm" novalidate>
-
+        <div class="modal fade" id="ConsultationDiagnosisModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationDiagnosisModal-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="ConsultationDiagnosisModal-label">Modal title</h4>
+                    </div>
                     <div class="modal-body">
 
-                        <div class="form-group" ng-class="{ 'has-error' : diagnosisForm.FormDiagnosisName.$invalid && !diagnosisForm.FormDiagnosisName.$pristine }">
-
-                            <label>Name</label>
-                            <input type="text" name="FormDiagnosisName" ng-required="true" ng-model="diagnosis.DiagnosisName" ng-disabled="disableInput" class="form-control" id="DiagnosisName" />
-                            <span class="help-block" ng-show="diagnosisForm.FormDiagnosisName.$invalid && !diagnosisForm.FormDiagnosisName.$pristine">
-                                Diagnosis is required.
-                            </span>
-                        </div>
-
-                        <div class="form-group" ng-class="{ 'has-error' : diagnosisForm.FormDiagnosisCategory.$invalid }">
-
-                            <label>Category</label>
+                        <div class="form-group">
                             <div class="input-group">
-                                <ui-select name="FormDiagnosisCategory" ng-required="true" ng-model="diagnosis.CategoryId">
-                                    <ui-select-match placeholder="Select Value">{{$select.selected.CategoryName}}</ui-select-match>
-                                    <ui-select-choices repeat="item.Id as item in diagnosisCategoryList | filter: $select.search">
-
-                                        <span ng-bind="item.CategoryName"></span>
+                                <ui-select id="ConsultationDiagnosisModalDiagnosis" ng-model="consultationDiagnosis.Diagnosis">
+                                    <ui-select-match placeholder="Select diagnosis">{{$select.selected.DiagnosisName}}</ui-select-match>
+                                    <ui-select-choices repeat="item.DiagnosisName as item in diagnosisDropDown | filter: $select.search">
+                                        <span ng-bind="item.DiagnosisName"></span>
                                     </ui-select-choices>
                                 </ui-select>
+
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" ng-click="showQuickAdd()"><span class="fa fa-plus"></span></button>
+                                    <button ng-click="showQuickAddModalDiagnosis()" class="btn btn-default"><span class="fa fa-plus"></span></button>
                                 </div>
                             </div>
-                            <span class="help-block" ng-show="diagnosisForm.FormDiagnosisCategory.$invalid">
-                                Please select a category.
-                            </span>
-
                         </div>
+
+                        <div class="form-group">
+                            <textarea ng-model="consultationDiagnosis.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationDiagnosisModalRemarks"></textarea>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="ConsultationMedicationModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationMedicationModal-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="ConsultationMedicationModal-label">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
 
 
                         <div class="form-group">
-
-                            <label>Description</label>
-                            <input type="text" ng-model="diagnosis.Description" ng-disabled="disableInput" class="form-control" id="DiagnosisDescription" />
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" ng-disabled="!diagnosisForm.$valid" ng-click="updateDiagnosis()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-                
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Quick add modal for Records -->
-    <!-- Quick add modal for Records -->
-    <div class="modal fade" id="quickAddModalRecord" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
-                </div>
-
-                <form name="recordTypeForm" novalidate>
-
-                    <div class="modal-body">
-
-                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine }">
-                            <label for="RecordTypeName">Name</label>
-                            <input name="FormRecordTypeName" ng-required="true" type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
-                            <span class="help-block" ng-show="recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine">
-                                Record is required.
-                            </span>
-                        </div>
-
-
-                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordCategoryName.$invalid }">
-                            <label>Category</label>
                             <div class="input-group">
-                                <ui-select name="FormRecordCategoryName" ng-required="true" ng-model="recordTypes.RecordTypeCategoryId">
-                                    <ui-select-match placeholder="Select Value">{{$select.selected.Category}}</ui-select-match>
-                                    <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
-                                        <span ng-bind="item.Category"></span>
+
+                                <ui-select id="ConsultationMedicationModalMedication" ng-model="consultationMedication.Medication">
+                                    <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
+                                    <ui-select-choices repeat="item.MedicationName as item in medicationDropDown | filter: $select.search">
+                                        <span ng-bind="item.MedicationName"></span>
                                     </ui-select-choices>
                                 </ui-select>
+
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" ng-click="showQuickAdd()"><span class="fa fa-plus"></span></button>
+                                    <button ng-click="showQuickAddModalMedication()" class="btn btn-default"><span class="fa fa-plus"></span></button>
                                 </div>
                             </div>
-
-                            <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
-                                Please select a category.
-                            </span>
                         </div>
 
-                        <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormValueTypeName.$invalid }">
-                            <label>Value</label>
+                        <div class="form-group">
 
-                            <ui-select name="FormValueTypeName" ng-required="true" ng-model="recordTypes.ValueTypeId">
-                                <ui-select-match placeholder="Select Value">{{$select.selected.ValueTypeName}}</ui-select-match>
-                                <ui-select-choices repeat="item.Id as item in valueTypeList | filter: $select.search">
-
-                                    <span ng-bind="item.ValueTypeName"></span>
-                                </ui-select-choices>
-                            </ui-select>
-
-
-                            <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
-                                Please select a category.
-                            </span>
+                            <input ng-model="consultationMedication.Strength" placeholder="Strength" class="form-control" id="ConsultationMedicationModalStrength" />
                         </div>
+
+                        <div class="form-group">
+
+                            <input ng-model="consultationMedication.Volume" placeholder="Volume" class="form-control" id="ConsultationMedicationModalVolume" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <input ng-model="consultationMedication.Frequency" placeholder="Frequency" class="form-control" id="ConsultationMedicationModalFrequency" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <input ng-model="consultationMedication.Route" placeholder="Route" class="form-control" id="ConsultationMedicationModalRoute" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <textarea ng-model="consultationMedication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input ng-model="consultationMedication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <input ng-model="consultationMedication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
+                        </div>
+
+
+
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" ng-disabled="!recordTypeForm.$valid" ng-click="updateRecordType()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                        <button type="button" ng-click="addNewConsultationChildren('add')" class="btn btn-primary">Save</button>
                     </div>
-
-                </form>
-
+                </div>
             </div>
         </div>
-    </div>
 
-    
-    <!-- Quick add modal for Medications -->
-    <!-- Quick add modal for Medications -->
-    <div class="modal fade" id="quickAddModalMedication" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
+
+
+        <div class="modal fade" id="consultationPreviewModal" tabindex="-1" role="dialog" aria-labelledby="consultationPreviewModal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="printThis">
+
+                        <h2 class="text-center">Clinic One</h2>
+                        <address class="text-center">#0731 J. Ynares St., San Carlos Heights Subd. Tayuman Binangonan Rizal<br />Tel.: (02) 651-3742 * Mobile: +639995520579</address>
+                        <hr />
+
+                        <label>Name: </label> {{ admittedPatient.FirstName + " " + admittedPatient.MiddleName + " " + admittedPatient.LastName }}
+                        <br />
+                        <label>Address: </label> {{ admittedPatient.Address1 + " " + admittedPatient.Address2 }}
+                        <br />
+                        <label>Age: </label> {{ admittedPatient.Age }} <label>Gender: </label> {{ admittedPatient.Gender }} <label>Date: </label> {{ admittedPatient.FirstName }}
+                        <hr />
+                        <p><strong style="font-size:xx-large">R</strong><strong style="font-size:x-large">x</strong></p>
+                        <br />
+
+                        <div ng-repeat="row in consultationMedicationList">
+                            {{row.Medication + " " + row.Strength}}
+                            <br />
+                            {{row.Volume + " " + row.Route + " " + row.Frequency}}
+                            <br />
+                            {{row.Remarks}}
+                        </div>
+
+                        <div ng-repeat="row in consultationDiagnosisList">
+                            {{row.Diagnosis}}
+                            <br />
+                            {{row.Remarks}}
+                        </div>
+
+
+
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Physician's Signature: </label>
+                                <br />
+                                <label>Lic. No.: </label>
+                                <br />
+                                <label>PTR No.: </label>
+                                <br />
+                                <label>S2 No.: </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" id="btnPrint">Print</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button ng-click="submitConsultation()" type="button" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <form name="medicationForm" class="form-horizontal" novalidate role="form">
 
+        <div class="modal fade" id="cancelAdmitModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+                    </div>
                     <div class="modal-body">
+                        <h5>Are you sure you want to cancel <span><strong id=""></strong></span> </h5>
 
-                        <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine }">
 
-                            <div class="col-sm-12">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn-sm btn btn-primary" ng-click="CancelAdmit()" data-dismiss="modal">  Yes  </button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Quick add modal for Diagnosis -->
+        <!-- Quick add modal for Diagnosis -->
+        <div class="modal fade" id="quickAddModalDiagnosis" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
+                    </div>
+
+                    <form name="diagnosisForm" novalidate>
+
+                        <div class="modal-body">
+
+                            <div class="form-group" ng-class="{ 'has-error' : diagnosisForm.FormDiagnosisName.$invalid && !diagnosisForm.FormDiagnosisName.$pristine }">
+
                                 <label>Name</label>
-                                <input name="FormMedicationName" ng-required="true" type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
-
-                                <span class="help-block" ng-show="medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine">
-                                    Medication is required.
+                                <input type="text" name="FormDiagnosisName" ng-required="true" ng-model="diagnosis.DiagnosisName" ng-disabled="disableInput" class="form-control" id="DiagnosisName" />
+                                <span class="help-block" ng-show="diagnosisForm.FormDiagnosisName.$invalid && !diagnosisForm.FormDiagnosisName.$pristine">
+                                    Diagnosis is required.
                                 </span>
                             </div>
 
-                        </div>
+                            <div class="form-group" ng-class="{ 'has-error' : diagnosisForm.FormDiagnosisCategory.$invalid }">
 
-
-                        <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationCategory.$invalid }">
-
-                            <div class="col-sm-12">
                                 <label>Category</label>
                                 <div class="input-group">
-                                    <ui-select ng-disabled="disableInput" name="FormMedicationCategory" ng-required="true" ng-model="medication.CategoryId">
+                                    <ui-select name="FormDiagnosisCategory" ng-required="true" ng-model="diagnosis.CategoryId">
                                         <ui-select-match placeholder="Select Value">{{$select.selected.CategoryName}}</ui-select-match>
-                                        <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
+                                        <ui-select-choices repeat="item.Id as item in diagnosisCategoryList | filter: $select.search">
 
                                             <span ng-bind="item.CategoryName"></span>
                                         </ui-select-choices>
                                     </ui-select>
                                     <div class="input-group-btn">
-                                        <button ng-disabled="disableInput" ng-click="showQuickAdd()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                        <button class="btn btn-default" ng-click="showQuickAdd()"><span class="fa fa-plus"></span></button>
+                                    </div>
+                                </div>
+                                <span class="help-block" ng-show="diagnosisForm.FormDiagnosisCategory.$invalid">
+                                    Please select a category.
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Description</label>
+                                <input type="text" ng-model="diagnosis.Description" ng-disabled="disableInput" class="form-control" id="DiagnosisDescription" />
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" ng-disabled="!diagnosisForm.$valid" ng-click="updateDiagnosis()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Quick add modal for Records -->
+        <!-- Quick add modal for Records -->
+        <div class="modal fade" id="quickAddModalRecord" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
+                    </div>
+
+                    <form name="recordTypeForm" novalidate>
+
+                        <div class="modal-body">
+
+                            <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine }">
+                                <label for="RecordTypeName">Name</label>
+                                <input name="FormRecordTypeName" ng-required="true" type="text" ng-model="recordTypes.RecordTypeName" ng-disabled="disableInput" class="form-control" id="RecordTypeName" />
+                                <span class="help-block" ng-show="recordTypeForm.FormRecordTypeName.$invalid && !recordTypeForm.FormRecordTypeName.$pristine">
+                                    Record is required.
+                                </span>
+                            </div>
+
+
+                            <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormRecordCategoryName.$invalid }">
+                                <label>Category</label>
+                                <div class="input-group">
+                                    <ui-select name="FormRecordCategoryName" ng-required="true" ng-model="recordTypes.RecordTypeCategoryId">
+                                        <ui-select-match placeholder="Select Value">{{$select.selected.Category}}</ui-select-match>
+                                        <ui-select-choices repeat="item.Id as item in recordTypeCategoryList | filter: $select.search">
+                                            <span ng-bind="item.Category"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="showQuickAdd()"><span class="fa fa-plus"></span></button>
                                     </div>
                                 </div>
 
-                                <span class="help-block" ng-show="medicationForm.FormMedicationCategory.$invalid">
+                                <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
+                                    Please select a category.
+                                </span>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error' : recordTypeForm.FormValueTypeName.$invalid }">
+                                <label>Value</label>
+
+                                <ui-select name="FormValueTypeName" ng-required="true" ng-model="recordTypes.ValueTypeId">
+                                    <ui-select-match placeholder="Select Value">{{$select.selected.ValueTypeName}}</ui-select-match>
+                                    <ui-select-choices repeat="item.Id as item in valueTypeList | filter: $select.search">
+
+                                        <span ng-bind="item.ValueTypeName"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+
+
+                                <span class="help-block" ng-show="recordTypeForm.FormRecordCategoryName.$invalid">
                                     Please select a category.
                                 </span>
                             </div>
 
                         </div>
-
-
-                        <div class="form-group">
-
-                            <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine }">
-                                <label>Code</label>
-                                <input name="FormMedicationCode" ng-required="true" type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
-                                <span class="help-block" ng-show="medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine">
-                                    Code is required.
-                                </span>
-                            </div>
-
-                            <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine }">
-                                <label>Amount</label>
-                                <input name="FormMedicationAmount" ng-required="true" type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
-                                <span class="help-block" ng-show="medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine">
-                                    Code is required.
-                                </span>
-                            </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" ng-disabled="!recordTypeForm.$valid" ng-click="updateRecordType()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
                         </div>
 
-                        <div class="form-group">
+                    </form>
 
-                            <div class="col-sm-12">
-                                <label>Description</label>
-                                <textarea ng-model="medication.Description" ng-disabled="disableInput" rows="5" class="form-control" id="medicationDescription"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" ng-disabled="!medicationForm.$valid" ng-show="showSave" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-
+                </div>
             </div>
         </div>
+
+
+        <!-- Quick add modal for Medications -->
+        <!-- Quick add modal for Medications -->
+        <div class="modal fade" id="quickAddModalMedication" tabindex="3" role="dialog" aria-labelledby="quickAddModalDiagnosis-label" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="quickAddModalDiagnosis-label">Modal title</h4>
+                    </div>
+
+                    <form name="medicationForm" class="form-horizontal" novalidate role="form">
+
+                        <div class="modal-body">
+
+                            <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine }">
+
+                                <div class="col-sm-12">
+                                    <label>Name</label>
+                                    <input name="FormMedicationName" ng-required="true" type="text" ng-model="medication.MedicationName" ng-disabled="disableInput" class="form-control" id="medicationName" />
+
+                                    <span class="help-block" ng-show="medicationForm.FormMedicationName.$invalid && !medicationForm.FormMedicationName.$pristine">
+                                        Medication is required.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group" ng-class="{ 'has-error' : medicationForm.FormMedicationCategory.$invalid }">
+
+                                <div class="col-sm-12">
+                                    <label>Category</label>
+                                    <div class="input-group">
+                                        <ui-select ng-disabled="disableInput" name="FormMedicationCategory" ng-required="true" ng-model="medication.CategoryId">
+                                            <ui-select-match placeholder="Select Value">{{$select.selected.CategoryName}}</ui-select-match>
+                                            <ui-select-choices repeat="item.Id as item in medicationCategoryList | filter: $select.search">
+
+                                                <span ng-bind="item.CategoryName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <div class="input-group-btn">
+                                            <button ng-disabled="disableInput" ng-click="showQuickAdd()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                                        </div>
+                                    </div>
+
+                                    <span class="help-block" ng-show="medicationForm.FormMedicationCategory.$invalid">
+                                        Please select a category.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine }">
+                                    <label>Code</label>
+                                    <input name="FormMedicationCode" ng-required="true" type="text" ng-model="medication.Code" ng-disabled="disableInput" class="form-control" id="medicationCode" />
+                                    <span class="help-block" ng-show="medicationForm.FormMedicationCode.$invalid && !medicationForm.FormMedicationCode.$pristine">
+                                        Code is required.
+                                    </span>
+                                </div>
+
+                                <div class="col-sm-6" ng-class="{ 'has-error' : medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine }">
+                                    <label>Amount</label>
+                                    <input name="FormMedicationAmount" ng-required="true" type="text" ng-model="medication.Amount" ng-disabled="disableInput" class="form-control" id="medicationAmount" />
+                                    <span class="help-block" ng-show="medicationForm.FormMedicationAmount.$invalid && !medicationForm.FormMedicationAmount.$pristine">
+                                        Code is required.
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-sm-12">
+                                    <label>Description</label>
+                                    <textarea ng-model="medication.Description" ng-disabled="disableInput" rows="5" class="form-control" id="medicationDescription"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" ng-disabled="!medicationForm.$valid" ng-show="showSave" ng-click="updateMedication()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
     </div>
-    
-</div>
 
 @section Scripts{
 
     <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
-
+    <script src="~/Scripts/app/PatientRecordComponent.js"></script>
+<script src="~/Scripts/app/NewPatientRecordComponent.js"></script>
 
     <script>
 
@@ -745,9 +663,9 @@
         }
 
 
-        angular.module('app', ['ui.select']).controller('cont', function ($scope, $http) {
-           
-                       
+        angular.module('app', ['ui.select', 'patientRecordComponent', 'newPatientRecordComponent']).controller('cont', function ($scope, $http) {
+
+
             $scope.disableCancelAdmitionBtn = true;
 
             $scope.showAddBtn = true;
@@ -758,6 +676,7 @@
 
             $scope.diagnosisDropDown = [];
             $scope.medicationDropDown = [];
+            $scope.recordCategoryDropDown = [];
             $scope.recordDropDown = [];
 
             $scope.consultationDiagnosisList = [];
@@ -895,7 +814,6 @@
                         $scope.disableCancelAdmitionBtn = true;
 
                     }
-
 
                 }, function errorCallBack(data) {
 
@@ -1036,10 +954,10 @@
 
                         $http({
                             method: 'GET',
-                            url: '/RecordTypes/geRecordTypes/'
+                            url: '/RecordTypes/getRecordCategories?ClassId=1'
                         }).success(function (data) {
 
-                            $scope.recordDropDown = data;
+                            $scope.recordCategoryDropDown = data;
                         });
 
                         $scope.consultationRecord = row;
@@ -1087,10 +1005,10 @@
 
                         $http({
                             method: 'GET',
-                            url: '/RecordTypes/geRecordTypes/'
+                            url: '/RecordTypes/getRecordCategories?ClassId=1'
                         }).success(function (data) {
 
-                            $scope.recordDropDown = data;
+                            $scope.recordCategoryDropDown = data;
                         });
 
 

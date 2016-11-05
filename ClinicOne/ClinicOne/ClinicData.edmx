@@ -41,14 +41,6 @@
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <EntityType Name="AspNetUserRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -386,34 +378,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Diagnosis_Categories">
           <End Role="DiagnosisCategories" Type="Self.DiagnosisCategories" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -621,7 +585,6 @@
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommunicationTypes" EntityType="Self.CommunicationTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consultations" EntityType="Self.Consultations" Schema="dbo" store:Type="Tables" />
@@ -674,14 +637,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Diagnosis_Categories" Association="Self.FK_Diagnosis_Categories">
             <End Role="DiagnosisCategories" EntitySet="DiagnosisCategories" />
@@ -804,8 +759,32 @@
             <End Role="ValueType" EntitySet="ValueTypes" />
             <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
-          <EntitySet Name="AspNetUsers" EntityType="ClinicOneModel.AspNetUser" />
           <EntitySet Name="Patients" EntityType="ClinicOneModel.Patient" />
+          <AssociationSet Name="FK_Consultations_Patient" Association="ClinicOneModel.FK_Consultations_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Consultation" EntitySet="Consultations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Waiting_Patients" Association="ClinicOneModel.FK_Waiting_Patients">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Waiting" EntitySet="Waitings" />
+          </AssociationSet>
+          <EntitySet Name="Diagnosis" EntityType="ClinicOneModel.Diagnosi" />
+          <AssociationSet Name="FK_Diagnosis_Categories" Association="ClinicOneModel.FK_Diagnosis_Categories">
+            <End Role="DiagnosisCategory" EntitySet="DiagnosisCategories" />
+            <End Role="Diagnosi" EntitySet="Diagnosis" />
+          </AssociationSet>
+          <EntitySet Name="PatientInsurances" EntityType="ClinicOneModel.PatientInsurance" />
+          <AssociationSet Name="FK_PatientInsurance_Patients" Association="ClinicOneModel.FK_PatientInsurance_Patients">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PatientInsurance" EntitySet="PatientInsurances" />
+          </AssociationSet>
+          <EntitySet Name="SecurityLogs" EntityType="ClinicOneModel.SecurityLog" />
+          <EntitySet Name="RecordTypesCategoryClasses" EntityType="ClinicOneModel.RecordTypesCategoryClass" />
+          <AssociationSet Name="FK_RecordTypesCategories_CategoryClass" Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass">
+            <End Role="RecordTypesCategoryClass" EntitySet="RecordTypesCategoryClasses" />
+            <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
+          </AssociationSet>
+          <EntitySet Name="AspNetUsers" EntityType="ClinicOneModel.AspNetUser" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ClinicOneModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -842,34 +821,6 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Waiting" EntitySet="Waitings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Consultations_Patient" Association="ClinicOneModel.FK_Consultations_Patient">
-            <End Role="Patient" EntitySet="Patients" />
-            <End Role="Consultation" EntitySet="Consultations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Waiting_Patients" Association="ClinicOneModel.FK_Waiting_Patients">
-            <End Role="Patient" EntitySet="Patients" />
-            <End Role="Waiting" EntitySet="Waitings" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="ClinicOneModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="Diagnosis" EntityType="ClinicOneModel.Diagnosi" />
-          <AssociationSet Name="FK_Diagnosis_Categories" Association="ClinicOneModel.FK_Diagnosis_Categories">
-            <End Role="DiagnosisCategory" EntitySet="DiagnosisCategories" />
-            <End Role="Diagnosi" EntitySet="Diagnosis" />
-          </AssociationSet>
-          <EntitySet Name="PatientInsurances" EntityType="ClinicOneModel.PatientInsurance" />
-          <AssociationSet Name="FK_PatientInsurance_Patients" Association="ClinicOneModel.FK_PatientInsurance_Patients">
-            <End Role="Patient" EntitySet="Patients" />
-            <End Role="PatientInsurance" EntitySet="PatientInsurances" />
-          </AssociationSet>
-          <EntitySet Name="SecurityLogs" EntityType="ClinicOneModel.SecurityLog" />
-          <EntitySet Name="RecordTypesCategoryClasses" EntityType="ClinicOneModel.RecordTypesCategoryClass" />
-          <AssociationSet Name="FK_RecordTypesCategories_CategoryClass" Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass">
-            <End Role="RecordTypesCategoryClass" EntitySet="RecordTypesCategoryClasses" />
-            <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -887,7 +838,6 @@
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="ClinicOneModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
@@ -931,8 +881,8 @@
           <NavigationProperty Name="LabResults" Relationship="ClinicOneModel.FK_LabResults_Consultations" FromRole="Consultation" ToRole="LabResult" />
           <NavigationProperty Name="PatientsRecords" Relationship="ClinicOneModel.FK_PatientsRecords_Consultations" FromRole="Consultation" ToRole="PatientsRecord" />
           <NavigationProperty Name="PrescribedMedications" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="Consultation" ToRole="PrescribedMedication" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Consultations_AspNetUsers" FromRole="Consultation" ToRole="AspNetUser" />
           <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_Consultations_Patient" FromRole="Consultation" ToRole="Patient" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Consultations_AspNetUsers" FromRole="Consultation" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="ConsultationsDiagnosi">
           <Key>
@@ -974,8 +924,8 @@
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_DiagnosisCategories_AspNetUser" FromRole="DiagnosisCategory" ToRole="AspNetUser" />
           <NavigationProperty Name="Diagnosis" Relationship="ClinicOneModel.FK_Diagnosis_Categories" FromRole="DiagnosisCategory" ToRole="Diagnosi" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_DiagnosisCategories_AspNetUser" FromRole="DiagnosisCategory" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Drug">
           <Key>
@@ -1058,9 +1008,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecordTypes" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordTypesCategory" ToRole="RecordType" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="RecordTypesCategory" ToRole="AspNetUser" />
           <Property Name="ClassId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RecordTypesCategoryClass" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategory" ToRole="RecordTypesCategoryClass" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="RecordTypesCategory" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="ValueType">
           <Key>
@@ -1080,8 +1030,8 @@
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsAdmitted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="Waiting" ToRole="AspNetUser" />
           <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Waiting" ToRole="Patient" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="Waiting" ToRole="AspNetUser" />
         </EntityType>
         <Association Name="FK_ContactNumbers_CommunicationTypes">
           <End Type="ClinicOneModel.CommunicationType" Role="CommunicationType" Multiplicity="1" />
@@ -1205,6 +1155,140 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OriginAspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BloodType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="SSS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Philhealth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_Patient" FromRole="Patient" ToRole="Consultation" />
+          <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Patient" ToRole="Waiting" />
+          <NavigationProperty Name="PatientInsurances" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="Patient" ToRole="PatientInsurance" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="Patient" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Consultations_Patient">
+          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.Consultation" Role="Consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consultation">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Waiting_Patients">
+          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="ClinicOneModel.Waiting" Role="Waiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Waiting">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Diagnosi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Diagnosis" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiagnosisCategoryId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DiagnosisCategory" Relationship="ClinicOneModel.FK_Diagnosis_Categories" FromRole="Diagnosi" ToRole="DiagnosisCategory" />
+        </EntityType>
+        <Association Name="FK_Diagnosis_Categories">
+          <End Type="ClinicOneModel.DiagnosisCategory" Role="DiagnosisCategory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.Diagnosi" Role="Diagnosi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiagnosisCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diagnosi">
+              <PropertyRef Name="DiagnosisCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientInsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="PatientInsurance" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK_PatientInsurance_Patients">
+          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.PatientInsurance" Role="PatientInsurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientInsurance">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SecurityLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubUserId" Type="Guid" />
+          <Property Name="SubUserIdentity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TableModified" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormAccessed_" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileGUID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecordTypesCategoryClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategoryClass" ToRole="RecordTypesCategory" />
+        </EntityType>
+        <Association Name="FK_RecordTypesCategories_CategoryClass">
+          <End Type="ClinicOneModel.RecordTypesCategoryClass" Role="RecordTypesCategoryClass" Multiplicity="1" />
+          <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypesCategoryClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordTypesCategory">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -1226,6 +1310,7 @@
           <Property Name="LicenseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BIR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="ClinicOneModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="ClinicOneModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_AspNetUsers" FromRole="AspNetUser" ToRole="Consultation" />
@@ -1235,32 +1320,6 @@
           <NavigationProperty Name="Patients" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="AspNetUser" ToRole="Patient" />
           <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="AspNetUser" ToRole="RecordTypesCategory" />
           <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="AspNetUser" ToRole="Waiting" />
-          <NavigationProperty Name="AspNetRoles" Relationship="ClinicOneModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          </EntityType>
-        <EntityType Name="Patient">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OriginAspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="BloodType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="SSS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Philhealth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="Patient" ToRole="AspNetUser" />
-          <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_Patient" FromRole="Patient" ToRole="Consultation" />
-          <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_Patients" FromRole="Patient" ToRole="Waiting" />
-          <NavigationProperty Name="PatientInsurances" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="Patient" ToRole="PatientInsurance" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1381,120 +1440,6 @@
             </Principal>
             <Dependent Role="Waiting">
               <PropertyRef Name="AspNetUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Consultations_Patient">
-          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.Consultation" Role="Consultation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Consultation">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Waiting_Patients">
-          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1" />
-          <End Type="ClinicOneModel.Waiting" Role="Waiting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Waiting">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="ClinicOneModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Diagnosi">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Diagnosis" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DiagnosisCategoryId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="DiagnosisCategory" Relationship="ClinicOneModel.FK_Diagnosis_Categories" FromRole="Diagnosi" ToRole="DiagnosisCategory" />
-        </EntityType>
-        <Association Name="FK_Diagnosis_Categories">
-          <End Type="ClinicOneModel.DiagnosisCategory" Role="DiagnosisCategory" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.Diagnosi" Role="Diagnosi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DiagnosisCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Diagnosi">
-              <PropertyRef Name="DiagnosisCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PatientInsurance">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PatientId" Type="Guid" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Patient" Relationship="ClinicOneModel.FK_PatientInsurance_Patients" FromRole="PatientInsurance" ToRole="Patient" />
-        </EntityType>
-        <Association Name="FK_PatientInsurance_Patients">
-          <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.PatientInsurance" Role="PatientInsurance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PatientInsurance">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SecurityLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubUserId" Type="Guid" />
-          <Property Name="SubUserIdentity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="JobDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TableModified" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FormAccessed_" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FileGUID" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RecordTypesCategoryClass">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategoryClass" ToRole="RecordTypesCategory" />
-        </EntityType>
-        <Association Name="FK_RecordTypesCategories_CategoryClass">
-          <End Type="ClinicOneModel.RecordTypesCategoryClass" Role="RecordTypesCategoryClass" Multiplicity="1" />
-          <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RecordTypesCategoryClass">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecordTypesCategory">
-              <PropertyRef Name="ClassId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1701,30 +1646,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="ClinicOneModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="BIR" ColumnName="BIR" />
-                <ScalarProperty Name="TIN" ColumnName="TIN" />
-                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
-                <ScalarProperty Name="PDEA" ColumnName="PDEA" />
-                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Patients">
             <EntityTypeMapping TypeName="ClinicOneModel.Patient">
               <MappingFragment StoreEntitySet="Patients">
@@ -1746,14 +1667,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ClinicOneModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Diagnosis">
             <EntityTypeMapping TypeName="ClinicOneModel.Diagnosi">
               <MappingFragment StoreEntitySet="Diagnosis">
@@ -1795,6 +1708,30 @@
             <EntityTypeMapping TypeName="ClinicOneModel.RecordTypesCategoryClass">
               <MappingFragment StoreEntitySet="RecordTypesCategoryClass">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ClinicOneModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="BIR" ColumnName="BIR" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="PDEA" ColumnName="PDEA" />
+                <ScalarProperty Name="ClinicName" ColumnName="ClinicName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,116 @@
+﻿<div ng-app="app" ng-controller="consultationCtrl">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
+                <div class="panel-heading">Patient info</div>
+
+                <div class="panel-body">
+                    <table class="small table table-bordered table-condensed table-responsive">
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{selectedPatient.FullName}}</td>
+                            </tr>
+                            <tr>
+                                <th>Birth date</th>
+                                <td>{{selectedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th>Age</th>
+                                <td>{{selectedPatient.Age}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Blood Type</th>
+                                <td>{{selectedPatient.BloodType}}</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>Address</th>
+                                <td>{{selectedPatient.FullAddress}}</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <consultation-list selected-row="selectedConsultaion" my-consultations="consultations"></consultation-list>
+        </div>
+
+    </div>
+
+
+    <div class="btn-group-sm">
+        <button ng-click="getConsultations()" class="btn btn-primary">New consultation</button>
+        <button ng-click="submit()" class="btn btn-primary">submit</button>
+        <button ng-click="showPatients()" class="btn btn-primary">Patients</button>
+        <button ng-click="test()" class="btn btn-primary">test</button>
+    </div>
+
+    <new-patient-record records="records"></new-patient-record>
+    <diagnosis diagnosisList="diagnosisList" ></diagnosis>
+    <medications medications="medications" ></medications>
+
+    <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+
+                <div class="modal-body">
+                    <search-patient patient="selectedPatient"></search-patient>
+                </div>
+
+
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+</div>
+
+@section Scripts{
+<link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
+
+<script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
+<script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+
+<script src="~/Scripts/app/NewPatientRecordComponent.js"></script>
+
+
+    <script src="~/Scripts/app/ConsultationController.js"></script>
+    <script src="~/Scripts/app/ConsultationListComponent.js"></script>
+    <script src="~/Scripts/app/Services/ConsultationService.js"></script>
+    <script src="~/Scripts/app/SearchPatientsComponent.js"></script>
+    <script src="~/Scripts/app/Services/DropDownService.js"></script>
+
+    <script src="~/Scripts/app/DiagnosisComponent.js"></script>
+<script src="~/Scripts/app/MedicationComponent.js"></script>
+
+
+    <script>
+
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return dt;
+        }
+        var app = angular.module('app', ['consultationController','medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent']);
+
+    </script>
+
+
+}

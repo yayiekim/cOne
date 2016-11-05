@@ -1,0 +1,39 @@
+﻿<table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
+
+    <thead>
+        <tr>
+
+            <th colspan="8"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th st-sort="FirstName">First Name</th>
+            <th st-sort="LastName">Last Name</th>
+            <th st-sort="Gender">Gender</th>
+            <th st-sort="BirthDate">Birth Date</th>
+          
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="row in $ctrl.patientsListDisplay">
+            <td>
+            
+                <button class="btn btn-xs btn-primary" ng-click="$ctrl.selectPatient(row)"><span class="fa fa-arrow-circle-o-right"></span></button>
+            </td>
+            <td>{{row.FirstName}}</td>
+            <td>{{row.LastName}}</td>
+            <td>{{row.Gender}}</td>
+            <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
+          
+        </tr>
+    </tbody>
+
+
+    <tfoot>
+        <tr>
+
+            <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
+        </tr>
+    </tfoot>
+</table>

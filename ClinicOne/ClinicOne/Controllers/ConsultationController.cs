@@ -20,6 +20,11 @@ namespace ClinicOne.Controllers
             return View();
         }
 
+        public ActionResult ConsultationMain()
+        {
+            return View();
+        }
+
         public ActionResult ConsultationList()
         {
             return View();
@@ -40,7 +45,7 @@ namespace ClinicOne.Controllers
             {
                 Id = x.Id,
                 Age = Age.Year - 1,
-                BirthDate = x.BirthDate,
+                BirthDate = dob,
                 BloodType = x.BloodType,
                 ContactNumber1 = x.ContactNumber1,
                 ContactNumber2 = x.ContactNumber2,
@@ -81,10 +86,10 @@ namespace ClinicOne.Controllers
 
         }
 
-        public async Task<JsonResult> getConsultaions()
+        public async Task<JsonResult> getConsultaions(Guid PatientId)
         {
           
-           var consultations = await db.Consultations.ToListAsync();
+           var consultations = await db.Consultations.Where(i=>i.PatientId == PatientId).ToListAsync();
 
             List<ConsultationModel> consultationList = new List<ConsultationModel>();
 
@@ -94,8 +99,6 @@ namespace ClinicOne.Controllers
                
                 foreach (var diagnost in diagnosis)
                 {
-
-
 
                     ConsultationModel model = new ConsultationModel()
                     {
@@ -212,10 +215,7 @@ namespace ClinicOne.Controllers
                 labList.Add(serviceModel);
             }
 
-
-
-
-
+            
             ConsultationModel model = new ConsultationModel()
             {
                 AspNetUserId = User.Identity.GetUserId(),
@@ -239,15 +239,46 @@ namespace ClinicOne.Controllers
 
 
         }
+
+
+        public async Task<JsonResult> NewConsultation(Guid patientId)
+        {
+
+            Consultation model = new Consultation()
+            {
+                AspNetUserId = User.Identity.GetUserId(),
+                TransactionDate = DateTime.Now,
+                PatientId = patientId
+
+            };
+
+            db.Consultations.Add(model);    
+            await db.SaveChangesAsync();
+                     
+            ConsultationModel resultModel = new ConsultationModel()
+            {
+                AspNetUserId = model.AspNetUserId,
+                PatientId = model.PatientId,
+                TransactonDate = model.TransactionDate,
+                Id = model.Id,
+                PatientfullName = model.Patient.FirstName + " " + model.Patient.MiddleName + " " + model.Patient.LastName,
+
+            };
+
+            return Json(resultModel, JsonRequestBehavior.AllowGet);
+
+        }
+
+
         public async Task<JsonResult> AddConsultation(ConsultationModel consultaion)
         {
 
             Consultation model = new Consultation()
             {
                 AspNetUserId = User.Identity.GetUserId(),
-                TransactionDate = consultaion.TransactonDate,
+                TransactionDate = DateTime.Now,
                 PatientId = consultaion.PatientId
-
+                
             };
 
             db.Consultations.Add(model);
@@ -396,6 +427,7 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+        
         public async Task<JsonResult> AddRecord(PatientsRecord record)
         {
             PatientsRecord model = new PatientsRecord()
