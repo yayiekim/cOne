@@ -110,7 +110,7 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
             
         consultationSvc.getLab(row.ConsultationId, row.RecordCategoryName).then(function (data) {
 
-            $ctrl.PatientLabModel = data;
+            $ctrl.labs = data;
 
         });
 
@@ -147,8 +147,7 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
                 $ctrl.labSummaries.push($ctrl.labSummary);
 
             });
-
-         
+                     
          
         }
         else {
@@ -157,8 +156,18 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
         }
 
+
+        $ctrl.clearlabs();
         $('#ConsultationLabModal').modal('toggle');
        
+
+
+    };
+
+
+    $ctrl.clearlabs = function () {
+        
+        $ctrl.labs = [];
 
 
     };
