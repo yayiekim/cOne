@@ -9,6 +9,7 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     $scope.diagnosisList =[];
     $scope.medications = [];
     $scope.labSummaries = [];
+ 
 
     var initializing = true;
 
@@ -40,6 +41,8 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
                 $scope.records = data.RecordList;
              
                 $scope.diagnosisList = data.DiagnosisList;
+
+                $scope.labSummaries = data.LabModelList;
 
             });
 

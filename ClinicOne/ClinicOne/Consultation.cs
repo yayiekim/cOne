@@ -19,9 +19,9 @@ namespace ClinicOne
         {
             this.ConsultationsDiagnosis = new HashSet<ConsultationsDiagnosi>();
             this.ConsultationsOtherServices = new HashSet<ConsultationsOtherService>();
-            this.LabResults = new HashSet<LabResult>();
             this.PatientsRecords = new HashSet<PatientsRecord>();
             this.PrescribedMedications = new HashSet<PrescribedMedication>();
+            this.LabResults = new HashSet<LabResult>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,17 +29,17 @@ namespace ClinicOne
         public System.Guid PatientId { get; set; }
         public System.DateTime TransactionDate { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Patient Patient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsultationsDiagnosi> ConsultationsDiagnosis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsultationsOtherService> ConsultationsOtherServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabResult> LabResults { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientsRecord> PatientsRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrescribedMedication> PrescribedMedications { get; set; }
-        public virtual Patient Patient { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LabResult> LabResults { get; set; }
     }
 }

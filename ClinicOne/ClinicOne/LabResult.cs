@@ -19,8 +19,8 @@ namespace ClinicOne
         public string Remarks { get; set; }
         public string RecordType { get; set; }
         public string RecordValue { get; set; }
-        public string RecordCategoryName { get; set; }
         public byte[] ImageValue { get; set; }
+        public string RecordCategoryName { get; set; }
     
         public virtual Consultation Consultation { get; set; }
     }

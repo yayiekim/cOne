@@ -21,7 +21,7 @@ namespace ClinicOne
         public string AspNetUserId { get; set; }
         public bool IsAdmitted { get; set; }
     
-        public virtual Patient Patient { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

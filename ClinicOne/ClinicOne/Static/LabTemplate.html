@@ -24,7 +24,7 @@
                 <tr ng-repeat="row in $ctrl.labSummariesListDisplay">
 
                     <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
-                    <td>{{row.Category}}</td>
+                    <td>{{row.RecordCategoryName}}</td>
                     <td>{{row.Remarks}}</td>
                     <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
@@ -71,8 +71,6 @@
                 <button type="button" ng-click="$ctrl.showLabAddModal()" class="btn btn-primary">Select</button>
             </div>
 
-
-
         </div>
     </div>
 </div>
@@ -103,9 +101,8 @@
 
                         <tbody>
                             <tr ng-repeat="row in $ctrl.labsDisplay">
-                              
-
-                                <td>{{row.RecordType}}</td>
+                               <td hidden="hidden" ng-model="RecordCategoryName" ng-value="$ctrl.selectedLabCategory.Category"></td>
+                                <td ng-model="row.RecordTypeName" ng-value="row.RecordTypeName" >{{row.RecordTypeName}}</td>
                                 <td><input type="{{row.InputType}}" ng-model="row.RecordValue" /></td>
                                 <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.deletePropertyValue(row)"><span class="fa fa-remove"></span></button></td>
 

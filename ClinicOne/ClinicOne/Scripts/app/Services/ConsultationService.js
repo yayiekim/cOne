@@ -9,7 +9,8 @@
          getConsultation: getConsultation,
          deleteConsultation: deleteConsultation,
          getConsultationChildren: getConsultationChildren,
-        
+         getLab: getLab,
+         addLab: addLab
      };
 
      return svc;
@@ -63,8 +64,6 @@
 
      function getConsultationChildren(consultationId) {
 
-         
-
                  // create deferred object using $q
                  var deferred = $q.defer();
 
@@ -83,7 +82,39 @@
          
      };
 
-   
+     function getLab(consultationId, recordCategoryName) {
+
+         // create deferred object using $q
+         var deferred = $q.defer();
+
+         // get posts form backend
+         $http.get('/Consultation/GetLab?ConsultaionId=' + consultationId + '&RecordCategory=' + recordCategoryName + '')
+           .then(function (result) {
+
+               deferred.resolve(result.data);
+           }, function (error) {
+
+               deferred.reject(error);
+           });
+
+
+         return deferred.promise;
+
+     };
+
+
+
+     function addLab(lab) {
+
+         return $http({
+             method: 'POST',
+             url: '/Consultation/AddLab',
+             data: $.param({ labs: lab }),
+             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+         });
+     };
+
 
 
 

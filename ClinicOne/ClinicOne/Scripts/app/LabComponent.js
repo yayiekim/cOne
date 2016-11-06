@@ -1,23 +1,24 @@
-﻿var labComponent = angular.module('labComponent', ['smart-table', 'dropDownServiceModule', 'ui.select']);
+﻿var labComponent = angular.module('labComponent', ['smart-table', 'dropDownServiceModule', 'consulatationServiceModule', 'ui.select']);
 
 labComponent.component('lab', {
     templateUrl: '/Static/labTemplate.html',
     bindings: {
-        labSummaries: '='
+        labSummaries: '=',
+        selectedConsultationId: '='
     },
     controller: myComponentCtrl
 });
 
 
-myComponentCtrl.$inject = ['dropDownSvc'];
+myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc'];
 
-function myComponentCtrl(dropDownSvc) {
+function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     var $ctrl = this;
 
     $ctrl.initialLabCategories = [];
 
-
+    $ctrl.selectedConsultationId;
     $ctrl.selectedLabCategory;
     $ctrl.mode;
 
@@ -26,13 +27,15 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.selectedLabSummary;
     $ctrl.labs = [];
 
-    $ctrl.lab = {
+    $ctrl.PatientLabModel = {
+       
 
         ConsultationId : '',
         Remarks : '',
-        RecordType:'',
+        RecordTypeName: '',
         RecordValue:'',
-        InputType: ''
+        InputType: '',
+        RecordCategoryName :''
         
     };
 
@@ -79,17 +82,18 @@ function myComponentCtrl(dropDownSvc) {
           
             angular.forEach(data, function (value, key) {
               
-                $ctrl.lab = {
-
-                    ConsultationId: '',
+                $ctrl.PatientLabModel = {
+                    
+                    ConsultationId: $ctrl.selectedConsultationId,
                     Remarks: '',
-                    RecordType: value.RecordTypeName,
+                    RecordTypeName: value.RecordTypeName,
                     RecordValue: '',
-                    InputType: value.ValueTypeName
+                    InputType: value.ValueTypeName,
+                    RecordCategoryName: $ctrl.selectedLabCategory.Category
 
                 };
 
-                $ctrl.labs.push($ctrl.lab);
+                $ctrl.labs.push($ctrl.PatientLabModel);
 
 
             });
@@ -100,10 +104,18 @@ function myComponentCtrl(dropDownSvc) {
     };
 
 
-    $ctrl.showLabEditModal = function () {
+    $ctrl.showLabEditModal = function (row) {
 
         $ctrl.mode = 'edit';
             
+        consultationSvc.getLab(row.ConsultationId, row.RecordCategoryName).then(function (data) {
+
+            $ctrl.PatientLabModel = data;
+
+        });
+
+
+
         $('#ConsultationLabModal').modal('toggle');
 
 
@@ -122,15 +134,21 @@ function myComponentCtrl(dropDownSvc) {
 
 
         if ($ctrl.mode == 'add') {
+        
+            consultationSvc.addLab($ctrl.labs).then(function (data) {
 
-            $ctrl.labSummary = {
+                $ctrl.labSummary = {
 
-                Category: $ctrl.selectedLabCategory.Category,
-                Remarks: '',
+                    Category: $ctrl.selectedLabCategory.Category,
+                    Remarks: '',
 
-            };
+                };
 
-            $ctrl.labSummaries.push($ctrl.labSummary);
+                $ctrl.labSummaries.push($ctrl.labSummary);
+
+            });
+
+         
          
         }
         else {

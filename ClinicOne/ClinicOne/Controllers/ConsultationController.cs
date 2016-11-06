@@ -198,15 +198,22 @@ namespace ClinicOne.Controllers
             }
 
 
-            var labs = await db.LabResults.Where(i => i.ConsultationId == consultation.Id).GroupBy(i=>i.RecordCategoryName).ToListAsync();
+            var labs = await db.LabResults.Where(i => i.ConsultationId == consultation.Id).GroupBy(i=> new  {
+
+                ConsultationId = i.ConsultationId,
+                RecordCategoryName = i.RecordCategoryName
+
+            }).ToListAsync();
+
+
             List<PatientSummaryLabModel> labList = new List<PatientSummaryLabModel>();
 
             foreach (var lab in labs)
             {
                 PatientSummaryLabModel serviceModel = new PatientSummaryLabModel()
                 {
-                    ConsultationId = consultation.Id,
-                    RecordCategoryName = lab.Key,
+                    ConsultationId = lab.Key.ConsultationId,
+                    RecordCategoryName = lab.Key.RecordCategoryName,
                     Remarks = ""
                     
 
@@ -558,23 +565,28 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> AddLab(PatientLabModel lab)
+        public async Task<JsonResult> AddLab(List<PatientLabModel> labs)
         {
-            LabResult model = new LabResult()
+            foreach (var x in labs)
             {
-                ConsultationId = lab.ConsultationId,
-                Remarks = lab.Remarks,
-                RecordType = lab.RecordTypeName,
-                RecordValue = lab.RecordValue,
-                RecordCategoryName = lab.RecordCategoryName
-                
 
-            };
+                LabResult model = new LabResult()
+                {
+                    ConsultationId = x.ConsultationId,
+                    Remarks = x.Remarks,
+                    RecordType = x.RecordTypeName,
+                    RecordValue = x.RecordValue,
+                    RecordCategoryName = x.RecordCategoryName
 
-            db.LabResults.Add(model);
+
+                };
+
+                db.LabResults.Add(model);
+            }
+            
             await db.SaveChangesAsync();
 
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
+            return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
         public async Task<JsonResult> EditLab(PatientLabModel lab)
