@@ -1,0 +1,132 @@
+﻿
+
+
+<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        Lab Test
+        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showInitialAdd()"><span class="fa fa-plus"></span></button>
+    </div>
+
+    <div class="panel-body">
+        <table st-table="$ctrl.labSummariesListDisplay" st-safe-src="$ctrl.labSummaries" class="small table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Test</th>
+                    <th>Remarks</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.labSummariesListDisplay">
+
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
+                    <td>{{row.Category}}</td>
+                    <td>{{row.Remarks}}</td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+</div>
+
+
+<div class="modal fade" id="labInitialaddModal" tabindex="-1" role="dialog" aria-labelledby="labInitialaddModal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="labInitialaddModal-label">Lab Category</h4>
+            </div>
+
+            <div class="modal-body">
+                <form ng-repeat="row in $ctrl.initialLabCategories" name="labConsultationForm">
+
+                    <div>
+                        <label>
+                            <input type="radio" ng-model="$ctrl.selectedLabCategory" ng-value="row">
+                            {{row.Category}}
+                        </label><br />
+                    </div>
+
+
+                </form>
+            </div>
+
+         
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="$ctrl.showLabAddModal()" class="btn btn-primary">Select</button>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ConsultationLabModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationLabModal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ConsultationLabModal-label">{{$ctrl.selectedLabCategory.Category}}</h4>
+            </div>
+
+            <form name="labConsultationForm">
+                <div class="modal-body">
+
+                    <table st-table="$ctrl.labsDisplay" st-safe-src="$ctrl.labs" class="small table table-condensed table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Value</th>
+                                <th></th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="row in $ctrl.labsDisplay">
+                              
+
+                                <td>{{row.RecordType}}</td>
+                                <td><input type="{{row.InputType}}" ng-model="row.RecordValue" /></td>
+                                <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.deletePropertyValue(row)"><span class="fa fa-remove"></span></button></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit"  ng-click="$ctrl.updateLab()" class="btn btn-primary">Save</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

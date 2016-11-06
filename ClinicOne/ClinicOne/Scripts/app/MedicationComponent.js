@@ -22,6 +22,7 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.medications = [];
 
     $ctrl.medicationsListDropDown = [];
+
     $ctrl.medicationsListDisplay = [].concat($ctrl.medications);
 
 
@@ -33,9 +34,16 @@ function myComponentCtrl(dropDownSvc) {
 
 
     $ctrl.medication = {
-        ConsultationId: '',
-        Remarks: '',
-        Diagnosis: '',
+  
+        Medication :'',
+        ConsultationId :'',
+        Quantity: 0,
+        Remarks :'',
+        Amount : 0,
+        Strength :'',
+        Volume :'',
+        Frequency :'',
+        Route :''
     };
 
 
@@ -46,16 +54,16 @@ function myComponentCtrl(dropDownSvc) {
 
     };
 
-    $ctrl.showDialogModalEdit = function (record) {
+    $ctrl.showDialogModalEdit = function (medication) {
         $ctrl.mode = 'edit';
-        $ctrl.record = record;
-        $('#ConsultationDiagnosisModal').modal('toggle');
+        $ctrl.medication = medication;
+        $('#ConsultationMedicationModal').modal('toggle');
 
     };
 
     $ctrl.showDeleteModal = function (row) {
-        $ctrl.selectedRecord = row;
-        $('#deleteModalDiagnosis').modal('toggle');
+        $ctrl.selectedMedication = row;
+        $('#ConsultationMedicationModal').modal('toggle');
 
     };
 
@@ -96,9 +104,15 @@ function myComponentCtrl(dropDownSvc) {
 
         $ctrl.medication = {
 
+            Medication: '',
             ConsultationId: '',
+            Quantity: 0,
             Remarks: '',
-            Diagnosis: '',
+            Amount: 0,
+            Strength: '',
+            Volume: '',
+            Frequency: '',
+            Route: ''
         };
 
     };

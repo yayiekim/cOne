@@ -8,6 +8,7 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     $scope.records =[];
     $scope.diagnosisList =[];
     $scope.medications = [];
+    $scope.labSummaries = [];
 
     var initializing = true;
 

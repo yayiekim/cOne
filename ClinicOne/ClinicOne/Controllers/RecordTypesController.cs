@@ -230,6 +230,40 @@ namespace ClinicOne.Controllers
             return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        public async Task<JsonResult> getLabRecordTypes(Guid CategoryId)
+        {
+
+            var UserId = User.Identity.GetUserId();
+
+            List<RecordTypeModel> thelist = new List<RecordTypeModel>();
+
+            var res = await db.RecordTypes.Where(i => i.RecordTypesCategory.AspNetUserId == UserId && i.RecordTypesCategory.ClassId == 2 && i.RecordTypesCategoryId == CategoryId).ToListAsync();
+
+            foreach (var x in res)
+            {
+                RecordTypeModel model = new RecordTypeModel()
+                {
+                    Id = x.Id,
+                    RecordTypeName = x.Name,
+                    RecordTypeCategoryName = x.RecordTypesCategory.Name,
+                    RecordTypeCategoryId = x.RecordTypesCategoryId,
+                    ValueTypeName = x.ValueType.ValueType1,
+                    ValueTypeId = x.ValueTypeId
+
+                };
+
+                thelist.Add(model);
+
+
+            }
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public ActionResult LabRecordCategories()
         {
 

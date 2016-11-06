@@ -198,17 +198,17 @@ namespace ClinicOne.Controllers
             }
 
 
-            var labs = await db.LabResults.Where(i => i.ConsultationId == consultation.Id).ToListAsync();
-            List<PatientLabModel> labList = new List<PatientLabModel>();
+            var labs = await db.LabResults.Where(i => i.ConsultationId == consultation.Id).GroupBy(i=>i.RecordCategoryName).ToListAsync();
+            List<PatientSummaryLabModel> labList = new List<PatientSummaryLabModel>();
+
             foreach (var lab in labs)
             {
-                PatientLabModel serviceModel = new PatientLabModel()
+                PatientSummaryLabModel serviceModel = new PatientSummaryLabModel()
                 {
-                    Id = lab.Id,
-                    RecordTypeName = lab.RecordType,
-                    RecordValue = lab.RecordValue,
-                    Remarks = lab.Remarks,
-                    ConsultationId = consultation.Id
+                    ConsultationId = consultation.Id,
+                    RecordCategoryName = lab.Key,
+                    Remarks = ""
+                    
 
                 };
 
@@ -565,8 +565,9 @@ namespace ClinicOne.Controllers
                 ConsultationId = lab.ConsultationId,
                 Remarks = lab.Remarks,
                 RecordType = lab.RecordTypeName,
-                RecordValue = lab.RecordValue
-
+                RecordValue = lab.RecordValue,
+                RecordCategoryName = lab.RecordCategoryName
+                
 
             };
 
@@ -601,6 +602,34 @@ namespace ClinicOne.Controllers
             await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<JsonResult> GetLab(Guid ConsultaionId, string RecordCategory)
+        {
+
+            var labs = await db.LabResults.Where(i => i.ConsultationId == ConsultaionId && i.RecordCategoryName == RecordCategory).ToListAsync();
+            List<PatientLabModel> labList = new List<PatientLabModel>();
+
+            foreach (var lab in labs)
+            {
+                PatientLabModel serviceModel = new PatientLabModel()
+                {
+                    Id = lab.Id,
+                    RecordTypeName = lab.RecordType,
+                    RecordValue = lab.RecordValue,
+                    Remarks = lab.Remarks,
+                    ConsultationId = ConsultaionId,
+                    RecordCategoryName = lab.RecordCategoryName
+
+
+                };
+
+                labList.Add(serviceModel);
+            }
+
+
+            return Json(labList, JsonRequestBehavior.AllowGet);
         }
 
 

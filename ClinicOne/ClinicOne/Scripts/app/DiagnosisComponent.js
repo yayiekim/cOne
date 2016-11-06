@@ -1,4 +1,4 @@
-﻿var diagnosisComponent = angular.module('diagnosisComponent', ['smart-table', 'dropDownServiceModule', 'ui.select']);
+﻿var diagnosisComponent = angular.module('diagnosisComponent', ['dropDownServiceModule', 'ui.select']);
 
 diagnosisComponent.component('diagnosis', {
     templateUrl: '/Static/DiagnosisTemplate.html',
@@ -18,6 +18,7 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.selectedDiagnosis;
     $ctrl.mode;
        
+    $ctrl.diagnosisList = [];
 
     $ctrl.diagnosisListDropDown = [];
     $ctrl.diagnosisListDisplay = [].concat($ctrl.diagnosisList);
@@ -65,20 +66,17 @@ function myComponentCtrl(dropDownSvc) {
 
         $ctrl.diagnosisList.splice(index, 1);
 
-
-
     };
 
     $ctrl.updateDiagnosis = function () {
 
-
-        $ctrl.diagnosisList = [];
+    
         if ($ctrl.mode == 'add') {
 
             $ctrl.diagnosisList.push($ctrl.diagnosis);
         }
         else {
-
+            
 
 
         }

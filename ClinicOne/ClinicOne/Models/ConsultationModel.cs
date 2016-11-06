@@ -18,7 +18,7 @@ namespace ClinicOne.Models
         public virtual List<PatientRecordModel> RecordList { get; set; }
         public virtual List<PatientPrescribeMedicationModel> PrescribeMedicationList { get; set; }
         public virtual List<PatientOtherServiceModel> OtherServiceList { get; set; }
-        public virtual List<PatientLabModel> LabModelList { get; set; }
+        public virtual List<PatientSummaryLabModel> LabModelList { get; set; }
     }
 
     public class ConsultationDiagnosisModel
@@ -71,6 +71,7 @@ namespace ClinicOne.Models
     public class PatientLabModel
     {
         public Guid Id { get; set; }
+        public string RecordCategoryName { get; set; }
         public string RecordTypeName { get; set; }
         public string RecordValue { get; set; }
         public Guid ConsultationId { get; set; }
@@ -79,4 +80,14 @@ namespace ClinicOne.Models
 
     }
 
+
+    public class PatientSummaryLabModel
+    {
+
+        public string RecordCategoryName { get; set; }
+        public Guid ConsultationId { get; set; }
+        public string Remarks { get; set; }
+
+
+    }
 }

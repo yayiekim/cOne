@@ -853,6 +853,7 @@
     <Content Include="Scripts\app\DiagnosisCategoriesController.js" />
     <Content Include="Scripts\app\DiagnosisComponent.js" />
     <Content Include="Scripts\app\DiagnosisController.js" />
+    <Content Include="Scripts\app\LabComponent.js" />
     <Content Include="Scripts\app\MedicationCategoryController.js" />
     <Content Include="Scripts\app\MedicationComponent.js" />
     <Content Include="Scripts\app\MedicationController.js" />
@@ -1283,6 +1284,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Static\DiagnosisTemplate.html" />
+    <Content Include="Static\LabTemplate.html" />
     <Content Include="Static\MedicationTemplate.html" />
     <Content Include="Static\NewPatientRecordTemplate.html" />
     <Content Include="Static\ConsultationList.html" />

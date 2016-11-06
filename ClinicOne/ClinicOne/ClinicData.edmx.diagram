@@ -21,7 +21,7 @@
         <EntityTypeShape EntityType="ClinicOneModel.PatientsRecord" Width="1.5" PointX="21.125" PointY="10.75" />
         <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="21.125" PointY="20.375" />
         <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="18.875" PointY="11" />
-        <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategory" Width="1.5" PointX="16.25" PointY="11" />
+        <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategory" Width="1.5" PointX="14" PointY="11" />
         <EntityTypeShape EntityType="ClinicOneModel.ValueType" Width="1.5" PointX="16.625" PointY="14.25" />
         <EntityTypeShape EntityType="ClinicOneModel.Waiting" Width="1.5" PointX="21.875" PointY="16.5" />
         <AssociationConnector Association="ClinicOneModel.FK_ContactNumbers_CommunicationTypes" />

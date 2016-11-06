@@ -58,8 +58,10 @@
         <button ng-click="test()" class="btn btn-primary">test</button>
     </div>
 
+    <lab lab-summaries="labSummaries" ></lab>
+
     <new-patient-record records="records"></new-patient-record>
-    <diagnosis diagnosisList="diagnosisList" ></diagnosis>
+    <diagnosis diagnosis-list="diagnosisList" ></diagnosis>
     <medications medications="medications" ></medications>
 
     <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
@@ -98,7 +100,7 @@
 
     <script src="~/Scripts/app/DiagnosisComponent.js"></script>
 <script src="~/Scripts/app/MedicationComponent.js"></script>
-
+<script src="~/Scripts/app/LabComponent.js"></script>
 
     <script>
 
@@ -108,7 +110,7 @@
             var dt = new Date(parseFloat(results[1]));
             return dt;
         }
-        var app = angular.module('app', ['consultationController','medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent']);
+        var app = angular.module('app', ['consultationController', 'medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent', 'labComponent']);
 
     </script>
 

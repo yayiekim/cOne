@@ -197,6 +197,7 @@
           <Property Name="RecordType" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="RecordValue" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ImageValue" Type="image" />
+          <Property Name="RecordCategoryName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="PrescribedMedications">
           <Key>
@@ -972,6 +973,7 @@
           <Property Name="RecordValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PatientsRecords_Consultations" FromRole="PatientsRecord" ToRole="Consultation" />
           <Property Name="ImageValue" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RecordCategoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PrescribedMedication">
           <Key>
@@ -1582,6 +1584,7 @@
           <EntitySetMapping Name="PatientsRecords">
             <EntityTypeMapping TypeName="ClinicOneModel.PatientsRecord">
               <MappingFragment StoreEntitySet="PatientsRecords">
+                <ScalarProperty Name="RecordCategoryName" ColumnName="RecordCategoryName" />
                 <ScalarProperty Name="ImageValue" ColumnName="ImageValue" />
                 <ScalarProperty Name="RecordValue" ColumnName="RecordValue" />
                 <ScalarProperty Name="RecordType" ColumnName="RecordType" />
