@@ -2,6 +2,7 @@
  factory('consultationSvc', function ($http, $q) {
 
 
+
      var svc = {
 
          submitInitialConsultation: submitInitialConsultation,
@@ -10,7 +11,9 @@
          deleteConsultation: deleteConsultation,
          getConsultationChildren: getConsultationChildren,
          getLab: getLab,
-         addLab: addLab
+         addLab: addLab,
+         editLab: editLab,
+         deleteLab: deleteLab
      };
 
      return svc;
@@ -63,32 +66,26 @@
      };
 
      function getConsultationChildren(consultationId) {
+         var deferred = $q.defer();
+         // get posts form backend
+         $http.get('/Consultation/getConsultaionDetail?ConsultationId=' + consultationId + '')
+           .then(function (result) {
 
-                 // create deferred object using $q
-                 var deferred = $q.defer();
+               deferred.resolve(result.data);
+           }, function (error) {
 
-                 // get posts form backend
-                 $http.get('/Consultation/getConsultaionDetail?ConsultationId=' + consultationId + '')
-                   .then(function (result) {
-                      
-                       deferred.resolve(result.data);
-                   }, function (error) {
-                     
-                       deferred.reject(error);
-                   });
+               deferred.reject(error);
+           });
 
-               
-                 return deferred.promise;
-         
+
+         return deferred.promise;
+
      };
 
      function getLab(consultationId, recordCategoryName) {
-
-         // create deferred object using $q
          var deferred = $q.defer();
-
          // get posts form backend
-         $http.get('/Consultation/GetLab?ConsultaionId=' + consultationId + '&RecordCategory=' + recordCategoryName + '')
+         $http.get('/Consultation/GetLab?ConsultationId=' + consultationId + '&RecordCategory=' + recordCategoryName + '')
            .then(function (result) {
 
                deferred.resolve(result.data);
@@ -104,19 +101,54 @@
 
 
 
-     function addLab(lab) {
-
+     function addLab(labs) {
+         var deferred = $q.defer();
          return $http({
              method: 'POST',
              url: '/Consultation/AddLab',
-             data: $.param({ labs: lab }),
+             data: $.param({ labs: labs }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
          });
+
+         return deferred.promise;
+
      };
 
 
+     function editLab(labs) {
 
 
+         return $http({
+             method: 'POST',
+             url: '/Consultation/EditLab',
+             data: $.param({ labs: labs }),
+             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+         });
+
+         return deferred.promise;
+     };
+
+     function deleteLab(categoryName, consultationId) {
+
+         console.log(categoryName);
+         console.log(consultationId);
+
+
+         var deferred = $q.defer();
+         // get posts form backend
+         $http.get('/Consultation/DeleteLab?ConsultationId=' + consultationId + '&CategoryName=' + categoryName + '')
+           .then(function (result) {
+
+               deferred.resolve(result.data);
+           }, function (error) {
+
+               deferred.reject(error);
+           });
+
+         return deferred.promise;
+
+     };
 
  })

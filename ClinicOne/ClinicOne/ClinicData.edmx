@@ -76,7 +76,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="None" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Consultations">
@@ -227,7 +227,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ValueTypeId" Type="int" Nullable="false" />
           <Property Name="RecordTypesCategoryId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -244,7 +244,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="None" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SecurityLogs">
@@ -265,7 +265,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="None" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ValueType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Waiting">
@@ -768,7 +768,6 @@
           <EntitySet Name="Patients" EntityType="ClinicOneModel.Patient" />
           <EntitySet Name="PatientsRecords" EntityType="ClinicOneModel.PatientsRecord" />
           <EntitySet Name="PrescribedMedications" EntityType="ClinicOneModel.PrescribedMedication" />
-          <EntitySet Name="RecordTypes" EntityType="ClinicOneModel.RecordType" />
           <EntitySet Name="RecordTypesCategories" EntityType="ClinicOneModel.RecordTypesCategory" />
           <EntitySet Name="RecordTypesCategoryClasses" EntityType="ClinicOneModel.RecordTypesCategoryClass" />
           <EntitySet Name="SecurityLogs" EntityType="ClinicOneModel.SecurityLog" />
@@ -850,14 +849,6 @@
             <End Role="Patient" EntitySet="Patients" />
             <End Role="Waiting" EntitySet="Waitings" />
           </AssociationSet>
-          <AssociationSet Name="FK_RecordTypes_Categories" Association="ClinicOneModel.FK_RecordTypes_Categories">
-            <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
-            <End Role="RecordType" EntitySet="RecordTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RecordTypes_ValueTypes" Association="ClinicOneModel.FK_RecordTypes_ValueTypes">
-            <End Role="ValueType" EntitySet="ValueTypes" />
-            <End Role="RecordType" EntitySet="RecordTypes" />
-          </AssociationSet>
           <AssociationSet Name="FK_RecordTypesCategories_CategoryClass" Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass">
             <End Role="RecordTypesCategoryClass" EntitySet="RecordTypesCategoryClasses" />
             <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
@@ -870,6 +861,15 @@
           <AssociationSet Name="FK_LabResults_Consultations" Association="ClinicOneModel.FK_LabResults_Consultations">
             <End Role="Consultation" EntitySet="Consultations" />
             <End Role="LabResult" EntitySet="LabResults" />
+          </AssociationSet>
+          <EntitySet Name="RecordTypes" EntityType="ClinicOneModel.RecordType" />
+          <AssociationSet Name="FK_RecordTypes_Categories" Association="ClinicOneModel.FK_RecordTypes_Categories">
+            <End Role="RecordTypesCategory" EntitySet="RecordTypesCategories" />
+            <End Role="RecordType" EntitySet="RecordTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordTypes_ValueTypes" Association="ClinicOneModel.FK_RecordTypes_ValueTypes">
+            <End Role="ValueType" EntitySet="ValueTypes" />
+            <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -1107,17 +1107,6 @@
           <Property Name="Route" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="PrescribedMedication" ToRole="Consultation" />
         </EntityType>
-        <EntityType Name="RecordType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ValueTypeId" Type="Int32" Nullable="false" />
-          <Property Name="RecordTypesCategoryId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="RecordTypesCategory" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordType" ToRole="RecordTypesCategory" />
-          <NavigationProperty Name="ValueType" Relationship="ClinicOneModel.FK_RecordTypes_ValueTypes" FromRole="RecordType" ToRole="ValueType" />
-        </EntityType>
         <EntityType Name="RecordTypesCategory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1127,8 +1116,8 @@
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClassId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="RecordTypesCategory" ToRole="AspNetUser" />
-          <NavigationProperty Name="RecordTypes" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordTypesCategory" ToRole="RecordType" />
           <NavigationProperty Name="RecordTypesCategoryClass" Relationship="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" FromRole="RecordTypesCategory" ToRole="RecordTypesCategoryClass" />
+          <NavigationProperty Name="RecordTypes" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordTypesCategory" ToRole="RecordType" />
         </EntityType>
         <EntityType Name="RecordTypesCategoryClass">
           <Key>
@@ -1431,32 +1420,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RecordTypes_Categories">
-          <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.RecordType" Role="RecordType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RecordTypesCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecordType">
-              <PropertyRef Name="RecordTypesCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RecordTypes_ValueTypes">
-          <End Type="ClinicOneModel.ValueType" Role="ValueType" Multiplicity="1" />
-          <End Type="ClinicOneModel.RecordType" Role="RecordType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ValueType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecordType">
-              <PropertyRef Name="ValueTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RecordTypesCategories_CategoryClass">
           <End Type="ClinicOneModel.RecordTypesCategoryClass" Role="RecordTypesCategoryClass" Multiplicity="1" />
           <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="*" />
@@ -1497,6 +1460,43 @@
             </Principal>
             <Dependent Role="LabResult">
               <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RecordType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ValueTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RecordTypesCategoryId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RecordTypesCategory" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordType" ToRole="RecordTypesCategory" />
+          <NavigationProperty Name="ValueType" Relationship="ClinicOneModel.FK_RecordTypes_ValueTypes" FromRole="RecordType" ToRole="ValueType" />
+        </EntityType>
+        <Association Name="FK_RecordTypes_Categories">
+          <End Type="ClinicOneModel.RecordTypesCategory" Role="RecordTypesCategory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.RecordType" Role="RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordTypesCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordType">
+              <PropertyRef Name="RecordTypesCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordTypes_ValueTypes">
+          <End Type="ClinicOneModel.ValueType" Role="ValueType" Multiplicity="1" />
+          <End Type="ClinicOneModel.RecordType" Role="RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValueType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordType">
+              <PropertyRef Name="ValueTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1718,16 +1718,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RecordTypes">
-            <EntityTypeMapping TypeName="ClinicOneModel.RecordType">
-              <MappingFragment StoreEntitySet="RecordTypes">
-                <ScalarProperty Name="RecordTypesCategoryId" ColumnName="RecordTypesCategoryId" />
-                <ScalarProperty Name="ValueTypeId" ColumnName="ValueTypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RecordTypesCategories">
             <EntityTypeMapping TypeName="ClinicOneModel.RecordTypesCategory">
               <MappingFragment StoreEntitySet="RecordTypesCategories">
@@ -1798,6 +1788,16 @@
                 <ScalarProperty Name="RecordType" ColumnName="RecordType" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordTypes">
+            <EntityTypeMapping TypeName="ClinicOneModel.RecordType">
+              <MappingFragment StoreEntitySet="RecordTypes">
+                <ScalarProperty Name="RecordTypesCategoryId" ColumnName="RecordTypesCategoryId" />
+                <ScalarProperty Name="ValueTypeId" ColumnName="ValueTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

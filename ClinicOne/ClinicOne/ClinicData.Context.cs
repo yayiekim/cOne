@@ -43,12 +43,12 @@ namespace ClinicOne
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientsRecord> PatientsRecords { get; set; }
         public virtual DbSet<PrescribedMedication> PrescribedMedications { get; set; }
-        public virtual DbSet<RecordType> RecordTypes { get; set; }
         public virtual DbSet<RecordTypesCategory> RecordTypesCategories { get; set; }
         public virtual DbSet<RecordTypesCategoryClass> RecordTypesCategoryClasses { get; set; }
         public virtual DbSet<SecurityLog> SecurityLogs { get; set; }
         public virtual DbSet<ValueType> ValueTypes { get; set; }
         public virtual DbSet<Waiting> Waitings { get; set; }
         public virtual DbSet<LabResult> LabResults { get; set; }
+        public virtual DbSet<RecordType> RecordTypes { get; set; }
     }
 }

@@ -54,7 +54,7 @@
             <div class="modal-body">
                 <form ng-repeat="row in $ctrl.initialLabCategories" name="labConsultationForm">
 
-                    <div>
+                    <div class="radio">
                         <label>
                             <input type="radio" ng-model="$ctrl.selectedLabCategory" ng-value="row">
                             {{row.Category}}
@@ -78,7 +78,7 @@
 
 
 <div class="modal fade" id="ConsultationLabModal" tabindex="-1" role="dialog" aria-labelledby="ConsultationLabModal-label" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -127,3 +127,26 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="deleteModalLab" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deleteLabSummary()" data-dismiss="modal">  Yes  </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

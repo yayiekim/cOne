@@ -29,7 +29,7 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     $ctrl.PatientLabModel = {
        
-
+        Id: '',
         ConsultationId : '',
         Remarks : '',
         RecordTypeName: '',
@@ -76,7 +76,7 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
         $('#ConsultationLabModal').modal('toggle');
 
 
-      
+        $ctrl.clearlabs();
         dropDownSvc.getLabRecordTypes($ctrl.selectedLabCategory.Id).then(function (data) {
 
           
@@ -114,15 +114,32 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
         });
 
-
-
+        
         $('#ConsultationLabModal').modal('toggle');
 
 
     };
 
+    $ctrl.showDeleteModal = function (row) {
+        $ctrl.selectedLabSummary = row;
+        $('#deleteModalLab').modal('toggle');
+
+    };
+
+    $ctrl.deleteLabSummary = function ()
+    {
+       
+        consultationSvc.deleteLab($ctrl.selectedLabSummary.RecordCategoryName, $ctrl.selectedConsultationId).then(function (data) {
 
 
+            var index = $ctrl.labSummaries.indexOf($ctrl.selectedLabSummary);
+
+            $ctrl.labSummaries.splice(index, 1);
+
+
+        });
+
+    };
 
     $ctrl.deletePropertyValue = function (property)
     {
@@ -131,16 +148,20 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
     }
 
     $ctrl.updateLab = function () {
+             
 
 
         if ($ctrl.mode == 'add') {
         
             consultationSvc.addLab($ctrl.labs).then(function (data) {
 
+
                 $ctrl.labSummary = {
 
-                    Category: $ctrl.selectedLabCategory.Category,
-                    Remarks: '',
+                    ConsultationId: $ctrl.selectedConsultationId,
+                    RecordCategoryName: $ctrl.selectedLabCategory.Category,
+                    Remarks : ''
+                    
 
                 };
 
@@ -153,11 +174,16 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
         else {
 
 
+            consultationSvc.editLab($ctrl.labs).then(function (data) {
+
+                
+            });
 
         }
 
 
-        $ctrl.clearlabs();
+
+        $ctrl.clearlabs(); 
         $('#ConsultationLabModal').modal('toggle');
        
 

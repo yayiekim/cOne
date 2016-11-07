@@ -589,38 +589,44 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> EditLab(PatientLabModel lab)
+        public async Task<JsonResult> EditLab(List<PatientLabModel> labs)
         {
+            var consultationId = labs.First().ConsultationId;
 
-            var res = await db.LabResults.FindAsync(lab.Id);
+            
 
-            res.RecordValue = lab.RecordValue;
-            res.RecordType = lab.RecordTypeName;
-            res.Remarks = lab.Remarks;
+            foreach (var x in labs)
+            {
+                var res = await db.LabResults.FindAsync(x.Id);
+                
+                res.RecordValue = x.RecordValue;
+                res.RecordType = x.RecordTypeName;
+                res.Remarks = x.Remarks;
 
 
-
+            }
+            
             await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> DeleteLab(Guid id)
+        public async Task<JsonResult> DeleteLab(Guid ConsultationId, string CategoryName)
         {
 
-            var res = await db.LabResults.FindAsync(id);
+            var res = await db.LabResults.Where(i=>i.RecordCategoryName == CategoryName && i.ConsultationId == ConsultationId).ToListAsync();
 
-            db.LabResults.Remove(res);
+            db.LabResults.RemoveRange(res);
             await db.SaveChangesAsync();
 
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
 
-        public async Task<JsonResult> GetLab(Guid ConsultaionId, string RecordCategory)
+        public async Task<JsonResult> GetLab(Guid ConsultationId, string RecordCategory)
         {
 
-            var labs = await db.LabResults.Where(i => i.ConsultationId == ConsultaionId && i.RecordCategoryName == RecordCategory).ToListAsync();
+            var labs = await db.LabResults.Where(i => i.ConsultationId == ConsultationId && i.RecordCategoryName == RecordCategory).ToListAsync();
             List<PatientLabModel> labList = new List<PatientLabModel>();
 
             foreach (var lab in labs)
@@ -631,10 +637,9 @@ namespace ClinicOne.Controllers
                     RecordTypeName = lab.RecordType,
                     RecordValue = lab.RecordValue,
                     Remarks = lab.Remarks,
-                    ConsultationId = ConsultaionId,
+                    ConsultationId = ConsultationId,
                     RecordCategoryName = lab.RecordCategoryName
-
-
+                    
                 };
 
                 labList.Add(serviceModel);
