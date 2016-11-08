@@ -51,7 +51,7 @@
 
                     <div class="form-group" ng-class="{ 'has-error' : recordConsultationForm.ConsultationFormValueTypeSelect.$invalid }">
                         <div class="input-group">
-
+             
                             <ui-select ng-required="true" name="ConsultationFormValueTypeSelect" ng-model="$ctrl.record.RecordTypeName">
                                 <ui-select-match placeholder="Select record type">{{$select.selected.RecordTypeName}}</ui-select-match>
                                 <ui-select-choices repeat="item.RecordTypeName as item in $ctrl.recordTypesListDropDown | filter: $select.search">

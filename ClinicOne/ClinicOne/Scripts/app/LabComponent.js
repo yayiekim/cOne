@@ -10,9 +10,9 @@ labComponent.component('lab', {
 });
 
 
-myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc'];
+myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc', '$filter'];
 
-function myComponentCtrl(dropDownSvc, consultationSvc) {
+function myComponentCtrl(dropDownSvc, consultationSvc, $filter) {
 
     var $ctrl = this;
 
@@ -56,9 +56,21 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     $ctrl.showInitialAdd = function ()
     {
+        $ctrl.initialLabCategories = [];
+
         dropDownSvc.getRecordsCategories(2).then(function (data) {
 
-            $ctrl.initialLabCategories = data;
+            angular.forEach(data, function (value, key) {
+
+                if ($filter('filter')($ctrl.labSummaries, value.Category).length == 0)
+                {
+                    $ctrl.initialLabCategories.push(value);
+
+                }
+               
+            });
+
+            
 
         });
 

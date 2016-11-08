@@ -1,5 +1,6 @@
-﻿
-
+﻿<style>
+    input[type='radio'] { transform: scale(2); }
+</style>
 
 <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
 
@@ -54,13 +55,14 @@
             <div class="modal-body">
                 <form ng-repeat="row in $ctrl.initialLabCategories" name="labConsultationForm">
 
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-model="$ctrl.selectedLabCategory" ng-value="row">
-                            {{row.Category}}
-                        </label><br />
+                    <div class="container" >
+                        <div class="radio">
+                            <label>
+                                <input type="radio" ng-model="$ctrl.selectedLabCategory" ng-value="row">
+                                {{row.Category}}
+                            </label><br />
+                        </div>
                     </div>
-
 
                 </form>
             </div>

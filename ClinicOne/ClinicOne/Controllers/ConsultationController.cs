@@ -435,12 +435,12 @@ namespace ClinicOne.Controllers
         }
 
         
-        public async Task<JsonResult> AddRecord(PatientsRecord record)
+        public async Task<JsonResult> AddRecord(PatientRecordModel record)
         {
             PatientsRecord model = new PatientsRecord()
             {
                 ConsultationId = record.ConsultationId,
-                RecordType = record.RecordType,
+                RecordType = record.RecordTypeName,
                 RecordValue = record.RecordValue
 
             };
@@ -451,13 +451,13 @@ namespace ClinicOne.Controllers
             return Json(model.Id, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> EditRecord(RecordTypeModel record)
+        public async Task<JsonResult> EditRecord(PatientRecordModel record)
         {
 
             var res = await db.PatientsRecords.FindAsync(record.Id);
 
             res.RecordType = record.RecordTypeName;
-            res.RecordValue = record.RecordTypeName;
+            res.RecordValue = record.RecordValue;
 
 
             await db.SaveChangesAsync();

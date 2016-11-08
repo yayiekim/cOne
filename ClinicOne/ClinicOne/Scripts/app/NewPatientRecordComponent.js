@@ -3,16 +3,17 @@
 newPatientRecordComponent.component('newPatientRecord', {
     templateUrl: '/Static/NewPatientRecordTemplate.html',
     bindings: {
-        records: '='
+        records: '=',
+        selectedConsultationId: '='
     },
-    controller:  myComponentCtrl 
+    controller: myComponentCtrl
 });
 
 
-myComponentCtrl.$inject = ['dropDownSvc'];
+myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc'];
 
-function myComponentCtrl(dropDownSvc) {
-    
+function myComponentCtrl(dropDownSvc, consultationSvc) {
+
     var $ctrl = this;
 
     $ctrl.selectedRecord;
@@ -25,7 +26,7 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.recordListDisplay = [].concat($ctrl.records);
 
 
-    dropDownSvc.getRecordTypes(2).then(function (data) {
+    dropDownSvc.getRecordTypes(1).then(function (data) {
 
         $ctrl.recordTypesListDropDown = data;
 
@@ -33,15 +34,15 @@ function myComponentCtrl(dropDownSvc) {
 
 
     $ctrl.record = {
+        Id: '',
         ConsultationId: '',
-        RecordType: '',
+        RecordTypeName: '',
         RecordValue: ''
     };
 
 
     $ctrl.showRecordsModalAdd = function () {
         $ctrl.mode = 'add';
-        $ctrl.clearRecord();
         $('#ConsultationRecordModal').modal('toggle');
 
     };
@@ -59,30 +60,44 @@ function myComponentCtrl(dropDownSvc) {
 
     };
 
-   
+
 
 
     $ctrl.deleteRecord = function (row) {
 
-        var index = $ctrl.records.indexOf(row);
+        consultationSvc.deleteRecord(row.Id).then(function (data) {
 
-        $ctrl.records.splice(index, 1);
+            var index = $ctrl.records.indexOf(data);
+            $ctrl.records.splice(index, 1);
 
 
+        });
+        
+                
 
     };
 
+
     $ctrl.updateRecord = function () {
 
+        $ctrl.record.ConsultationId = $ctrl.selectedConsultationId;
+        
         if ($ctrl.mode == 'add') {
 
+            consultationSvc.addRecord($ctrl.record).then(function (data) {
+               
+               
+                $ctrl.records.push(data);
 
-            $ctrl.records.push($ctrl.record);
+            });
+
         }
         else {
 
-         
-           
+            consultationSvc.editRecord($ctrl.record).then(function (data) {
+
+            });
+
         }
 
 
@@ -97,15 +112,15 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.clearRecord = function () {
 
         $ctrl.record = {
-
+            Id: '',
             ConsultationId: '',
-            RecordType: '',
+            RecordTypeName: '',
             RecordValue: ''
         };
 
     };
-       
-  
-    
+
+
+
 
 };
