@@ -5,14 +5,7 @@ patientsComponent.component('patient', {
     controller: function MyController($http) {
 
         var $ctrl = this;
-
-        function ToJavaScriptDate(value) {
-            var pattern = /Date\(([^)]+)\)/;
-            var results = pattern.exec(value);
-            var dt = new Date(parseFloat(results[1]));
-            return dt;
-        }
-
+              
         $ctrl.submitType;
 
         $ctrl.disableInput = false;

@@ -111,7 +111,7 @@
      //Lab
 
      function addLab(labs) {
-               
+
          return $http({
              method: 'POST',
              url: '/Consultation/AddLab',
@@ -132,7 +132,7 @@
 
      function editLab(labs) {
 
-       
+
          return $http({
              method: 'POST',
              url: '/Consultation/EditLab',
@@ -150,7 +150,7 @@
          });
 
 
-       
+
      };
 
      function deleteLab(categoryName, consultationId) {
@@ -197,7 +197,7 @@
 
 
      function editRecord(record) {
-             
+
          return $http({
              method: 'POST',
              url: '/Consultation/EditRecord',
@@ -205,7 +205,7 @@
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
          }).then(function (result) {
-           
+
              return result.data;
 
          }, function (error) {
@@ -215,18 +215,18 @@
      };
 
      function deleteRecord(id) {
-         
-        return $http.get('/Consultation/DeleteRecord?id=' + id + '')
-           .then(function (result) {
 
-               return id;
+         return $http.get('/Consultation/DeleteRecord?id=' + id + '')
+            .then(function (result) {
 
-           }, function (error) {
+                return id;
 
-               return error;
-           });
+            }, function (error) {
 
-        
+                return error;
+            });
+
+
      };
 
 
@@ -242,40 +242,48 @@
              data: $.param({ diagnosis: diagnosis }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+         }).then(function (result) {
+             diagnosis.Id = result.data;
+             return diagnosis;
+
+         }, function (error) {
+
+
          });
 
 
      };
 
      function editDiagnosis(diagnosis) {
-
-         var deferred = $q.defer();
+         
          return $http({
              method: 'POST',
              url: '/Consultation/EditDiagnosis',
              data: $.param({ diagnosis: diagnosis }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+         }).then(function (result) {
+
+             return result.data;
+
+         }, function (error) {
+
+             return error;
          });
 
-         return deferred.promise;
      };
 
      function deleteDiagnosis(id) {
 
+         return $http.get('/Consultation/DeleteDiagnosis?id=' + id + '')
+            .then(function (result) {
 
-         var deferred = $q.defer();
+                return id;
 
-         $http.get('/Consultation/DeleteDiagnosis?id=' + id + '')
-           .then(function (result) {
+            }, function (error) {
 
-               deferred.resolve(result.data);
-           }, function (error) {
-
-               deferred.reject(error);
-           });
-
-         return deferred.promise;
+                return error;
+            });
 
      };
 
@@ -285,48 +293,58 @@
 
      function addMedication(medication) {
 
-         var deferred = $q.defer();
+        
          return $http({
              method: 'POST',
              url: '/Consultation/AddPrescribeMed',
              data: $.param({ medication: medication }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+         }).then(function (result) {
+             medication.Id = result.data;
+             return medication;
+
+         }, function (error) {
+
+
          });
 
-         return deferred.promise;
 
      };
 
      function editMedication(medication) {
 
-         var deferred = $q.defer();
+         
          return $http({
              method: 'POST',
              url: '/Consultation/EditPrescribeMed',
              data: $.param({ medication: medication }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+         }).then(function (result) {
+
+             return result.data;
+
+         }, function (error) {
+
+             return error;
          });
 
-         return deferred.promise;
+
      };
 
      function deleteMedication(id) {
 
+        return $http.get('/Consultation/DeletePrescribeMed?id=' + id + '')
+        .then(function (result) {
 
-         var deferred = $q.defer();
+            return id;
 
-         $http.get('/Consultation/DeletePrescribeMed?id=' + id + '')
-           .then(function (result) {
+        }, function (error) {
 
-               deferred.resolve(result.data);
-           }, function (error) {
+            return error;
+        });
 
-               deferred.reject(error);
-           });
-
-         return deferred.promise;
 
      };
 

@@ -1,17 +1,18 @@
-﻿var diagnosisComponent = angular.module('diagnosisComponent', ['dropDownServiceModule', 'ui.select']);
+﻿var diagnosisComponent = angular.module('diagnosisComponent', ['ui.select']);
 
 diagnosisComponent.component('diagnosis', {
     templateUrl: '/Static/DiagnosisTemplate.html',
     bindings: {
-        diagnosisList: '='
+        diagnosisList: '=',
+        selectedConsultationId: '='
     },
     controller: myComponentCtrl
 });
 
 
-myComponentCtrl.$inject = ['dropDownSvc'];
+myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc'];
 
-function myComponentCtrl(dropDownSvc) {
+function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     var $ctrl = this;
 
@@ -33,6 +34,7 @@ function myComponentCtrl(dropDownSvc) {
     
 
     $ctrl.diagnosis = {
+        Id: '',
         ConsultationId: '',
         Remarks: '',
         Diagnosis: '',
@@ -41,7 +43,7 @@ function myComponentCtrl(dropDownSvc) {
 
     $ctrl.showDialogModalAdd = function () {
         $ctrl.mode = 'add';
-        $ctrl.clearDiagnosis();
+
         $('#ConsultationDiagnosisModal').modal('toggle');
 
     };
@@ -61,23 +63,39 @@ function myComponentCtrl(dropDownSvc) {
 
 
     $ctrl.deleteDiagnosis = function (row) {
+        
+        consultationSvc.deleteDiagnosis(row.Id).then(function (data) {
+            
+            var index = $ctrl.diagnosisList.indexOf(data);
 
-        var index = $ctrl.diagnosisList.indexOf(row);
+            $ctrl.diagnosisList.splice(index, 1);
+        
 
-        $ctrl.diagnosisList.splice(index, 1);
+
+        });
+
+     
 
     };
 
     $ctrl.updateDiagnosis = function () {
 
-    
+        $ctrl.diagnosis.ConsultationId = $ctrl.selectedConsultationId;
+
         if ($ctrl.mode == 'add') {
 
-            $ctrl.diagnosisList.push($ctrl.diagnosis);
+            consultationSvc.addDiagnosis($ctrl.diagnosis).then(function (data) {
+
+                $ctrl.diagnosisList.push(data);
+
+            });
+
         }
         else {
-            
 
+            consultationSvc.editDiagnosis($ctrl.diagnosis).then(function (data) {
+
+            });
 
         }
 
@@ -93,7 +111,7 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.clearDiagnosis = function () {
 
         $ctrl.diagnosis = {
-
+            Id: '',
             ConsultationId: '',
             Remarks: '',
             Diagnosis: '',

@@ -95,9 +95,9 @@ namespace ClinicOne.Controllers
 
             foreach (var consultaion in consultations)
             {
-                var diagnosis = await db.ConsultationsDiagnosis.Where(i => i.ConsultationId == consultaion.Id).ToListAsync();
+                var consulatation = await db.Consultations.Where(i => i.Id == consultaion.Id).ToListAsync();
                
-                foreach (var diagnost in diagnosis)
+                foreach (var diagnost in consulatation)
                 {
 
                     ConsultationModel model = new ConsultationModel()
@@ -174,7 +174,11 @@ namespace ClinicOne.Controllers
                     Medication = prescribeMed.Medication,
                     Remarks = prescribeMed.Remarks,
                     Quantity = prescribeMed.Quantity.GetValueOrDefault(0),
-                    ConsultationId = consultation.Id
+                    ConsultationId = consultation.Id,
+                    Frequency = prescribeMed.Frequency,
+                    Route = prescribeMed.Route,
+                    Strength = prescribeMed.Strength,
+                    Volume = prescribeMed.Volume
                 };
 
                 prescribeMedList.Add(prescribeMedModel);
@@ -484,8 +488,13 @@ namespace ClinicOne.Controllers
                 Medication = medication.Medication,
                 Quantity = medication.Quantity,
                 Remarks = medication.Remarks,
-                Amount = medication.Amount
-
+                Amount = medication.Amount,
+                Route = medication.Route,
+                Frequency = medication.Frequency,
+                Strength = medication.Strength,
+                Volume = medication.Volume
+                
+                
             };
 
             db.PrescribedMedications.Add(model);
@@ -503,6 +512,10 @@ namespace ClinicOne.Controllers
             res.Quantity = medication.Quantity;
             res.Remarks = medication.Remarks;
             res.Amount = medication.Amount;
+            res.Route = medication.Route;
+            res.Frequency = medication.Frequency;
+            res.Strength = medication.Strength;
+            res.Volume = medication.Volume;
 
             await db.SaveChangesAsync();
 

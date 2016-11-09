@@ -54,7 +54,7 @@
         <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="7.5" PointY="16.875" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

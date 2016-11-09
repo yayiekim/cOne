@@ -1,17 +1,18 @@
-﻿var medicationsComponent = angular.module('medicationsComponent', ['smart-table', 'dropDownServiceModule', 'ui.select']);
+﻿var medicationsComponent = angular.module('medicationsComponent', ['smart-table', 'ui.select']);
 
 medicationsComponent.component('medications', {
     templateUrl: '/Static/MedicationTemplate.html',
     bindings: {
-        medications: '='
+        medications: '=',
+        selectedConsultationId: '='
     },
     controller: myComponentCtrl
 });
 
 
-myComponentCtrl.$inject = ['dropDownSvc'];
+myComponentCtrl.$inject = ['dropDownSvc', 'consultationSvc'];
 
-function myComponentCtrl(dropDownSvc) {
+function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     var $ctrl = this;
 
@@ -35,6 +36,7 @@ function myComponentCtrl(dropDownSvc) {
 
     $ctrl.medication = {
   
+        Id:'',
         Medication :'',
         ConsultationId :'',
         Quantity: 0,
@@ -49,7 +51,6 @@ function myComponentCtrl(dropDownSvc) {
 
     $ctrl.showDialogModalAdd = function () {
         $ctrl.mode = 'add';
-        $ctrl.clearMedication();
         $('#ConsultationMedicationModal').modal('toggle');
 
     };
@@ -63,33 +64,48 @@ function myComponentCtrl(dropDownSvc) {
 
     $ctrl.showDeleteModal = function (row) {
         $ctrl.selectedMedication = row;
-        $('#ConsultationMedicationModal').modal('toggle');
+        $('#deleteModalMedication').modal('toggle');
 
     };
 
 
     $ctrl.deleteMedication = function (row) {
 
-        var index = $ctrl.medications.indexOf(row);
 
-        $ctrl.medications.splice(index, 1);
+        consultationSvc.deleteMedication(row.Id).then(function (data) {
+
+            var index = $ctrl.medications.indexOf(data);
+            $ctrl.medications.splice(index, 1);
 
 
+        });
+
+     
 
     };
 
     $ctrl.updateMedication = function () {
 
+        $ctrl.medication.ConsultationId = $ctrl.selectedConsultationId;
+
         if ($ctrl.mode == 'add') {
 
+            consultationSvc.addMedication($ctrl.medication).then(function (data) {
 
-            $ctrl.medications.push($ctrl.medication);
+
+                $ctrl.medications.push(data);
+
+            });
+
         }
         else {
 
+            consultationSvc.editMedication($ctrl.medication).then(function (data) {
 
+            });
 
-        }
+        };
+
 
 
         $ctrl.clearMedication();
@@ -103,7 +119,7 @@ function myComponentCtrl(dropDownSvc) {
     $ctrl.clearMedication = function () {
 
         $ctrl.medication = {
-
+            Id: '',
             Medication: '',
             ConsultationId: '',
             Quantity: 0,

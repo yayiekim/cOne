@@ -9,7 +9,7 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     $scope.diagnosisList =[];
     $scope.medications = [];
     $scope.labSummaries = [];
- 
+    $scope.medications = [];
 
     var initializing = true;
 
@@ -20,7 +20,18 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
             $timeout(function () { initializing = false; });
         } else {
 
-           consultationSvc.getConsultation($scope.selectedPatient.Id).then(function (data) {
+            consultationSvc.getConsultation($scope.selectedPatient.Id).then(function (data) {
+
+                angular.forEach(data.data, function (resdata) {
+
+
+                    var trDate = new Date(ToJavaScriptDate(resdata.TransactonDate))
+                    resdata.TransactonDate = trDate;
+
+
+                });
+
+
                $scope.consultations = data.data;
             });
 
@@ -44,6 +55,7 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
 
                 $scope.labSummaries = data.LabModelList;
 
+                $scope.medications = data.PrescribeMedicationList;
             });
 
         }
@@ -59,19 +71,6 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     }
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     $scope.getConsultations = function ()
     {

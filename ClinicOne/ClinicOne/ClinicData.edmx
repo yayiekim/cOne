@@ -227,7 +227,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ValueTypeId" Type="int" Nullable="false" />
           <Property Name="RecordTypesCategoryId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -871,7 +871,7 @@
             <End Role="ValueType" EntitySet="ValueTypes" />
             <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -1468,7 +1468,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ValueTypeId" Type="Int32" Nullable="false" />
           <Property Name="RecordTypesCategoryId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="RecordTypesCategory" Relationship="ClinicOneModel.FK_RecordTypes_Categories" FromRole="RecordType" ToRole="RecordTypesCategory" />
