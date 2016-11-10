@@ -1,7 +1,9 @@
 ﻿var consultationController = angular.module('consultationController', ['consultationListComponent', 'consulatationServiceModule']);
 
 consultationController.controller('consultationCtrl', function ($scope, $http, consultationSvc, $timeout) {
-        
+
+    $scope.disableButton = true;
+    $scope.showAddButtons = false;
     $scope.consultations;
     $scope.selectedConsultaion;
     $scope.selectedPatient;
@@ -12,21 +14,26 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     $scope.medications = [];
 
     var initializing = true;
-
-
+    
     $scope.$watch('selectedPatient', function () {
+
 
         if (initializing) {
             $timeout(function () { initializing = false; });
         } else {
+
+         $scope.clear()
+            $scope.disableButton = true;
+
+
 
             consultationSvc.getConsultation($scope.selectedPatient.Id).then(function (data) {
 
                 angular.forEach(data.data, function (resdata) {
 
 
-                    var trDate = new Date(ToJavaScriptDate(resdata.TransactonDate))
-                    resdata.TransactonDate = trDate;
+                    resdata.TransactionDate = new Date(ToJavaScriptDate(resdata.TransactionDate))
+                  
 
 
                 });
@@ -56,6 +63,14 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
                 $scope.labSummaries = data.LabModelList;
 
                 $scope.medications = data.PrescribeMedicationList;
+
+                if ($scope.selectedConsultaion != null) {
+                    $scope.disableButton = false;
+                } else {
+                    $scope.disableButton = true;
+                }
+
+               
             });
 
         }
@@ -64,6 +79,20 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
 
 
 
+
+    $scope.clear = function ()
+    {
+
+        $scope.records = [];
+
+        $scope.diagnosisList = [];
+
+        $scope.labSummaries = [];
+
+        $scope.medications = [];
+
+    };
+
     $scope.showPatients = function ()
     {
         $('#searchPatientModal').modal('toggle');
@@ -71,14 +100,6 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     }
 
   
-
-    $scope.getConsultations = function ()
-    {
-
-
-    };
-
-
 
     $scope.submit = function ()
     {

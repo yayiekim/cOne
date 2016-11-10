@@ -10,7 +10,7 @@ namespace ClinicOne.Models
         public Guid Id { get; set; }
         public string AspNetUserId { get; set; }
         public Guid PatientId { get; set; }
-        public DateTime TransactonDate { get; set; }
+        public DateTime TransactionDate { get; set; }
         public string PatientfullName { get; set; }
         
 

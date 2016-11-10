@@ -4,7 +4,8 @@ labComponent.component('lab', {
     templateUrl: '/Static/labTemplate.html',
     bindings: {
         labSummaries: '=',
-        selectedConsultationId: '='
+        selectedConsultationId: '=',
+         disableButton: '='
     },
     controller: myComponentCtrl
 });

@@ -5,7 +5,10 @@
         <div class="col-md-4">
 
             <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
-                <div class="panel-heading">Patient info</div>
+                <div style="height:50px" class="panel-heading">
+                    Patient info
+                    <button class="pull-right btn-sm btn btn-default" ng-click="showPatients()"><span class="fa fa-search"></span></button>
+                </div>
 
                 <div class="panel-body">
                     <table class="small table table-bordered table-condensed table-responsive">
@@ -43,26 +46,48 @@
 
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
 
-            <consultation-list selected-row="selectedConsultaion" my-consultations="consultations"></consultation-list>
+            <consultation-list patient="selectedPatient" selected-row="selectedConsultaion" my-consultations="consultations"></consultation-list>
         </div>
 
     </div>
 
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Records</a></li>
+        <li><a data-toggle="tab" href="#menu1">Diagnosis</a></li>
+        <li><a data-toggle="tab" href="#menu2">Medications</a></li>
+        <li><a data-toggle="tab" href="#menu3">Laboratory</a></li>
+    </ul>
 
-    <div class="btn-group-sm">
-        <button ng-click="getConsultations()" class="btn btn-primary">New consultation</button>
-        <button ng-click="submit()" class="btn btn-primary">submit</button>
-        <button ng-click="showPatients()" class="btn btn-primary">Patients</button>
-        <button ng-click="test()" class="btn btn-primary">test</button>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Records</h3>
+            <new-patient-record disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" records="records"></new-patient-record>
+            
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Diagnosis</h3>
+            <diagnosis disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" diagnosis-list="diagnosisList"></diagnosis>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>Medications</h3>
+            <medications disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" medications="medications"></medications>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <h3>Laboratory</h3>
+            <lab disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" lab-summaries="labSummaries"></lab>
+        </div>
     </div>
 
-    <lab selected-consultation-id="selectedConsultaion.Id" lab-summaries="labSummaries" ></lab>
+  
 
-    <new-patient-record selected-consultation-id="selectedConsultaion.Id" records="records"></new-patient-record>
-    <diagnosis selected-consultation-id="selectedConsultaion.Id" diagnosis-list="diagnosisList" ></diagnosis>
-    <medications selected-consultation-id="selectedConsultaion.Id" medications="medications" ></medications>
+
+  
+
+    
+  
+   
 
     <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -93,14 +118,15 @@
 
 
     <script src="~/Scripts/app/ConsultationController.js"></script>
-    <script src="~/Scripts/app/ConsultationListComponent.js"></script>
     <script src="~/Scripts/app/Services/ConsultationService.js"></script>
+
+
+    <script src="~/Scripts/app/ConsultationListComponent.js"></script>
     <script src="~/Scripts/app/SearchPatientsComponent.js"></script>
     <script src="~/Scripts/app/Services/DropDownService.js"></script>
-
     <script src="~/Scripts/app/DiagnosisComponent.js"></script>
-<script src="~/Scripts/app/MedicationComponent.js"></script>
-<script src="~/Scripts/app/LabComponent.js"></script>
+    <script src="~/Scripts/app/MedicationComponent.js"></script>
+    <script src="~/Scripts/app/LabComponent.js"></script>
 
     <script>
 

@@ -4,7 +4,9 @@ diagnosisComponent.component('diagnosis', {
     templateUrl: '/Static/DiagnosisTemplate.html',
     bindings: {
         diagnosisList: '=',
-        selectedConsultationId: '='
+        selectedConsultationId: '=',
+        disableButton: '='
+
     },
     controller: myComponentCtrl
 });

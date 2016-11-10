@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ClinicOne.Models;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace ClinicOne.Controllers
 {
@@ -104,7 +105,7 @@ namespace ClinicOne.Controllers
                     {
                         AspNetUserId = User.Identity.GetUserId(),
                         PatientId = consultaion.PatientId,
-                        TransactonDate = consultaion.TransactionDate,
+                        TransactionDate = consultaion.TransactionDate,
                         Id = consultaion.Id,
                         PatientfullName = consultaion.Patient.FirstName + " " + consultaion.Patient.MiddleName + " " + consultaion.Patient.LastName,
                       
@@ -231,7 +232,7 @@ namespace ClinicOne.Controllers
             {
                 AspNetUserId = User.Identity.GetUserId(),
                 PatientId = consultation.PatientId,
-                TransactonDate = consultation.TransactionDate,
+                TransactionDate = consultation.TransactionDate,
                 Id = consultation.Id,
                 PatientfullName = consultation.Patient.FirstName + " " + consultation.Patient.MiddleName + " " + consultation.Patient.LastName,
                 DiagnosisList = diagnosisList,
@@ -252,135 +253,40 @@ namespace ClinicOne.Controllers
         }
 
 
-        public async Task<JsonResult> NewConsultation(Guid patientId)
+        public async Task<JsonResult> AddConsultation(ConsultationModel consultation)
         {
+           
 
             Consultation model = new Consultation()
             {
                 AspNetUserId = User.Identity.GetUserId(),
-                TransactionDate = DateTime.Now,
-                PatientId = patientId
+                TransactionDate = consultation.TransactionDate,
+                PatientId = consultation.PatientId
 
             };
 
             db.Consultations.Add(model);    
             await db.SaveChangesAsync();
-                     
-            ConsultationModel resultModel = new ConsultationModel()
-            {
-                AspNetUserId = model.AspNetUserId,
-                PatientId = model.PatientId,
-                TransactonDate = model.TransactionDate,
-                Id = model.Id,
-                PatientfullName = model.Patient.FirstName + " " + model.Patient.MiddleName + " " + model.Patient.LastName,
 
-            };
+            consultation.Id = model.Id;
+            consultation.TransactionDate = model.TransactionDate;
 
-            return Json(resultModel, JsonRequestBehavior.AllowGet);
+            return Json(consultation, JsonRequestBehavior.AllowGet);
 
         }
 
 
-        public async Task<JsonResult> AddConsultation(ConsultationModel consultaion)
+      
+        public async Task<JsonResult> EditConsultation(ConsultationModel consultation)
         {
+            var res = await db.Consultations.FindAsync(consultation.Id);
 
-            Consultation model = new Consultation()
-            {
-                AspNetUserId = User.Identity.GetUserId(),
-                TransactionDate = DateTime.Now,
-                PatientId = consultaion.PatientId
-                
-            };
-
-            db.Consultations.Add(model);
-
-            if (consultaion.DiagnosisList != null)
-            {
-
-                foreach (var x in consultaion.DiagnosisList)
-                {
-                    ConsultationsDiagnosi diagnosisModel = new ConsultationsDiagnosi()
-                    {
-                        ConsultationId = model.Id,
-                        Amount = x.Amount,
-                        Diagnosis = x.Diagnosis,
-                        Remarks = x.Remarks,
-
-                    };
-
-                    db.ConsultationsDiagnosis.Add(diagnosisModel);
-
-                }
-
-
-            }
-
-            if (consultaion.PrescribeMedicationList != null)
-            {
-
-                foreach (var x in consultaion.PrescribeMedicationList)
-                {
-                    PrescribedMedication medsModel = new PrescribedMedication()
-                    {
-                        ConsultationId = model.Id,
-                        Amount = x.Amount,
-                        Medication = x.Medication,
-                        Remarks = x.Remarks,
-                        Quantity = x.Quantity,
-                        Frequency = x.Frequency,
-                        Route = x.Route,
-                        Strength = x.Strength,
-                        Volume = x.Volume
-
-                    };
-
-                    db.PrescribedMedications.Add(medsModel);
-
-                }
-
-
-            }
-
-            if (consultaion.RecordList != null)
-            {
-
-                foreach (var x in consultaion.RecordList)
-                {
-                    PatientsRecord recordsModel = new PatientsRecord()
-                    {
-                        ConsultationId = model.Id,
-                        RecordType = x.RecordTypeName,
-                        RecordValue = x.RecordValue
-
-                    };
-
-                    db.PatientsRecords.Add(recordsModel);
-
-                }
-
-
-            }
-
-            var res = await db.Waitings.Where(i => i.IsAdmitted == true).SingleAsync();
-            db.Waitings.Remove(res);
-
-            await db.SaveChangesAsync();
-
-           
-            return Json(model.Id, JsonRequestBehavior.AllowGet);
-
-        }
-
-        public async Task<JsonResult> EditConsultation(ConsultationModel consultaion)
-        {
-            var res = await db.Consultations.FindAsync(consultaion.Id);
-
-            res.TransactionDate = consultaion.TransactonDate;
+            res.TransactionDate = consultation.TransactionDate;
 
 
             await db.SaveChangesAsync();
 
-            return Json("ok", JsonRequestBehavior.AllowGet);
+            return Json(res.TransactionDate, JsonRequestBehavior.AllowGet);
 
         }
 

@@ -4,7 +4,8 @@ medicationsComponent.component('medications', {
     templateUrl: '/Static/MedicationTemplate.html',
     bindings: {
         medications: '=',
-        selectedConsultationId: '='
+        selectedConsultationId: '=',
+        disableButton: '='
     },
     controller: myComponentCtrl
 });

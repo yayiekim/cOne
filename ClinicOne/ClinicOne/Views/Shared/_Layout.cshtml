@@ -95,8 +95,8 @@
                             <li>
                                 <a href="#"><i class="fa fa-2x fa-stethoscope fa-fw"></i> Consultation<span class="fa fa-2x arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li>@Html.ActionLink("Consultation List", "ConsultationList", "Consultation")</li>
-                                    <li>@Html.ActionLink("New Consultation", "Index", "Consultation")</li>
+
+                                    <li>@Html.ActionLink("Consultations", "ConsultationMain", "Consultation")</li>
 
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -155,17 +155,6 @@
 
                                 <a href="@Url.Action("Index", "Consultation")"><i class="fa fa-2x fa-question-circle fa-fw"></i> Help</a>
                             </li>
-
-                            <li>
-                                @Html.ActionLink("Receptionist Initial Record", "Index", "PatientInitialRecord")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Lab Test", "Index", "LabTest")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Patient Record", "Index", "PatientInitialRecord")
-                            </li>
-
 
                         </ul>
                     </div>

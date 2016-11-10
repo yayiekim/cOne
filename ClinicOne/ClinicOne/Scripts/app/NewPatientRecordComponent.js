@@ -4,7 +4,8 @@ newPatientRecordComponent.component('newPatientRecord', {
     templateUrl: '/Static/NewPatientRecordTemplate.html',
     bindings: {
         records: '=',
-        selectedConsultationId: '='
+        selectedConsultationId: '=',
+        disableButton: '='
     },
     controller: myComponentCtrl
 });

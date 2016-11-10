@@ -1336,13 +1336,11 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Consultation\Index.cshtml" />
     <Content Include="Views\RecordTypes\RecordTypes.cshtml" />
     <Content Include="Views\RecordTypes\RecordTypeCategories.cshtml" />
     <Content Include="Views\Diagnosis\DiagnosisCategories.cshtml" />
     <Content Include="Views\Medications\MedicationCategories.cshtml" />
     <Content Include="Views\Diagnosis\Index.cshtml" />
-    <Content Include="Views\Consultation\ConsultationList.cshtml" />
     <Content Include="Views\RecordTypes\LabRecordCategories.cshtml" />
     <Content Include="Views\RecordTypes\LabRecords.cshtml" />
     <Content Include="Views\Email\Index.cshtml" />

@@ -1,187 +1,111 @@
 ﻿
 
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                <div class="panel-heading">Consultations</div>
+<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+    <div style="height:50px" class="panel-heading">
+        Consultations
+        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showDialogModalAdd()"><span class="fa fa-plus"></span></button>
+    </div>
 
-                <div class="panel-body">
-                    <table st-table="$ctrl.consultationListDisplay" st-safe-src="$ctrl.myConsultations" class="table table-condensed table-responsive table-striped">
-                        <thead>
-                            <tr>
+    <div class="panel-body">
+        <table st-table="$ctrl.consultationListDisplay" st-safe-src="$ctrl.myConsultations" class="table table-condensed table-responsive table-striped">
+            <thead>
 
-                                <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
-                            </tr>
+                <tr>
 
-                         
-                        </thead>
+                    <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                </tr>
 
-                        <tbody>
-                            <tr ng-repeat="row in $ctrl.consultationListDisplay">
-                                
 
-                                <td><a ng-click="$ctrl.setSelectedRow(row)" href="#">{{row.TransactonDate | date: 'MMM dd, yyyy'}}</a></td>
-   
-                                <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+            </thead>
 
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
+            <tbody>
+                <tr ng-repeat="row in $ctrl.consultationListDisplay">
+                    <td>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" ng-model="$ctrl.selectedRow" ng-value="row">
+                                <a ng-click="$ctrl.setSelectedRow(row)" href="#">{{row.TransactionDate | date: 'MMM dd, yyyy'}}</a>
+                            </label><br />
+                        </div>
+                    </td>
+                    
+                 
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
 
-                                <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
 
-                </div>
+                    <td class="text-center" st-pagination="" st-items-by-page="4" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="addConsultaionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span></span>New Consultation</h4>
+            </div>
+            <div class="modal-body">
+
+                <form name="consultationForm">
+
+                    <div class="modal-body">
+
+                        <div class="form-group" ng-class="{ 'has-error' : consultationForm.FormDate.$invalid && !consultationForm.FormDate.$pristine }">
+                            <label for="FormDate">Date</label>
+                            <input name="FormDate" ng-required="true" type="date" ng-model="$ctrl.myConsultation.TransactionDate" ng-disabled="disableInput" class="form-control" id="FormDate" />
+
+                            <span class="help-block" ng-show="consultationForm.FormDate.$invalid && !consultationForm.FormDate.$pristine">
+                                Record Category Name is required.
+                            </span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" ng-disabled="!consultationForm.$valid" ng-click="$ctrl.updateConsultation()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+                </form>
 
             </div>
 
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 
-
-    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modalTitle"></h4>
-                </div>
-                <div class="modal-body">
-
-
-                    <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                        <div class="panel-heading">Diagnosis</div>
-                        <table st-table="$ctrl.consultationDiagnosisDisplay" st-safe-src="$ctrl.consultationDiagnosis" class="table table-condensed table-responsive table-striped">
-                            <thead>
-                                <tr>
-
-                                    <th></th>
-                                    <th>Diagnosis</th>
-                                    <th>Remarks</th>
-                                    <th>Amount</th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="row in $ctrl.consultationDiagnosis">
-
-                                    <td><button class="btn btn-xs btn-primary" ng-click=""><span class="fa fa-edit"></span></button></td>
-                                    <td>{{row.Diagnosis}}</td>
-                                    <td>{{row.Remarks}}</td>
-                                    <td>{{row.Amount}}</td>
-
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-
-                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <br />
-
-                    <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                        <div class="panel-heading">Record</div>
-                        <table st-table="$ctrl.consultationRecordDisplay" st-safe-src="$ctrl.consultationRecord" class="table table-condensed table-responsive table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th>Value</th>
+<div class="modal fade" id="deleteConsultationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
 
 
-                                </tr>
-                            </thead>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deleteConsultation()" data-dismiss="modal">  Yes  </button>
 
-                            <tbody>
-                                <tr ng-repeat="row in $ctrl.consultationRecord">
-
-                                    <td><button class="btn btn-xs btn-primary" ng-click=""><span class="fa fa-edit"></span></button></td>
-                                    <td>{{row.RecordTypeName}}</td>
-                                    <td>{{row.RecordValue}}</td>
-
-
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-
-                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="3"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <br />
-
-                    <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
-                        <div class="panel-heading">Medication</div>
-                        <table st-table="$ctrl.consultationMedicationDisplay" st-safe-src="$ctrl.consultationMedication" class="table table-condensed table-responsive table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th>Amount</th>
-                                    <th>Quantity</th>
-                                    <th>Remarks</th>
-
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="row in $ctrl.consultationMedication">
-                                    <td><button class="btn btn-xs btn-primary" ng-click=""><span class="fa fa-edit"></span></button></td>
-                                    <td>{{row.Medication}}</td>
-                                    <td>{{row.Amount}}</td>
-                                    <td>{{row.Quantity}}</td>
-                                    <td>{{row.Remarks}}</td>
-                                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
-
-
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-
-                                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="4"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
-                </div>
-                <div class="modal-body">
-                    <h5>Are you sure you want to remove <span><strong id=""></strong></span> </h5>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deleteConsultation()" data-dismiss="modal">  Yes  </button>
-
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

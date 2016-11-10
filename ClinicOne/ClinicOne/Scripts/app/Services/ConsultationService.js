@@ -1,10 +1,10 @@
 ﻿angular.module('consulatationServiceModule', []).
- factory('consultationSvc', function ($http, $q) {
+ factory('consultationSvc', function ($http, $q, $filter) {
 
      var svc = {
-
-         submitInitialConsultation: submitInitialConsultation,
-         submitConsultation: submitConsultation,
+         
+         addConsultation: addConsultation,
+         editConsultation: editConsultation,
          getConsultation: getConsultation,
          deleteConsultation: deleteConsultation,
          getConsultationChildren: getConsultationChildren,
@@ -24,40 +24,71 @@
      };
 
      return svc;
-
-     function submitInitialConsultation(consultation) {
-         return $http({
-             method: 'POST',
-             url: '/Consultation/AddConsultation',
-             data: $.param({ consultaion: consultation }),
-             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-         }).success(function (data) {
+     
+     function addConsultation(consultation) {
 
 
-         });
-     };
-
-     function submitConsultation(consultation) {
+         consultation.TransactionDate = $filter('date')(consultation.TransactionDate, "yyyy-MM-dd HH:mm:ss");
 
          return $http({
              method: 'POST',
              url: '/Consultation/AddConsultation',
-             data: $.param({ consultaion: consultation }),
+             data: $.param({ consultation: consultation }),
              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+         }).then(function (result) {
+             
+             consultation.Id = result.data.Id;
+             consultation.TransactionDate = result.data.TransactionDate
+
+             return consultation;
+
+         }, function (error) {
+
+             return error;
          });
      };
 
-     function deleteConsultation(consultationId) {
+     function editConsultation(consultation) {
 
-         $http({
+         consultation.TransactionDate = $filter('date')(consultation.TransactionDate, "yyyy-MM-dd HH:mm:ss");
+
+         return $http({
+             method: 'POST',
+             url: '/Consultation/EditConsultation',
+             data: $.param({ consultation: consultation }),
+             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+         }).then(function (result) {
+ 
+
+             consultation.TransactionDate = new Date(ToJavaScriptDate(result.data));
+             return consultation;
+
+         }, function (error) {
+
+             return error;
+
+         });
+
+     };
+
+     function deleteConsultation(consultation) {
+
+        return $http({
              method: 'GET',
-             url: '/Consultation/DeleteConsultation?id=' + consultationId + ''
+             url: '/Consultation/DeleteConsultation?id=' + consultation.Id + ''
 
-         }).success(function (data) {
+         }).then(function (result) {
 
+             return result.data;
+
+         }, function (error) {
+
+             return error;
          });
+
+
      };
 
 
