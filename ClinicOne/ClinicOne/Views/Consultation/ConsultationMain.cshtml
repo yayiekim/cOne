@@ -1,93 +1,101 @@
 ﻿<div ng-app="app" ng-controller="consultationCtrl">
-
     <div class="row">
+     
+        <div class="col-md-8" >
+            <h3 class="pull-right">{{selectedConsultaion.TransactionDate | date: 'MMM dd, yyyy' }}</h3>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Records</a></li>
+                <li><a data-toggle="tab" href="#menu1">Diagnosis</a></li>
+                <li><a data-toggle="tab" href="#menu2">Medications</a></li>
+                <li><a data-toggle="tab" href="#menu3">Laboratory</a></li>
+            </ul>
 
-        <div class="col-md-4">
+            <div class="tab-content">
+                
+            
 
-            <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
-                <div style="height:50px" class="panel-heading">
-                    Patient info
-                    <button class="pull-right btn-sm btn btn-default" ng-click="showPatients()"><span class="fa fa-search"></span></button>
+                <div id="home" class="tab-pane fade in active">
+      
+                    <h3>Records</h3>
+                    <new-patient-record disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" records="records"></new-patient-record>
+
                 </div>
-
-                <div class="panel-body">
-                    <table class="small table table-bordered table-condensed table-responsive">
-                        <tbody>
-                            <tr>
-                                <th>Name</th>
-                                <td>{{selectedPatient.FullName}}</td>
-                            </tr>
-                            <tr>
-                                <th>Birth date</th>
-                                <td>{{selectedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
-                            </tr>
-                            <tr>
-                                <th>Age</th>
-                                <td>{{selectedPatient.Age}}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Blood Type</th>
-                                <td>{{selectedPatient.BloodType}}</td>
-
-                            </tr>
-
-
-                            <tr>
-                                <th>Address</th>
-                                <td>{{selectedPatient.FullAddress}}</td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>Diagnosis</h3>
+                    <diagnosis disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" diagnosis-list="diagnosisList"></diagnosis>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Medications</h3>
+                    <medications disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" medications="medications"></medications>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h3>Laboratory</h3>
+                    <lab disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" lab-summaries="labSummaries"></lab>
                 </div>
             </div>
 
+
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
+            <div class="col-md-12">
 
-            <consultation-list patient="selectedPatient" selected-row="selectedConsultaion" my-consultations="consultations"></consultation-list>
+                <div style="box-shadow: 5px 5px 2px #888888" class="panel panel-info">
+                    <div style="height:50px" class="panel-heading">
+                        Patient info
+                        <button class="pull-right btn-sm btn btn-default" ng-click="showPatients()"><span class="fa fa-search"></span></button>
+                    </div>
+
+                    <div class="panel-body">
+                        <table class="small table table-bordered table-condensed table-responsive">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{selectedPatient.FullName}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Birth date</th>
+                                    <td>{{selectedPatient.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Age</th>
+                                    <td>{{selectedPatient.Age}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Blood Type</th>
+                                    <td>{{selectedPatient.BloodType}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+
+                <consultation-list disable-button-consultation-list="disableButtonConsultationList" patient="selectedPatient" selected-row="selectedConsultaion" my-consultations="consultations"></consultation-list>
+            </div>
+
         </div>
-
+      
     </div>
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Records</a></li>
-        <li><a data-toggle="tab" href="#menu1">Diagnosis</a></li>
-        <li><a data-toggle="tab" href="#menu2">Medications</a></li>
-        <li><a data-toggle="tab" href="#menu3">Laboratory</a></li>
-    </ul>
 
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <h3>Records</h3>
-            <new-patient-record disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" records="records"></new-patient-record>
-            
-        </div>
-        <div id="menu1" class="tab-pane fade">
-            <h3>Diagnosis</h3>
-            <diagnosis disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" diagnosis-list="diagnosisList"></diagnosis>
-        </div>
-        <div id="menu2" class="tab-pane fade">
-            <h3>Medications</h3>
-            <medications disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" medications="medications"></medications>
-        </div>
-        <div id="menu3" class="tab-pane fade">
-            <h3>Laboratory</h3>
-            <lab disable-button="disableButton" selected-consultation-id="selectedConsultaion.Id" lab-summaries="labSummaries"></lab>
-        </div>
-    </div>
+  
 
   
 
 
-  
 
-    
-  
-   
+
+
+
+
+
 
     <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -108,13 +116,13 @@
 </div>
 
 @section Scripts{
-<link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
+    <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
 
-<script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
-<script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-
-
-<script src="~/Scripts/app/NewPatientRecordComponent.js"></script>
+    <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
+    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+<link href="~/.bin/bower_components/ngPrint/ngPrint.min.css" rel="stylesheet" />
+<script src="~/.bin/bower_components/ngPrint/ngPrint.min.js"></script>
+    <script src="~/Scripts/app/NewPatientRecordComponent.js"></script>
 
 
     <script src="~/Scripts/app/ConsultationController.js"></script>
@@ -136,7 +144,8 @@
             var dt = new Date(parseFloat(results[1]));
             return dt;
         }
-        var app = angular.module('app', ['consultationController', 'medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent', 'labComponent']);
+        var app = angular.module('app', ['consulatationServiceModule', 'dropDownServiceModule', 'ui.select', 'smart-table', 'ngPrint', 'consultationController',
+            'medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent', 'labComponent']);
 
     </script>
 

@@ -2,6 +2,7 @@
 
 consultationController.controller('consultationCtrl', function ($scope, $http, consultationSvc, $timeout) {
 
+    $scope.disableButtonConsultationList = true;
     $scope.disableButton = true;
     $scope.showAddButtons = false;
     $scope.consultations;
@@ -25,6 +26,11 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
          $scope.clear()
             $scope.disableButton = true;
 
+            if ($scope.selectedPatient != null) {
+                $scope.disableButtonConsultationList = false;
+            } else {
+                $scope.disableButtonConsultationList = true;
+            }
 
 
             consultationSvc.getConsultation($scope.selectedPatient.Id).then(function (data) {

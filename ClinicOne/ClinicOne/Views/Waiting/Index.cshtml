@@ -31,7 +31,7 @@
                                 <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
                             </tr>
                             <tr>
-                                <th></th>
+                             
                                 <th st-sort="PatientFullName">Name</th>
                                 <th st-sort="Schedule">Schedule</th>
                                 <th>Remarks</th>
@@ -42,7 +42,7 @@
                         <tbody>
                             <tr></tr>
                             <tr ng-repeat="row in waitingListDisplay">
-                                <td><button class="btn-sm btn btn-primary" ng-click="admitPatient(row)"><span class="fa fa-arrow-right"></span></button></td>
+                              
                                 <td>{{row.PatientFullName}}</td>
                                 <td>{{row.Schedule | date: 'medium'}}</td>
                                 <td>{{row.Remarks}}</td>

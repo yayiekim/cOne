@@ -815,6 +815,11 @@
     <Content Include=".bin\bower_components\morrisjs\spec\viz\exemplary\stacked_bar0.png" />
     <Content Include=".bin\bower_components\morrisjs\spec\viz\test.html" />
     <Content Include=".bin\bower_components\morrisjs\spec\viz\visual_specs.js" />
+    <Content Include=".bin\bower_components\ngPrint\Gruntfile.js" />
+    <Content Include=".bin\bower_components\ngPrint\ngPrint.css" />
+    <Content Include=".bin\bower_components\ngPrint\ngPrint.js" />
+    <Content Include=".bin\bower_components\ngPrint\ngPrint.min.css" />
+    <Content Include=".bin\bower_components\ngPrint\ngPrint.min.js" />
     <Content Include=".bin\bower_components\raphael\dev\amdDev.js" />
     <Content Include=".bin\bower_components\raphael\dev\index.js" />
     <Content Include=".bin\bower_components\raphael\dev\require.js" />
@@ -1262,6 +1267,12 @@
     <Content Include=".bin\bower_components\angular-route\LICENSE.md" />
     <Content Include=".bin\bower_components\angular-route\package.json" />
     <Content Include=".bin\bower_components\angular-route\README.md" />
+    <Content Include=".bin\bower_components\ngPrint\.bower.json" />
+    <Content Include=".bin\bower_components\ngPrint\bower.json" />
+    <Content Include=".bin\bower_components\ngPrint\LICENSE" />
+    <Content Include=".bin\bower_components\ngPrint\ngPrint.min.js.map" />
+    <Content Include=".bin\bower_components\ngPrint\package.json" />
+    <Content Include=".bin\bower_components\ngPrint\README.md" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <EntityDeploy Include="ClinicData.edmx">

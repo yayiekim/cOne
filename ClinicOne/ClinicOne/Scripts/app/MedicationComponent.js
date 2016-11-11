@@ -1,4 +1,4 @@
-﻿var medicationsComponent = angular.module('medicationsComponent', ['smart-table', 'ui.select']);
+﻿var medicationsComponent = angular.module('medicationsComponent', []);
 
 medicationsComponent.component('medications', {
     templateUrl: '/Static/MedicationTemplate.html',

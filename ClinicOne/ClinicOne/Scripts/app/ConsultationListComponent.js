@@ -1,11 +1,12 @@
-﻿var consultationListComponent = angular.module('consultationListComponent', ['smart-table']);
+﻿var consultationListComponent = angular.module('consultationListComponent', []);
 
 consultationListComponent.component('consultationList', {
     templateUrl: '/Static/ConsultationList.html',
     bindings: {
         myConsultations: '<',
         selectedRow: '=',
-        patient: '='
+        patient: '=',
+        disableButtonConsultationList: '='
 
     },
     controller: MyController
@@ -51,6 +52,14 @@ function MyController(consultationSvc) {
 
     };
 
+    
+
+    $ctrl.showPrint = function (row) {
+        $ctrl.myConsultation = row;
+        $('#printConsultationModal').modal('toggle');
+
+    };
+
     $ctrl.deleteConsultation = function () {
 
         consultationSvc.deleteConsultation($ctrl.myConsultation).then(function (data) {
@@ -67,8 +76,7 @@ function MyController(consultationSvc) {
 
         $ctrl.myConsultation.PatientId = $ctrl.patient.Id;
 
-       
-       
+             
 
         if ($ctrl.mode == 'add') {
 
@@ -77,7 +85,7 @@ function MyController(consultationSvc) {
                 data.TransactionDate = new Date(ToJavaScriptDate(data.TransactionDate));
 
                 $ctrl.myConsultations.push(data);
-
+                $ctrl.selectedRow = data;
             });
 
         }
@@ -118,6 +126,10 @@ function MyController(consultationSvc) {
 
 
 
+    };
+
+    $ctrl.Print = function () {
+        window.print();
     };
 
 

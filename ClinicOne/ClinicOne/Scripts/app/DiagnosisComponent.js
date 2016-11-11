@@ -1,4 +1,4 @@
-﻿var diagnosisComponent = angular.module('diagnosisComponent', ['ui.select']);
+﻿var diagnosisComponent = angular.module('diagnosisComponent', []);
 
 diagnosisComponent.component('diagnosis', {
     templateUrl: '/Static/DiagnosisTemplate.html',

@@ -1,4 +1,4 @@
-﻿var newPatientRecordComponent = angular.module('newPatientRecordComponent', ['smart-table', 'ui.select']);
+﻿var newPatientRecordComponent = angular.module('newPatientRecordComponent', []);
 
 newPatientRecordComponent.component('newPatientRecord', {
     templateUrl: '/Static/NewPatientRecordTemplate.html',

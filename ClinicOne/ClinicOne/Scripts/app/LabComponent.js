@@ -1,4 +1,4 @@
-﻿var labComponent = angular.module('labComponent', ['smart-table', 'dropDownServiceModule', 'consulatationServiceModule', 'ui.select']);
+﻿var labComponent = angular.module('labComponent', []);
 
 labComponent.component('lab', {
     templateUrl: '/Static/labTemplate.html',

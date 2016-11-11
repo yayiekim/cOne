@@ -1,9 +1,9 @@
 ﻿
 
-<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+<div  style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
     <div style="height:50px" class="panel-heading">
         Consultations
-        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showDialogModalAdd()"><span class="fa fa-plus"></span></button>
+        <button class="pull-right btn-sm btn btn-default" ng-disabled="$ctrl.disableButtonConsultationList" ng-click="$ctrl.showDialogModalAdd()"><span class="fa fa-plus"></span></button>
     </div>
 
     <div class="panel-body">
@@ -12,14 +12,14 @@
 
                 <tr>
 
-                    <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                    <th colspan="4"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
                 </tr>
 
 
             </thead>
 
             <tbody>
-                <tr ng-repeat="row in $ctrl.consultationListDisplay">
+                <tr ng-repeat="row in $ctrl.consultationListDisplay | orderBy:'-TransactionDate'">
                     <td>
                         <div class="radio">
                             <label>
@@ -28,10 +28,11 @@
                             </label><br />
                         </div>
                     </td>
-                    
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showPrint(row)"><span class="fa fa-print"></span></button></td>
                  
                     <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
                     <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
 
                 </tr>
             </tbody>
@@ -106,6 +107,28 @@
                 <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deleteConsultation()" data-dismiss="modal">  Yes  </button>
 
             </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="printConsultationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div id="pxPrint" class="modal-content">
+          
+        fsadfsadddddddddddddfsadfsdf
+        df
+        asdf
+        sadf
+        sad
+        f
+        sadf
+        sadf
+        THIS IS PRINT
+
+        <button class="btn btn-danger" ng-print print-element-id="pxPrint" >fadsf</button>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
