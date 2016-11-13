@@ -6,7 +6,8 @@ consultationListComponent.component('consultationList', {
         myConsultations: '<',
         selectedRow: '=',
         patient: '=',
-        disableButtonConsultationList: '='
+        disableButtonConsultationList: '=',
+        prescribeMeds: '='
 
     },
     controller: MyController
@@ -55,7 +56,9 @@ function MyController(consultationSvc) {
     
 
     $ctrl.showPrint = function (row) {
+        $ctrl.selectedRow = row;
         $ctrl.myConsultation = row;
+   
         $('#printConsultationModal').modal('toggle');
 
     };
@@ -129,6 +132,8 @@ function MyController(consultationSvc) {
     };
 
     $ctrl.Print = function () {
+
+        window.document.write(document.getElementById('pxPrint').innerHTML)
         window.print();
     };
 

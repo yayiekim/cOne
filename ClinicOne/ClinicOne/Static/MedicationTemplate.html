@@ -7,7 +7,7 @@
 
 
     <div class="panel-body">
-        <table st-table="$ctrl.medicationsListDisplay"  st-safe-src="$ctrl.medications" class="small table table-condensed table-responsive table-striped">
+        <table st-table="$ctrl.medicationsListDisplay" st-safe-src="$ctrl.medications" class="small table table-condensed table-responsive table-striped">
             <thead>
                 <tr>
                     <th></th>
@@ -51,68 +51,109 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="ConsultationMedicationModal-label">Medication</h4>
             </div>
-            <div class="modal-body">
+
+            <form name="medicationForm" novalidate>
+
+                <div class="modal-body">
 
 
-                <div class="form-group">
-                    <div class="input-group">
+                    <div class="form-group">
+                        <div class="input-group">
 
-                        <ui-select id="ConsultationMedicationModalMedication" ng-model="$ctrl.medication.Medication">
-                            <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
-                            <ui-select-choices repeat="item.MedicationName as item in $ctrl.medicationsListDropDown | filter: $select.search">
-                                <span ng-bind="item.MedicationName"></span>
-                            </ui-select-choices>
-                        </ui-select>
+                            <ui-select id="ConsultationMedicationModalMedication" ng-model="$ctrl.medication.Medication">
+                                <ui-select-match placeholder="Select medication">{{$select.selected.MedicationName}}</ui-select-match>
+                                <ui-select-choices repeat="item.MedicationName as item in $ctrl.medicationsListDropDown | filter: $select.search">
+                                    <span ng-bind="item.MedicationName"></span>
+                                </ui-select-choices>
+                            </ui-select>
 
-                        <div class="input-group-btn">
-                            <button ng-click="$ctrl.showQuickAddModalMedication()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            <div class="input-group-btn">
+                                <button ng-click="$ctrl.showQuickAddModalMedication()" class="btn btn-default"><span class="fa fa-plus"></span></button>
+                            </div>
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+
+
+                        <div  ng-class="{ 'has-error' : medicationForm.FormStrength.$invalid && !medicationForm.FormStrength.$pristine }">
+    
+                            <input name="FormStrength" placeholder="Strenght" ng-required="true" type="text" ng-model="$ctrl.medication.Strength" ng-disabled="disableInput" class="form-control" id="Strength" />
+                            <span class="help-block" ng-show="medicationForm.FormStrength.$invalid && !medicationForm.FormStrength.$pristine">
+                                Strength is required.
+                            </span>
+                        </div>
+
+                     
+                    </div>
+
+                    <div class="form-group">
+
+                        <div  ng-class="{ 'has-error' : medicationForm.FormVolume.$invalid && !medicationForm.FormVolume.$pristine }">
+                            <input name="FormVolume" placeholder="Volume" ng-required="true" type="text" ng-model="$ctrl.medication.Volume" ng-disabled="disableInput" class="form-control" id="Volume" />
+                            <span class="help-block" ng-show="medicationForm.FormVolume.$invalid && !medicationForm.FormVolume.$pristine">
+                                Volume is required.
+                            </span>
+                        </div>
+
+
+                      
+                    </div>
+
+                    <div class="form-group">
+                        <div  ng-class="{ 'has-error' : medicationForm.FormFrequency.$invalid && !medicationForm.FormFrequency.$pristine }">
+                            <input name="FormFrequency" placeholder="Frequency" ng-required="true" type="text" ng-model="$ctrl.medication.Frequency" ng-disabled="disableInput" class="form-control" id="Volume" />
+                            <span class="help-block" ng-show="medicationForm.FormFrequency.$invalid && !medicationForm.FormFrequency.$pristine">
+                                Frequency is required.
+                            </span>
+                        </div>
+
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <div ng-class="{ 'has-error' : medicationForm.FormRoute.$invalid && !medicationForm.FormRoute.$pristine }">
+                            <input name="FormRoute" placeholder="Route" ng-required="true" type="text" ng-model="$ctrl.medication.Route" ng-disabled="disableInput" class="form-control" id="Volume" />
+                            <span class="help-block" ng-show="medicationForm.FormRoute.$invalid && !medicationForm.FormRoute.$pristine">
+                                Route is required.
+                            </span>
+                        </div>
+
+
+                    </div>
+
+
+                  
+
+                    <div class="form-group">
+
+                        <textarea ng-model="$ctrl.medication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
+                    </div>
+
+                    <div class="form-group">
+
+                        <input ng-model="$ctrl.medication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
+                    </div>
+
+                    <div class="form-group">
+
+                        <input ng-model="$ctrl.medication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" ng-disabled="!medicationForm.$valid" ng-click="$ctrl.updateMedication()" class="btn btn-primary">Save</button>
                 </div>
 
-                <div class="form-group">
 
-                    <input ng-model="$ctrl.medication.Strength" placeholder="Strength" class="form-control" id="ConsultationMedicationModalStrength" />
-                </div>
+            </form>
 
-                <div class="form-group">
-
-                    <input ng-model="$ctrl.medication.Volume" placeholder="Volume" class="form-control" id="ConsultationMedicationModalVolume" />
-                </div>
-
-                <div class="form-group">
-
-                    <input ng-model="$ctrl.medication.Frequency" placeholder="Frequency" class="form-control" id="ConsultationMedicationModalFrequency" />
-                </div>
-
-                <div class="form-group">
-
-                    <input ng-model="$ctrl.medication.Route" placeholder="Route" class="form-control" id="ConsultationMedicationModalRoute" />
-                </div>
-
-                <div class="form-group">
-
-                    <textarea ng-model="$ctrl.medication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
-                </div>
-
-                <div class="form-group">
-
-                    <input ng-model="$ctrl.medication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
-                </div>
-
-                <div class="form-group">
-
-                    <input ng-model="$ctrl.medication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
-                </div>
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" ng-click="$ctrl.updateMedication()" class="btn btn-primary">Save</button>
-            </div>
+       
         </div>
     </div>
 </div>

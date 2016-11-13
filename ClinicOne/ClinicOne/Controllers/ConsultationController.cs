@@ -386,6 +386,35 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+
+        //public async Task<JsonResult> getPrescribeMed(Guid consultationId)
+        //{
+
+        //    var prescribeMeds = await db.PrescribedMedications.Where(i => i.ConsultationId == consultationId).ToListAsync();
+        //    List<PatientPrescribeMedicationModel> prescribeMedList = new List<PatientPrescribeMedicationModel>();
+        //    foreach (var prescribeMed in prescribeMeds)
+        //    {
+        //        PatientPrescribeMedicationModel prescribeMedModel = new PatientPrescribeMedicationModel()
+        //        {
+        //            Id = prescribeMed.Id,
+        //            Amount = prescribeMed.Amount.GetValueOrDefault(0m),
+        //            Medication = prescribeMed.Medication,
+        //            Remarks = prescribeMed.Remarks,
+        //            Quantity = prescribeMed.Quantity.GetValueOrDefault(0),
+        //            ConsultationId = consultationId,
+        //            Frequency = prescribeMed.Frequency,
+        //            Route = prescribeMed.Route,
+        //            Strength = prescribeMed.Strength,
+        //            Volume = prescribeMed.Volume
+        //        };
+
+        //        prescribeMedList.Add(prescribeMedModel);
+        //    }
+
+        //    return Json(prescribeMedList, JsonRequestBehavior.AllowGet);
+        //}
+
+
         public async Task<JsonResult> AddPrescribeMed(PatientPrescribeMedicationModel medication)
         {
             PrescribedMedication model = new PrescribedMedication()

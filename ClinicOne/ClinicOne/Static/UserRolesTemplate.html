@@ -1,0 +1,68 @@
+﻿<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        Users
+    </div>
+
+    <div class="panel-body">
+        <table class="small table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Diagnosis</th>
+                    <th>Remarks</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.users">
+
+                    <td>{{row.Id}}</td>
+                    <td>{{row.Remarks}}</td>
+
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div>
+
+
+<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        User Roles
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Diagnosis</th>
+                    <th>Remarks</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.userRoles">
+
+                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
+                    <td>{{row.Diagnosis}}</td>
+                    <td>{{row.Remarks}}</td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+
+
+</div>

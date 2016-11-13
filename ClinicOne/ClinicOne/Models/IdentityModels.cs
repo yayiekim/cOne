@@ -29,5 +29,7 @@ namespace ClinicOne.Models
         {
             return new ApplicationDbContext();
         }
+
+      
     }
 }

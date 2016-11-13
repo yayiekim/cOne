@@ -870,8 +870,10 @@
     <Content Include="Scripts\app\RecordTypeCategoriesController.js" />
     <Content Include="Scripts\app\RecordTypeController.js" />
     <Content Include="Scripts\app\SearchPatientsComponent.js" />
+    <Content Include="Scripts\app\Services\AdminService.js" />
     <Content Include="Scripts\app\Services\ConsultationService.js" />
     <Content Include="Scripts\app\Services\DropDownService.js" />
+    <Content Include="Scripts\app\UserRolesComponent.js" />
     <Content Include="Scripts\app\WaitingController.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
@@ -1302,6 +1304,7 @@
     <Content Include="Static\ConsultationList.html" />
     <Content Include="Static\PatientsTemplate.html" />
     <Content Include="Static\SearchPatientTemplate.html" />
+    <Content Include="Static\UserRolesTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1359,11 +1362,11 @@
     <Content Include="Views\PatientInitialRecord\Index.cshtml" />
     <Content Include="Views\LabTest\Index.cshtml" />
     <Content Include="Views\Consultation\ConsultationMain.cshtml" />
+    <Content Include="Views\Admin\UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Clinic\" />
     <Folder Include="Views\Reports\" />
   </ItemGroup>
