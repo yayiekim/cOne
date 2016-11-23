@@ -1,7 +1,7 @@
 ﻿var consultationListComponent = angular.module('consultationListComponent', []);
 
 consultationListComponent.component('consultationList', {
-    templateUrl: '/Static/ConsultationList.html',
+    templateUrl: '/wwwroot/src/ConsultationList.html',
     bindings: {
         myConsultations: '<',
         selectedRow: '=',

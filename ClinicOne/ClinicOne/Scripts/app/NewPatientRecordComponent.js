@@ -1,7 +1,7 @@
 ﻿var newPatientRecordComponent = angular.module('newPatientRecordComponent', []);
 
 newPatientRecordComponent.component('newPatientRecord', {
-    templateUrl: '/Static/NewPatientRecordTemplate.html',
+    templateUrl: '/wwwroot/src/NewPatientRecordTemplate.html',
     bindings: {
         records: '=',
         selectedConsultationId: '=',

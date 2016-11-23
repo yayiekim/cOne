@@ -1,7 +1,7 @@
 ﻿var diagnosisComponent = angular.module('diagnosisComponent', []);
 
 diagnosisComponent.component('diagnosis', {
-    templateUrl: '/Static/DiagnosisTemplate.html',
+    templateUrl: '/wwwroot/src/DiagnosisTemplate.html',
     bindings: {
         diagnosisList: '=',
         selectedConsultationId: '=',

@@ -1,7 +1,7 @@
 ﻿var medicationsComponent = angular.module('medicationsComponent', []);
 
 medicationsComponent.component('medications', {
-    templateUrl: '/Static/MedicationTemplate.html',
+    templateUrl: '/wwwroot/src/MedicationTemplate.html',
     bindings: {
         medications: '=',
         selectedConsultationId: '=',

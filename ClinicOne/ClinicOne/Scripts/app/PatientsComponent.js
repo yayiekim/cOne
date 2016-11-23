@@ -1,8 +1,8 @@
 ﻿var patientsComponent = angular.module('patientsComponent', ['smart-table']);
 
 patientsComponent.component('patient', {
-    templateUrl: '/Static/PatientsTemplate.html',
-    controller: function MyController($http) {
+    templateUrl: '/wwwroot/src/PatientsTemplate.html',
+    controller: function MyController($http, $filter) {
 
         var $ctrl = this;
               
@@ -92,6 +92,8 @@ patientsComponent.component('patient', {
         };
 
         $ctrl.updatePatient = function () {
+
+            $ctrl.Patient.BirthDate = $filter('date')($ctrl.Patient.BirthDate, "yyyy-MM-dd HH:mm:ss");
 
             if ($ctrl.submitType == 'add') {
 

@@ -5,3 +5,29 @@
 }
 
 <h2>UserRoles</h2>
+
+<div ng-app="app" >
+
+    <user-roles></user-roles>
+
+</div>
+
+
+
+@section Scripts{
+
+
+    <script>
+        
+        var app = angular.module('app', ['userRolesComponent', 'adminServiceModule']);
+
+        var controller = app.controller('myController', function () {
+
+
+        });
+
+
+    </script>
+
+
+}

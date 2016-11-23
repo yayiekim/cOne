@@ -1,0 +1,205 @@
+﻿
+
+        <div class="panel panel-primary">
+
+            <div style="height:50px" class="panel-heading">
+                <span class="fa fa-users"></span>
+                Patient List
+                <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showAddModal()"><span class="fa fa-plus"></span></button>
+            </div>
+
+            <div class="panel-body">
+                <table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
+
+                    <thead>
+                        <tr>
+
+                            <th colspan="8"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th st-sort="FirstName">First Name</th>
+                            <th st-sort="LastName">Last Name</th>
+                            <th st-sort="Gender">Gender</th>
+                            <th st-sort="BirthDate">Birth Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="row in $ctrl.patientsListDisplay">
+                            <td>
+                                <button class="btn btn-xs btn-info" ng-click="$ctrl.showDetailModal(row)"><span class="fa fa-info-circle"></span></button>
+                                <button class="btn btn-xs btn-primary" ng-click="$ctrl.showEditModal(row)"><span class="fa fa-edit"></span></button>
+                            </td>
+                            <td>{{row.FirstName}}</td>
+                            <td>{{row.LastName}}</td>
+                            <td>{{row.Gender}}</td>
+                            <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                            <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showConfirmDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+                        </tr>
+                    </tbody>
+
+
+                    <tfoot>
+                        <tr>
+
+                            <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+
+<!-- ADD PATIENTS LIST -->
+<!-- ADD PATIENTS LIST -->
+<!-- ADD PATIENTS LIST -->
+
+
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalTitle"></h4>
+            </div>
+
+
+            <form name="patientForm" role="form" class="form-horizontal">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormFirstName.$invalid && !patientForm.FormFirstName.$pristine }">
+                            <label>First Name</label>
+                            <input name="FormFirstName" ng-required="true" type="text" ng-model="$ctrl.Patient.FirstName" ng-disabled="disableInput" class="form-control" id="FirstName" />
+                            <span class="help-block" ng-show="patientForm.FormFirstName.$invalid && !patientForm.FormFirstName.$pristine">
+                                First name is required.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label>Middle Name</label>
+                            <input type="text" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
+                        </div>
+
+                        <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormLastName.$invalid && !patientForm.FormLastName.$pristine }">
+                            <label>Last Name</label>
+                            <input name="FormLastName" ng-required="true" type="text" ng-model="$ctrl.Patient.LastName" ng-disabled="disableInput" class="form-control" id="LastName" />
+                            <span class="help-block" ng-show="patientForm.FormLastName.$invalid && !patientForm.FormLastName.$pristine">
+                                Last name is required.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormBirthDate.$invalid && !patientForm.FormBirthDate.$pristine }">
+                            <label>Birth Date</label>
+                            <input name="FormBirthDate" ng-required="true" type="text" ng-model="$ctrl.Patient.BirthDate" ng-disabled="disableInput" class="form-control" id="BirthDate" />
+                            <span class="help-block" ng-show="patientForm.FormBirthDate.$invalid && !patientForm.FormBirthDate.$pristine">
+                                Birth date is required.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-2" ng-show="showAge">
+                            <label>Age</label>
+                            <input type="text" ng-model="$ctrl.Patient.Age" ng-disabled="disableInput" class="form-control" id="Age" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormGender.$invalid && !patientForm.FormGender.$pristine }">
+                            <label>Gender</label>
+                            <input name="FormGender" ng-required="true" type="text" ng-model="$ctrl.Patient.Gender" ng-disabled="disableInput" class="form-control" id="Gender" />
+                            <span class="help-block" ng-show="patientForm.FormGender.$invalid && !patientForm.FormGender.$pristine">
+                                Gender is required.
+                            </span>
+                        </div>
+
+                        <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormBloodType.$invalid && !patientForm.FormBloodType.$pristine }">
+                            <label>Blood Type</label>
+                            <input name="FormBloodType" ng-required="true" type="text" ng-model="$ctrl.Patient.BloodType" ng-disabled="disableInput" class="form-control" id="BloodType" />
+                            <span class="help-block" ng-show="patientForm.FormBloodType.$invalid && !patientForm.FormBloodType.$pristine">
+                                Blood type is required.
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-4">
+                            <label>Landline #</label>
+                            <input type="text" ng-model="$ctrl.Patient.ContactNumber1" ng-disabled="disableInput" class="form-control" id="ContactNumber1" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label>Mobile #</label>
+                            <input type="text" ng-model="$ctrl.Patient.ContactNumber2" ng-disabled="disableInput" class="form-control" id="ContactNumber2" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-12" ng-class="{ 'has-error' : patientForm.FormAdd1.$invalid && !patientForm.FormAdd1.$pristine }">
+                            <label>Number/Street/Brgy</label>
+                            <input name="FormAdd1" ng-required="true" type="text" ng-model="$ctrl.Patient.Address1" ng-disabled="disableInput" class="form-control" id="Address1" />
+                            <span class="help-block" ng-show="patientForm.FormAdd1.$invalid && !patientForm.FormAdd1.$pristine">
+                                (Number, Street, Brgy, etc.) is required.
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-12" ng-class="{ 'has-error' : patientForm.FormAdd2.$invalid && !patientForm.FormAdd2.$pristine }">
+                            <label>City/State</label>
+                            <input name="FormAdd2" ng-required="true" type="text" ng-model="$ctrl.Patient.Address2" ng-disabled="disableInput" class="form-control" id="Address2" />
+                            <span class="help-block" ng-show="patientForm.FormAdd2.$invalid && !patientForm.FormAdd2.$pristine">
+                                (City, State, etc.) is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-disabled="!patientForm.$valid" ng-click="$ctrl.updatePatient()" data-dismiss="modal" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- DELETE MODAL -->
+<!-- DELETE MODAL -->
+<!-- DELETE MODAL -->
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="fa fa-question-circle"></span> Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to remove?</h5>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn btn-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn-sm btn btn-primary" ng-click="$ctrl.deletePatient()" data-dismiss="modal">  Yes  </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

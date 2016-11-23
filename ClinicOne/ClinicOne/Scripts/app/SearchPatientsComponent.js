@@ -1,7 +1,7 @@
 ﻿var searchPatientsComponent = angular.module('searchPatientsComponent', ['smart-table']);
 
 searchPatientsComponent.component('searchPatient', {
-    templateUrl: '/Static/SearchPatientTemplate.html',
+    templateUrl: '/wwwroot/src/SearchPatientTemplate.html',
     bindings: {
         patient: '=',
     },

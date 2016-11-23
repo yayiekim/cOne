@@ -8,9 +8,23 @@ namespace ClinicOne
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/.bin/bower_components/angular/angular.min.js",
-                        "~/Scripts/jquery-{version}.js"));
+                 "~/.bin/bower_components/angular/angular.min.js").Include(
+                "~/.bin/bower_components/ngPrint/ngPrint.min.js").Include(
+                "~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js").Include(
+                "~/.bin/bower_components/angular-ui-select/dist/select.min.js").Include(
+                "~/Scripts/jquery-{version}.js").Include(
+                "~/Scripts/app/Services/DropDownService.js").Include(
+                "~/Scripts/app/Services/ConsultationService.js").Include(
+                "~/Scripts/app/Services/AdminService.js").Include(
+                "~/Scripts/app/LabComponent.js").Include(
+                "~/Scripts/app/MedicationComponent.js").Include(
+                "~/Scripts/app/DiagnosisComponent.js").Include(
+                "~/Scripts/app/SearchPatientsComponent.js").Include(
+                "~/Scripts/app/ConsultationListComponent.js").Include(
+                "~/Scripts/app/ConsultationController.js").Include(
+                "~/Scripts/app/NewPatientRecordComponent.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -30,11 +44,15 @@ namespace ClinicOne
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/.bin/bower_components/ngPrint/ngPrint.min.css",
+                    "~/.bin/bower_components/angular-ui-select/dist/select.min.css",
                      "~/.bin/bower_components/bootstrap/dist/css/bootstrap.min.css",
-                     "~/.bin/bower_components/font-awesome/css/font-awesome.css",
                       "~/.bin/bower_components/metisMenu/dist/metisMenu.min.css",
                       "~/.bin/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css",
                       "~/Content/site.css"));
+
+
+
         }
     }
 }

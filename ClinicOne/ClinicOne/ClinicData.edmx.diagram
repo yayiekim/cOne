@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5dba50203c4345559cd8daea5fba0dc9" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ClinicOneModel.AspNetRole" Width="1.5" PointX="0.75" PointY="21.5" />
         <EntityTypeShape EntityType="ClinicOneModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="41.875" />
         <EntityTypeShape EntityType="ClinicOneModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="47.75" />
@@ -54,6 +53,7 @@
         <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="7.5" PointY="16.875" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
+        <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

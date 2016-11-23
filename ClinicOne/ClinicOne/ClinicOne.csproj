@@ -264,6 +264,7 @@
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminModels.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\DiagnosisModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1297,14 +1298,14 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Static\DiagnosisTemplate.html" />
-    <Content Include="Static\LabTemplate.html" />
-    <Content Include="Static\MedicationTemplate.html" />
-    <Content Include="Static\NewPatientRecordTemplate.html" />
-    <Content Include="Static\ConsultationList.html" />
-    <Content Include="Static\PatientsTemplate.html" />
-    <Content Include="Static\SearchPatientTemplate.html" />
-    <Content Include="Static\UserRolesTemplate.html" />
+    <Content Include="wwwroot\src\DiagnosisTemplate.html" />
+    <Content Include="wwwroot\src\LabTemplate.html" />
+    <Content Include="wwwroot\src\MedicationTemplate.html" />
+    <Content Include="wwwroot\src\NewPatientRecordTemplate.html" />
+    <Content Include="wwwroot\src\ConsultationList.html" />
+    <Content Include="wwwroot\src\PatientsTemplate.html" />
+    <Content Include="wwwroot\src\SearchPatientTemplate.html" />
+    <Content Include="wwwroot\src\UserRolesTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -1,14 +1,14 @@
 ﻿var userRolesComponent = angular.module('userRolesComponent', []);
 
 userRolesComponent.component('userRoles', {
-    templateUrl: '/Static/UserRolesTemplate.html',
+    templateUrl: '/wwwroot/src/UserRolesTemplate.html',
     controller: myComponentCtrl
 });
 
 
 myComponentCtrl.$inject = ['adminSvc'];
 
-function myComponentCtrl(dropDownSvc, consultationSvc) {
+function myComponentCtrl(adminSvc) {
 
     var $ctrl = this;
 
@@ -19,20 +19,22 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     adminSvc.getUsers().then(function (data) {
 
-        $ctrl.user = data;
+        $ctrl.users = data;
 
     });
 
-    $ctrl.getUserRoles = function ()
-    {
-        adminSvc.getUserRoles().then(function (data) {
+ 
+    $ctrl.getUserRoles = function (row) {
+                
+
+        adminSvc.getUsersRoles(row.Username).then(function (data) {
+
+            console.log(data);
 
             $ctrl.userRoles = data;
 
         });
-
     };
-
 
 
 };

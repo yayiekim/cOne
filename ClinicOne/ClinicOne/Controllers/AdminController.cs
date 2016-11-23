@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ClinicOne.Controllers
 {
@@ -27,8 +28,24 @@ namespace ClinicOne.Controllers
 
         public JsonResult getUsers()
         {
-            
-            return Json(db.AspNetUsers, JsonRequestBehavior.AllowGet);
+
+            List<UserModel> theList = new List<Models.UserModel>();
+
+            foreach (var x in db.AspNetUsers)
+            {
+                UserModel model = new Models.UserModel()
+                {
+                    Id = x.Id,
+                    Username =x.UserName
+
+                };
+
+                theList.Add(model);
+            }
+
+
+
+            return Json(theList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getRoles()
@@ -38,12 +55,12 @@ namespace ClinicOne.Controllers
             return Json(db.AspNetRoles, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult getUsersInRoles(string UserName)
+        public JsonResult getUsersInRoles(string userName)
         {
+            var roles = Roles.GetRolesForUser(userName);
 
-            var res = db.AspNetUsers.Where(i => i.UserName == UserName).Include(s => s.AspNetRoles);
 
-            return Json(res, JsonRequestBehavior.AllowGet);
+            return Json(roles, JsonRequestBehavior.AllowGet);
         }
 
         //public JsonResult deleteUsersInRoles(string Username, string Roles)

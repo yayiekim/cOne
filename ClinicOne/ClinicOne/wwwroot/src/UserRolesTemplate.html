@@ -1,0 +1,65 @@
+﻿<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        Users
+    </div>
+
+    <div class="panel-body">
+        <table class="small table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+         
+                    <th>Username</th>
+                    <th>Id</th>
+           
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.users">
+
+                    <td><a href="#" ng-click="$ctrl.getUserRoles(row)" >{{row.Username}}</a> </td>
+                    <td>{{row.Id}}</td>
+
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div>
+
+
+<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+
+    <div style="height:50px" class="panel-heading">
+        User Roles
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-condensed table-responsive table-striped">
+            <thead>
+                <tr>
+                    
+                    <th>Roles</th>
+              
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.userRoles">
+
+                 
+                    <td>{{row.Roles}}</td>
+                   
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+
+
+</div>

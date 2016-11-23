@@ -3,20 +3,20 @@
 
      var svc = {
 
-         getUsers: getusers,
+         getUsers: getUsers,
          getUsersRoles: getUsersRoles,
-         getRoles: getRoles,
-         addUserRoles: addUserRoles,
-         removeUserRoles: removeUserRoles
+         //getRoles: getRoles,
+         //addUserRoles: addUserRoles,
+         //removeUserRoles: removeUserRoles
 
      };
 
      return svc;
 
-     function getUsers(userName, Roles) {
+     function getUsers() {
 
          // get posts form backend
-         $http.get('/Admin/getUsers')
+       return  $http.get('/Admin/getUsers')
                    .then(function (result) {
 
                        return result.data;
@@ -31,10 +31,10 @@
      };
 
 
-     function getUserRoles(userName) {
+     function getUsersRoles(userName) {
 
          // get posts form backend
-         $http.get('/Admin/getUserRoles')
+         return $http.get('/Admin/getUsersInRoles?userName=' + userName + '')
                    .then(function (result) {
 
                        return result.data;
@@ -43,8 +43,6 @@
 
                        return error;
                    });
-
-
 
      };
 

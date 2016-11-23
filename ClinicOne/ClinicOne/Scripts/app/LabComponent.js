@@ -1,7 +1,7 @@
 ﻿var labComponent = angular.module('labComponent', []);
 
 labComponent.component('lab', {
-    templateUrl: '/Static/labTemplate.html',
+    templateUrl: '/wwwroot/src/labTemplate.html',
     bindings: {
         labSummaries: '=',
         selectedConsultationId: '=',

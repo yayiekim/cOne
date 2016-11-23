@@ -105,34 +105,10 @@
 </div>
 
 @section Scripts{
-    <link href="~/.bin/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" />
-
-    <script src="~/.bin/bower_components/angular-ui-select/dist/select.min.js"></script>
-    <script src="~/.bin/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-<link href="~/.bin/bower_components/ngPrint/ngPrint.min.css" rel="stylesheet" />
-<script src="~/.bin/bower_components/ngPrint/ngPrint.min.js"></script>
-    <script src="~/Scripts/app/NewPatientRecordComponent.js"></script>
-
-
-    <script src="~/Scripts/app/ConsultationController.js"></script>
-    <script src="~/Scripts/app/Services/ConsultationService.js"></script>
-
-
-    <script src="~/Scripts/app/ConsultationListComponent.js"></script>
-    <script src="~/Scripts/app/SearchPatientsComponent.js"></script>
-    <script src="~/Scripts/app/Services/DropDownService.js"></script>
-    <script src="~/Scripts/app/DiagnosisComponent.js"></script>
-    <script src="~/Scripts/app/MedicationComponent.js"></script>
-    <script src="~/Scripts/app/LabComponent.js"></script>
+   
 
     <script>
 
-        function ToJavaScriptDate(value) {
-            var pattern = /Date\(([^)]+)\)/;
-            var results = pattern.exec(value);
-            var dt = new Date(parseFloat(results[1]));
-            return dt;
-        }
         var app = angular.module('app', ['consulatationServiceModule', 'dropDownServiceModule', 'ui.select', 'smart-table', 'ngPrint', 'consultationController',
             'medicationsComponent', 'searchPatientsComponent', 'newPatientRecordComponent', 'diagnosisComponent', 'labComponent']);
 
