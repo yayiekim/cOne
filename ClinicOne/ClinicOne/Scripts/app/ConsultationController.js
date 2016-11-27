@@ -12,8 +12,7 @@ consultationController.controller('consultationCtrl', function ($scope, $http, c
     $scope.diagnosisList =[];
     $scope.medications = [];
     $scope.labSummaries = [];
-    $scope.medications = [];
-
+  
     var initializing = true;
     
     $scope.$watch('selectedPatient', function () {

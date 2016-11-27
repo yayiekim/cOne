@@ -1,4 +1,5 @@
-﻿var consultationListComponent = angular.module('consultationListComponent', []);
+﻿
+var consultationListComponent = angular.module('consultationListComponent', []);
 
 consultationListComponent.component('consultationList', {
     templateUrl: '/wwwroot/src/ConsultationList.html',
@@ -13,13 +14,17 @@ consultationListComponent.component('consultationList', {
     controller: MyController
 });
 
-MyController.$inject = ['consultationSvc'];
+MyController.$inject = ['consultationSvc', '$uibModal'];
 
-
-
-function MyController(consultationSvc) {
+function MyController(consultationSvc, $uibModal) {
 
     var $ctrl = this;
+
+
+    $ctrl.print = function () {
+        window.print($('#invoice'));
+    }
+
 
     $ctrl.consultationListDisplay = [].concat($ctrl.myConsultations);
     $ctrl.mode;
@@ -28,8 +33,8 @@ function MyController(consultationSvc) {
 
         Id: '',
         PatientId: '',
-        TransactionDate : ''
-     
+        TransactionDate: ''
+
     };
 
 
@@ -53,15 +58,8 @@ function MyController(consultationSvc) {
 
     };
 
-    
 
-    $ctrl.showPrint = function (row) {
-        $ctrl.selectedRow = row;
-        $ctrl.myConsultation = row;
-   
-        $('#printConsultationModal').modal('toggle');
 
-    };
 
     $ctrl.deleteConsultation = function () {
 
@@ -79,7 +77,7 @@ function MyController(consultationSvc) {
 
         $ctrl.myConsultation.PatientId = $ctrl.patient.Id;
 
-             
+
 
         if ($ctrl.mode == 'add') {
 
@@ -95,7 +93,7 @@ function MyController(consultationSvc) {
         else {
 
             consultationSvc.editConsultation($ctrl.myConsultation).then(function (data) {
-            
+
                 $ctrl.myConsultation.TransactionDate = data.TransactionDate;
 
             });
@@ -116,9 +114,8 @@ function MyController(consultationSvc) {
     }
 
 
- 
-    $ctrl.clear = function ()
-    {
+
+    $ctrl.clear = function () {
         $ctrl.myConsultation = {
 
             Id: '',
@@ -131,11 +128,75 @@ function MyController(consultationSvc) {
 
     };
 
-    $ctrl.Print = function () {
 
-        window.document.write(document.getElementById('pxPrint').innerHTML)
-        window.print();
+    $ctrl.showPrint = function (row) {
+
+        $ctrl.selectedRow = row;
+        $ctrl.myConsultation = row;
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            component: 'modalComp',
+            resolve: {
+
+                patient: function () {
+                    return $ctrl.patient;
+                },
+
+
+                prescribeMeds: function () {
+                    return $ctrl.prescribeMeds;
+                },
+
+                myConsultations: function () {
+                    return $ctrl.myConsultations;
+                }
+
+            }
+
+
+        });
+
+        modalInstance.result.then(function () {
+
+        }, function () {
+
+        });
     };
 
 
 };
+
+
+
+var modalComponent = angular.module('modalComponent', []);
+
+modalComponent.component('modalComp',
+{
+    templateUrl: 'printModal',
+    bindings: {
+        resolve: '<',
+        close: '&',
+        dismiss: '&'
+    },
+    controller: function () {
+        var $ctrl = this;
+        
+        $ctrl.$onInit = function () {
+            $ctrl.patient = $ctrl.resolve.patient;
+            $ctrl.prescribeMeds = $ctrl.resolve.prescribeMeds;
+            $ctrl.myConsultations = $ctrl.resolve.myConsultations;
+        };
+        
+        $ctrl.ok = function () {
+
+           window.print();
+          
+        };
+
+        $ctrl.cancel = function () {
+            $ctrl.dismiss({ $value: 'cancel' });
+        };
+    }
+
+});

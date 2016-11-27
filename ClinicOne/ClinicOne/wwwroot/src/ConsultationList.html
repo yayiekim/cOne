@@ -1,6 +1,4 @@
-﻿
-
-<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
+﻿<div style="box-shadow: 5px 5px 2px #888888" class="panel panel-primary">
     <div style="height:50px" class="panel-heading">
         Consultations
         <button class="pull-right btn-sm btn btn-default" ng-disabled="$ctrl.disableButtonConsultationList" ng-click="$ctrl.showDialogModalAdd()"><span class="fa fa-plus"></span></button>
@@ -113,25 +111,91 @@
 
 
 
-<div class="modal fade" id="printConsultationModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
 
-        <div class="modal-content">
+<script type="text/ng-template" id="printModal">
+    <style>
+        @media screen {
+            #printSection {
+                display: none;
+            }
+        }
 
-            <div class="modal-header"></div>
+        @media print {
+            body * {
+             
+            }
 
-            <div id="pxPrint">
-                <p>{{$ctrl.patient.FullName}}</p>
-                <br />
-                <p>{{$ctrl.patient.Age}}</p>
-                <p>{{$ctrl.patient.Gender}}</p>
-                <p>{{$ctrl.myConsultation.TransactionDate | date: 'MMM dd, yyyy'}}</p>
+            #printSection, #printSection * {
+                display: inline;
+            }
+
+             #printSection {
+                font-size: 1em;
+                margin-top: 200px;
+                margin-left: 68px;
+                position: absolute;
+                left: 0;
+                top: 0;
+            
+            }
+
+            .p-name {
+                
+                margin-bottom: 5px;
+            }           
+           
+             .p-age {
+               margin-right: 32px;
+              
+            }     
+             
+             
+             .p-gender {
+                margin-right: 30px;
+           
+              
+            }     
+
+        }
+    </style>
+
+    <div id="print-content">
+
+        <div class="modal-body" id="modal-body">
+
+
+            <p class="p-name">{{$ctrl.patient.FullName}}</p>
+            <br />
+            <div>
+
+                <table>
+                    <tr>
+                        <td class="p-age">{{$ctrl.patient.Age}}</td>
+                        <td class="p-gender" >{{$ctrl.patient.Gender}}</td>
+                        <td class="c-date" >{{$ctrl.myConsultation.TransactionDate | date: 'MMM dd, yyyy'}}</td>
+                    </tr>
+                </table>
+
             </div>
-        
-            <div class="modal-footer">
-                <button class="btn btn-danger pull-right"  ng-print print-element-id="pxPrint">Print</button>
-            </div>
-        </div><!-- /.modal-content -->
 
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+            <br />
+            <div ng-repeat="row in $ctrl.prescribeMeds">
+                <p>{{row.Medication}}&nbsp;{{row.Strength}}&nbsp;{{row.Volume}}&nbsp;{{row.Frequency}}&nbsp;{{row.Remarks}}</p>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-print print-element-id="modal-body">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+
+</script>
