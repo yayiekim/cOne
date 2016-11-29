@@ -59,8 +59,6 @@ function MyController(consultationSvc, $uibModal) {
     };
 
 
-
-
     $ctrl.deleteConsultation = function () {
 
         consultationSvc.deleteConsultation($ctrl.myConsultation).then(function (data) {
@@ -110,7 +108,7 @@ function MyController(consultationSvc, $uibModal) {
     $ctrl.setSelectedRow = function (row) {
 
         $ctrl.selectedRow = row;
-
+        $ctrl.myConsultation = row;
     }
 
 
@@ -127,43 +125,6 @@ function MyController(consultationSvc, $uibModal) {
 
 
     };
-
-
-    $ctrl.showPrint = function (row) {
-
-        $ctrl.selectedRow = row;
-        $ctrl.myConsultation = row;
-
-        var modalInstance = $uibModal.open({
-            animation: true,
-            component: 'modalComp',
-            resolve: {
-
-                patient: function () {
-                    return $ctrl.patient;
-                },
-
-
-                prescribeMeds: function () {
-                    return $ctrl.prescribeMeds;
-                },
-
-                myConsultations: function () {
-                    return $ctrl.myConsultations;
-                }
-
-            }
-
-
-        });
-
-        modalInstance.result.then(function () {
-
-        }, function () {
-
-        });
-    };
-
 
 };
 
@@ -185,7 +146,7 @@ modalComponent.component('modalComp',
         $ctrl.$onInit = function () {
             $ctrl.patient = $ctrl.resolve.patient;
             $ctrl.prescribeMeds = $ctrl.resolve.prescribeMeds;
-            $ctrl.myConsultations = $ctrl.resolve.myConsultations;
+            $ctrl.myConsultation = $ctrl.resolve.myConsultation;
         };
         
         $ctrl.ok = function () {

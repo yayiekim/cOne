@@ -151,7 +151,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="LabResults">
@@ -217,8 +217,8 @@
           <Property Name="Quantity" Type="int" />
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="Amount" Type="money" />
-          <Property Name="Strength" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Volume" Type="nvarchar" MaxLength="10" />
+          <Property Name="Strength" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Volume" Type="nvarchar" MaxLength="500" />
           <Property Name="Frequency" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Route" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
@@ -762,11 +762,9 @@
           <EntitySet Name="Diagnosis" EntityType="ClinicOneModel.Diagnosi" />
           <EntitySet Name="DiagnosisCategories" EntityType="ClinicOneModel.DiagnosisCategory" />
           <EntitySet Name="Drugs" EntityType="ClinicOneModel.Drug" />
-          <EntitySet Name="DrugsCategories" EntityType="ClinicOneModel.DrugsCategory" />
           <EntitySet Name="PatientInsurances" EntityType="ClinicOneModel.PatientInsurance" />
           <EntitySet Name="Patients" EntityType="ClinicOneModel.Patient" />
           <EntitySet Name="PatientsRecords" EntityType="ClinicOneModel.PatientsRecord" />
-          <EntitySet Name="PrescribedMedications" EntityType="ClinicOneModel.PrescribedMedication" />
           <EntitySet Name="RecordTypesCategories" EntityType="ClinicOneModel.RecordTypesCategory" />
           <EntitySet Name="RecordTypesCategoryClasses" EntityType="ClinicOneModel.RecordTypesCategoryClass" />
           <EntitySet Name="SecurityLogs" EntityType="ClinicOneModel.SecurityLog" />
@@ -791,10 +789,6 @@
           <AssociationSet Name="FK_DiagnosisCategories_AspNetUser" Association="ClinicOneModel.FK_DiagnosisCategories_AspNetUser">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="DiagnosisCategory" EntitySet="DiagnosisCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DrugsCategories_ToTable" Association="ClinicOneModel.FK_DrugsCategories_ToTable">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="DrugsCategory" EntitySet="DrugsCategories" />
           </AssociationSet>
           <AssociationSet Name="FK_Patients_AspNetUsers" Association="ClinicOneModel.FK_Patients_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -828,17 +822,9 @@
             <End Role="Consultation" EntitySet="Consultations" />
             <End Role="PatientsRecord" EntitySet="PatientsRecords" />
           </AssociationSet>
-          <AssociationSet Name="FK_PrescribedMedications_Consultations" Association="ClinicOneModel.FK_PrescribedMedications_Consultations">
-            <End Role="Consultation" EntitySet="Consultations" />
-            <End Role="PrescribedMedication" EntitySet="PrescribedMedications" />
-          </AssociationSet>
           <AssociationSet Name="FK_Diagnosis_Categories" Association="ClinicOneModel.FK_Diagnosis_Categories">
             <End Role="DiagnosisCategory" EntitySet="DiagnosisCategories" />
             <End Role="Diagnosi" EntitySet="Diagnosis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Drugs_Category" Association="ClinicOneModel.FK_Drugs_Category">
-            <End Role="DrugsCategory" EntitySet="DrugsCategories" />
-            <End Role="Drug" EntitySet="Drugs" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientInsurance_Patients" Association="ClinicOneModel.FK_PatientInsurance_Patients">
             <End Role="Patient" EntitySet="Patients" />
@@ -871,6 +857,20 @@
             <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
           <EntitySet Name="C__MigrationHistory" EntityType="ClinicOneModel.C__MigrationHistory" />
+          <EntitySet Name="DrugsCategories" EntityType="ClinicOneModel.DrugsCategory" />
+          <AssociationSet Name="FK_DrugsCategories_ToTable" Association="ClinicOneModel.FK_DrugsCategories_ToTable">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="DrugsCategory" EntitySet="DrugsCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drugs_Category" Association="ClinicOneModel.FK_Drugs_Category">
+            <End Role="DrugsCategory" EntitySet="DrugsCategories" />
+            <End Role="Drug" EntitySet="Drugs" />
+          </AssociationSet>
+          <EntitySet Name="PrescribedMedications" EntityType="ClinicOneModel.PrescribedMedication" />
+          <AssociationSet Name="FK_PrescribedMedications_Consultations" Association="ClinicOneModel.FK_PrescribedMedications_Consultations">
+            <End Role="Consultation" EntitySet="Consultations" />
+            <End Role="PrescribedMedication" EntitySet="PrescribedMedications" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -928,11 +928,11 @@
           <NavigationProperty Name="Consultations" Relationship="ClinicOneModel.FK_Consultations_AspNetUsers" FromRole="AspNetUser" ToRole="Consultation" />
           <NavigationProperty Name="ContactNumbers" Relationship="ClinicOneModel.FK_ContactNumbers_AspNetUser" FromRole="AspNetUser" ToRole="ContactNumber" />
           <NavigationProperty Name="DiagnosisCategories" Relationship="ClinicOneModel.FK_DiagnosisCategories_AspNetUser" FromRole="AspNetUser" ToRole="DiagnosisCategory" />
-          <NavigationProperty Name="DrugsCategories" Relationship="ClinicOneModel.FK_DrugsCategories_ToTable" FromRole="AspNetUser" ToRole="DrugsCategory" />
           <NavigationProperty Name="Patients" Relationship="ClinicOneModel.FK_Patients_AspNetUsers" FromRole="AspNetUser" ToRole="Patient" />
           <NavigationProperty Name="RecordTypesCategories" Relationship="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" FromRole="AspNetUser" ToRole="RecordTypesCategory" />
           <NavigationProperty Name="Waitings" Relationship="ClinicOneModel.FK_Waiting_AspNetUser" FromRole="AspNetUser" ToRole="Waiting" />
           <NavigationProperty Name="AspNetRoles" Relationship="ClinicOneModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="DrugsCategories" Relationship="ClinicOneModel.FK_DrugsCategories_ToTable" FromRole="AspNetUser" ToRole="DrugsCategory" />
         </EntityType>
         <EntityType Name="CommunicationType">
           <Key>
@@ -955,8 +955,8 @@
           <NavigationProperty Name="ConsultationsDiagnosis" Relationship="ClinicOneModel.FK_ConsultationsDiagnosis_Consultations" FromRole="Consultation" ToRole="ConsultationsDiagnosi" />
           <NavigationProperty Name="ConsultationsOtherServices" Relationship="ClinicOneModel.FK_ConsultationsOtherServices_Consultations" FromRole="Consultation" ToRole="ConsultationsOtherService" />
           <NavigationProperty Name="PatientsRecords" Relationship="ClinicOneModel.FK_PatientsRecords_Consultations" FromRole="Consultation" ToRole="PatientsRecord" />
-          <NavigationProperty Name="PrescribedMedications" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="Consultation" ToRole="PrescribedMedication" />
           <NavigationProperty Name="LabResults" Relationship="ClinicOneModel.FK_LabResults_Consultations" FromRole="Consultation" ToRole="LabResult" />
+          <NavigationProperty Name="PrescribedMedications" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="Consultation" ToRole="PrescribedMedication" />
         </EntityType>
         <EntityType Name="ConsultationsDiagnosi">
           <Key>
@@ -1024,16 +1024,6 @@
           <Property Name="DrugCatergoryId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="DrugsCategory" Relationship="ClinicOneModel.FK_Drugs_Category" FromRole="Drug" ToRole="DrugsCategory" />
         </EntityType>
-        <EntityType Name="DrugsCategory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_DrugsCategories_ToTable" FromRole="DrugsCategory" ToRole="AspNetUser" />
-          <NavigationProperty Name="Drugs" Relationship="ClinicOneModel.FK_Drugs_Category" FromRole="DrugsCategory" ToRole="Drug" />
-        </EntityType>
         <EntityType Name="PatientInsurance">
           <Key>
             <PropertyRef Name="Id" />
@@ -1080,22 +1070,6 @@
           <Property Name="RecordValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImageValue" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PatientsRecords_Consultations" FromRole="PatientsRecord" ToRole="Consultation" />
-        </EntityType>
-        <EntityType Name="PrescribedMedication">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
-          <Property Name="Medication" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Strength" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Volume" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Frequency" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Route" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="PrescribedMedication" ToRole="Consultation" />
         </EntityType>
         <EntityType Name="RecordTypesCategory">
           <Key>
@@ -1220,20 +1194,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DrugsCategories_ToTable">
-          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.DrugsCategory" Role="DrugsCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DrugsCategory">
-              <PropertyRef Name="AspNetUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Patients_AspNetUsers">
           <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="ClinicOneModel.Patient" Role="Patient" Multiplicity="*" />
@@ -1342,20 +1302,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PrescribedMedications_Consultations">
-          <End Type="ClinicOneModel.Consultation" Role="Consultation" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.PrescribedMedication" Role="PrescribedMedication" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Consultation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PrescribedMedication">
-              <PropertyRef Name="ConsultationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Diagnosis_Categories">
           <End Type="ClinicOneModel.DiagnosisCategory" Role="DiagnosisCategory" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1367,20 +1313,6 @@
             </Principal>
             <Dependent Role="Diagnosi">
               <PropertyRef Name="DiagnosisCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Drugs_Category">
-          <End Type="ClinicOneModel.DrugsCategory" Role="DrugsCategory" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ClinicOneModel.Drug" Role="Drug" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DrugsCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Drug">
-              <PropertyRef Name="DrugCatergoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1500,6 +1432,74 @@
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DrugsCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_DrugsCategories_ToTable" FromRole="DrugsCategory" ToRole="AspNetUser" />
+          <NavigationProperty Name="Drugs" Relationship="ClinicOneModel.FK_Drugs_Category" FromRole="DrugsCategory" ToRole="Drug" />
+        </EntityType>
+        <Association Name="FK_DrugsCategories_ToTable">
+          <End Type="ClinicOneModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.DrugsCategory" Role="DrugsCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DrugsCategory">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drugs_Category">
+          <End Type="ClinicOneModel.DrugsCategory" Role="DrugsCategory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.Drug" Role="Drug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DrugsCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drug">
+              <PropertyRef Name="DrugCatergoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PrescribedMedication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsultationId" Type="Guid" Nullable="false" />
+          <Property Name="Medication" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Strength" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Volume" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Frequency" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Route" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Consultation" Relationship="ClinicOneModel.FK_PrescribedMedications_Consultations" FromRole="PrescribedMedication" ToRole="Consultation" />
+        </EntityType>
+        <Association Name="FK_PrescribedMedications_Consultations">
+          <End Type="ClinicOneModel.Consultation" Role="Consultation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ClinicOneModel.PrescribedMedication" Role="PrescribedMedication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescribedMedication">
+              <PropertyRef Name="ConsultationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1639,15 +1639,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DrugsCategories">
-            <EntityTypeMapping TypeName="ClinicOneModel.DrugsCategory">
-              <MappingFragment StoreEntitySet="DrugsCategories">
-                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PatientInsurances">
             <EntityTypeMapping TypeName="ClinicOneModel.PatientInsurance">
               <MappingFragment StoreEntitySet="PatientInsurance">
@@ -1687,22 +1678,6 @@
                 <ScalarProperty Name="ImageValue" ColumnName="ImageValue" />
                 <ScalarProperty Name="RecordValue" ColumnName="RecordValue" />
                 <ScalarProperty Name="RecordType" ColumnName="RecordType" />
-                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PrescribedMedications">
-            <EntityTypeMapping TypeName="ClinicOneModel.PrescribedMedication">
-              <MappingFragment StoreEntitySet="PrescribedMedications">
-                <ScalarProperty Name="Route" ColumnName="Route" />
-                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
-                <ScalarProperty Name="Volume" ColumnName="Volume" />
-                <ScalarProperty Name="Strength" ColumnName="Strength" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Medication" ColumnName="Medication" />
                 <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1799,6 +1774,31 @@
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrugsCategories">
+            <EntityTypeMapping TypeName="ClinicOneModel.DrugsCategory">
+              <MappingFragment StoreEntitySet="DrugsCategories">
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescribedMedications">
+            <EntityTypeMapping TypeName="ClinicOneModel.PrescribedMedication">
+              <MappingFragment StoreEntitySet="PrescribedMedications">
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Strength" ColumnName="Strength" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Medication" ColumnName="Medication" />
+                <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

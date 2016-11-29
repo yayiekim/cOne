@@ -112,37 +112,7 @@
                        
                     </div>
 
-                    <div class="form-group">
-                        <div ng-class="{ 'has-error' : medicationForm.FormRoute.$invalid && !medicationForm.FormRoute.$pristine }">
-                            <input name="FormRoute" placeholder="Route" ng-required="true" type="text" ng-model="$ctrl.medication.Route" ng-disabled="disableInput" class="form-control" id="Volume" />
-                            <span class="help-block" ng-show="medicationForm.FormRoute.$invalid && !medicationForm.FormRoute.$pristine">
-                                Route is required.
-                            </span>
-                        </div>
-
-
-                    </div>
-
-
-                  
-
-                    <div class="form-group">
-
-                        <textarea ng-model="$ctrl.medication.Remarks" placeholder="Remarks" class="form-control" rows="5" id="ConsultationMedicationModalRemarks"></textarea>
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="$ctrl.medication.Amount" placeholder="Amount" class="form-control" id="ConsultationMedicationModalAmount" />
-                    </div>
-
-                    <div class="form-group">
-
-                        <input ng-model="$ctrl.medication.Quantity" placeholder="Quantity" class="form-control" id="ConsultationMedicationModalQty" />
-                    </div>
-
-
-
+               
 
                 </div>
                 <div class="modal-footer">

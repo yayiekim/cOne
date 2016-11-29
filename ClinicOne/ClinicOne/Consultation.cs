@@ -20,8 +20,8 @@ namespace ClinicOne
             this.ConsultationsDiagnosis = new HashSet<ConsultationsDiagnosi>();
             this.ConsultationsOtherServices = new HashSet<ConsultationsOtherService>();
             this.PatientsRecords = new HashSet<PatientsRecord>();
-            this.PrescribedMedications = new HashSet<PrescribedMedication>();
             this.LabResults = new HashSet<LabResult>();
+            this.PrescribedMedications = new HashSet<PrescribedMedication>();
         }
     
         public System.Guid Id { get; set; }
@@ -38,8 +38,8 @@ namespace ClinicOne
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientsRecord> PatientsRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PrescribedMedication> PrescribedMedications { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabResult> LabResults { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrescribedMedication> PrescribedMedications { get; set; }
     }
 }

@@ -421,14 +421,13 @@ namespace ClinicOne.Controllers
             {
                 ConsultationId = medication.ConsultationId,
                 Medication = medication.Medication,
-                Quantity = medication.Quantity,
-                Remarks = medication.Remarks,
-                Amount = medication.Amount,
-                Route = medication.Route,
+                Quantity = 0,
+                Remarks = "",
+                Amount = 0,
+                Route ="",
                 Frequency = medication.Frequency,
                 Strength = medication.Strength,
                 Volume = medication.Volume
-                
                 
             };
 
@@ -444,10 +443,10 @@ namespace ClinicOne.Controllers
             var res = await db.PrescribedMedications.FindAsync(medication.Id);
 
             res.Medication = medication.Medication;
-            res.Quantity = medication.Quantity;
-            res.Remarks = medication.Remarks;
-            res.Amount = medication.Amount;
-            res.Route = medication.Route;
+            res.Quantity = 0;
+            res.Remarks = "";
+            res.Amount = 0;
+            res.Route = "";
             res.Frequency = medication.Frequency;
             res.Strength = medication.Strength;
             res.Volume = medication.Volume;

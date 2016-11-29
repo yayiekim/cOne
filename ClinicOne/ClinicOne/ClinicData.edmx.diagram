@@ -17,11 +17,9 @@
         <EntityTypeShape EntityType="ClinicOneModel.Diagnosi" Width="1.5" PointX="7.5" PointY="50.25" />
         <EntityTypeShape EntityType="ClinicOneModel.DiagnosisCategory" Width="1.5" PointX="5.25" PointY="50.25" />
         <EntityTypeShape EntityType="ClinicOneModel.Drug" Width="1.5" PointX="7.5" PointY="38.625" />
-        <EntityTypeShape EntityType="ClinicOneModel.DrugsCategory" Width="1.5" PointX="5.25" PointY="38.875" />
         <EntityTypeShape EntityType="ClinicOneModel.PatientInsurance" Width="1.5" PointX="7.5" PointY="34.75" />
         <EntityTypeShape EntityType="ClinicOneModel.Patient" Width="1.5" PointX="5.25" PointY="30.25" />
         <EntityTypeShape EntityType="ClinicOneModel.PatientsRecord" Width="1.5" PointX="9.75" PointY="29.625" />
-        <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="9.75" PointY="35.5" />
         <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategory" Width="1.5" PointX="5.25" PointY="18.125" />
         <EntityTypeShape EntityType="ClinicOneModel.RecordTypesCategoryClass" Width="1.5" PointX="3" PointY="16.5" />
         <EntityTypeShape EntityType="ClinicOneModel.SecurityLog" Width="1.5" PointX="2.75" PointY="0.75" />
@@ -32,7 +30,6 @@
         <AssociationConnector Association="ClinicOneModel.FK_Consultations_AspNetUsers" />
         <AssociationConnector Association="ClinicOneModel.FK_ContactNumbers_AspNetUser" />
         <AssociationConnector Association="ClinicOneModel.FK_DiagnosisCategories_AspNetUser" />
-        <AssociationConnector Association="ClinicOneModel.FK_DrugsCategories_ToTable" />
         <AssociationConnector Association="ClinicOneModel.FK_Patients_AspNetUsers" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypesCategories_AspNetUser" />
         <AssociationConnector Association="ClinicOneModel.FK_Waiting_AspNetUser" />
@@ -41,9 +38,7 @@
         <AssociationConnector Association="ClinicOneModel.FK_ConsultationsDiagnosis_Consultations" />
         <AssociationConnector Association="ClinicOneModel.FK_ConsultationsOtherServices_Consultations" />
         <AssociationConnector Association="ClinicOneModel.FK_PatientsRecords_Consultations" />
-        <AssociationConnector Association="ClinicOneModel.FK_PrescribedMedications_Consultations" />
         <AssociationConnector Association="ClinicOneModel.FK_Diagnosis_Categories" />
-        <AssociationConnector Association="ClinicOneModel.FK_Drugs_Category" />
         <AssociationConnector Association="ClinicOneModel.FK_PatientInsurance_Patients" />
         <AssociationConnector Association="ClinicOneModel.FK_Waiting_Patients" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypesCategories_CategoryClass" />
@@ -54,6 +49,11 @@
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
         <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ClinicOneModel.DrugsCategory" Width="1.5" PointX="5.25" PointY="24.25" />
+        <AssociationConnector Association="ClinicOneModel.FK_DrugsCategories_ToTable" />
+        <AssociationConnector Association="ClinicOneModel.FK_Drugs_Category" />
+        <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="9.75" PointY="36.375" />
+        <AssociationConnector Association="ClinicOneModel.FK_PrescribedMedications_Consultations" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

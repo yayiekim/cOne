@@ -22,11 +22,11 @@ namespace ClinicOne
             this.Consultations = new HashSet<Consultation>();
             this.ContactNumbers = new HashSet<ContactNumber>();
             this.DiagnosisCategories = new HashSet<DiagnosisCategory>();
-            this.DrugsCategories = new HashSet<DrugsCategory>();
             this.Patients = new HashSet<Patient>();
             this.RecordTypesCategories = new HashSet<RecordTypesCategory>();
             this.Waitings = new HashSet<Waiting>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.DrugsCategories = new HashSet<DrugsCategory>();
         }
     
         public string Id { get; set; }
@@ -59,8 +59,6 @@ namespace ClinicOne
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiagnosisCategory> DiagnosisCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DrugsCategory> DrugsCategories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Patient> Patients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecordTypesCategory> RecordTypesCategories { get; set; }
@@ -68,5 +66,7 @@ namespace ClinicOne
         public virtual ICollection<Waiting> Waitings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DrugsCategory> DrugsCategories { get; set; }
     }
 }

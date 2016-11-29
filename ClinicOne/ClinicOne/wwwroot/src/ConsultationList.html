@@ -26,7 +26,6 @@
                             </label><br />
                         </div>
                     </td>
-                    <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showPrint(row)"><span class="fa fa-print"></span></button></td>
 
                     <td><button class="btn btn-xs btn-default" ng-click="$ctrl.showDialogModalEdit(row)"><span class="fa fa-edit"></span></button></td>
                     <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
@@ -110,9 +109,8 @@
 </div><!-- /.modal -->
 
 
+<div hidden="hidden" id="printModal">
 
-
-<script type="text/ng-template" id="printModal">
     <style>
         @media screen {
             #printSection {
@@ -122,80 +120,82 @@
 
         @media print {
             body * {
-             
+                display: none;
             }
 
             #printSection, #printSection * {
                 display: inline;
             }
 
-             #printSection {
-                font-size: 1em;
-                margin-top: 200px;
-                margin-left: 68px;
+            #printSection {
                 position: absolute;
                 left: 0;
                 top: 0;
-            
+                margin-top: 195px;
+                margin-left: 55px;
             }
 
             .p-name {
-                
-                margin-bottom: 5px;
-            }           
-           
-             .p-age {
-               margin-right: 32px;
-              
-            }     
-             
-             
-             .p-gender {
-                margin-right: 30px;
-           
-              
-            }     
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
 
+            .p-age {
+                font-size: 1em;
+                margin-right: 55px;
+            }
+
+
+            .p-gender {
+                font-size: 1em;
+                margin-right: 88px;
+            }
+
+            .c-date {
+                font-size: 1em;
+            }
+
+            .prescriptions {
+                position: absolute;
+                font-size: 1.5em;
+                top: 60px;
+                margin-left: 0;
+            }
         }
     </style>
 
     <div id="print-content">
 
-        <div class="modal-body" id="modal-body">
+        <p class="p-name">{{$ctrl.patient.FullName}}</p>
+        <br />
+        <div>
 
-
-            <p class="p-name">{{$ctrl.patient.FullName}}</p>
-            <br />
-            <div>
-
-                <table>
-                    <tr>
-                        <td class="p-age">{{$ctrl.patient.Age}}</td>
-                        <td class="p-gender" >{{$ctrl.patient.Gender}}</td>
-                        <td class="c-date" >{{$ctrl.myConsultation.TransactionDate | date: 'MMM dd, yyyy'}}</td>
-                    </tr>
-                </table>
-
-            </div>
-
-
-            <br />
-            <div ng-repeat="row in $ctrl.prescribeMeds">
-                <p>{{row.Medication}}&nbsp;{{row.Strength}}&nbsp;{{row.Volume}}&nbsp;{{row.Frequency}}&nbsp;{{row.Remarks}}</p>
-
-            </div>
-
-
+            <table>
+                <tr>
+                    <td class="p-age">{{$ctrl.patient.Age}}</td>
+                    <td class="p-gender">{{$ctrl.patient.Gender}}</td>
+                    <td class="c-date">{{$ctrl.myConsultation.TransactionDate | date: 'MMM dd, yyyy'}}</td>
+                </tr>
+            </table>
 
         </div>
 
 
+        <div class="prescriptions">
+            <div ng-repeat="row in $ctrl.prescribeMeds">
+                <br />
+                <br />
+                <p>{{row.Medication}}&nbsp;{{row.Strength}}&nbsp;#{{row.Volume}}</p>
+                <br/>
+                <p>sig:&nbsp;{{row.Frequency}}&nbsp;{{row.Remarks}}</p>
+
+            </div>
+        </div>
+
+
+
+
     </div>
 
 
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-print print-element-id="modal-body">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-    </div>
-
-</script>
+</div>
