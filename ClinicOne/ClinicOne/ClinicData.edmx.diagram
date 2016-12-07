@@ -48,12 +48,12 @@
         <EntityTypeShape EntityType="ClinicOneModel.RecordType" Width="1.5" PointX="7.5" PointY="16.875" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_Categories" />
         <AssociationConnector Association="ClinicOneModel.FK_RecordTypes_ValueTypes" />
-        <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="ClinicOneModel.DrugsCategory" Width="1.5" PointX="5.25" PointY="24.25" />
         <AssociationConnector Association="ClinicOneModel.FK_DrugsCategories_ToTable" />
         <AssociationConnector Association="ClinicOneModel.FK_Drugs_Category" />
         <EntityTypeShape EntityType="ClinicOneModel.PrescribedMedication" Width="1.5" PointX="9.75" PointY="36.375" />
         <AssociationConnector Association="ClinicOneModel.FK_PrescribedMedications_Consultations" />
+        <EntityTypeShape EntityType="ClinicOneModel.C__MigrationHistory" Width="1.5" PointX="0.5" PointY="3.375" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

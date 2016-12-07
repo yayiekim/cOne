@@ -47,8 +47,8 @@ namespace ClinicOne
         public virtual DbSet<Waiting> Waitings { get; set; }
         public virtual DbSet<LabResult> LabResults { get; set; }
         public virtual DbSet<RecordType> RecordTypes { get; set; }
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<DrugsCategory> DrugsCategories { get; set; }
         public virtual DbSet<PrescribedMedication> PrescribedMedications { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
     }
 }

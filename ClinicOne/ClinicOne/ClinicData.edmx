@@ -121,8 +121,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Diagnosis" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Diagnosis" Type="nvarchar" MaxLength="500" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="DiagnosisCategoryId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -130,7 +130,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
@@ -856,7 +856,6 @@
             <End Role="ValueType" EntitySet="ValueTypes" />
             <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
-          <EntitySet Name="C__MigrationHistory" EntityType="ClinicOneModel.C__MigrationHistory" />
           <EntitySet Name="DrugsCategories" EntityType="ClinicOneModel.DrugsCategory" />
           <AssociationSet Name="FK_DrugsCategories_ToTable" Association="ClinicOneModel.FK_DrugsCategories_ToTable">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -871,6 +870,7 @@
             <End Role="Consultation" EntitySet="Consultations" />
             <End Role="PrescribedMedication" EntitySet="PrescribedMedications" />
           </AssociationSet>
+          <EntitySet Name="C__MigrationHistory" EntityType="ClinicOneModel.C__MigrationHistory" />
           </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -995,8 +995,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Diagnosis" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Diagnosis" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="None" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DiagnosisCategoryId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="DiagnosisCategory" Relationship="ClinicOneModel.FK_Diagnosis_Categories" FromRole="Diagnosi" ToRole="DiagnosisCategory" />
@@ -1005,7 +1005,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="ClinicOneModel.FK_DiagnosisCategories_AspNetUser" FromRole="DiagnosisCategory" ToRole="AspNetUser" />
@@ -1422,16 +1422,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="DrugsCategory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1500,6 +1490,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1767,16 +1767,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="ClinicOneModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DrugsCategories">
             <EntityTypeMapping TypeName="ClinicOneModel.DrugsCategory">
               <MappingFragment StoreEntitySet="DrugsCategories">
@@ -1799,6 +1789,16 @@
                 <ScalarProperty Name="Medication" ColumnName="Medication" />
                 <ScalarProperty Name="ConsultationId" ColumnName="ConsultationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ClinicOneModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
