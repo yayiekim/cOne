@@ -30,9 +30,9 @@ namespace ClinicOne.Controllers
         {
             List<DiagnostCategoryModel> thelist = new List<DiagnostCategoryModel>();
 
-            var userId = User.Identity.GetUserId();
+         
 
-            var res = await db.DiagnosisCategories.Where(i => i.AspNetUserId == userId).ToListAsync();
+            var res = await db.DiagnosisCategories.ToListAsync();
 
             foreach (var x in res)
             {
@@ -90,9 +90,8 @@ namespace ClinicOne.Controllers
         {
             List<DiagnosisModel> thelist = new List<DiagnosisModel>();
 
-            var UserId = User.Identity.GetUserId();
-
-            var res = await db.Diagnosis.Where(i=>i.DiagnosisCategory.AspNetUserId == UserId).ToListAsync();
+          
+            var res = await db.Diagnosis.ToListAsync();
 
             foreach (var x in res)
             {

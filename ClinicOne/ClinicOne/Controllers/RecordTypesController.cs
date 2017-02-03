@@ -122,7 +122,7 @@ namespace ClinicOne.Controllers
 
             List<RecordTypeModel> thelist = new List<RecordTypeModel>();
 
-            var res = await db.RecordTypes.Where(i=>i.RecordTypesCategory.AspNetUserId == UserId && i.RecordTypesCategory.ClassId == classId).ToListAsync();
+            var res = await db.RecordTypes.Where(i=>i.RecordTypesCategory.ClassId == classId).ToListAsync();
 
             foreach (var x in res)
             {
@@ -239,7 +239,7 @@ namespace ClinicOne.Controllers
 
             List<RecordTypeModel> thelist = new List<RecordTypeModel>();
 
-            var res = await db.RecordTypes.Where(i => i.RecordTypesCategory.AspNetUserId == UserId && i.RecordTypesCategory.ClassId == 2 && i.RecordTypesCategoryId == CategoryId).ToListAsync();
+            var res = await db.RecordTypes.Where(i => i.RecordTypesCategory.ClassId == 2 && i.RecordTypesCategoryId == CategoryId).ToListAsync();
 
             foreach (var x in res)
             {

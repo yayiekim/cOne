@@ -25,9 +25,8 @@ namespace ClinicOne.Controllers
         {
             List<PatientModel> thelist = new List<PatientModel>();
 
-            var userId = User.Identity.GetUserId();
 
-            var res = await db.Patients.Where(i => i.OriginAspNetUserId == userId).ToListAsync();
+            var res = await db.Patients.ToListAsync();
 
 
             foreach (var x in res)
