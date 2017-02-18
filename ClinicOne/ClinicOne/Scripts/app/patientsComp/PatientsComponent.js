@@ -122,7 +122,7 @@ patientsComponent.component('patient', {
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).success(function (data) {
 
-                    $ctrl.patientsList.push($ctrl.Patient);
+                  
 
                 });
             }

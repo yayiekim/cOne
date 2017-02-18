@@ -49,7 +49,10 @@ namespace ClinicOne.Controllers
                     Gender = x.Gender,
                     FullAddress = x.Address1 + ", " + x.Address2,
                     FirstName = x.FirstName,
-                    LastName = x.LastName
+                    MiddleName = x.MiddleName,
+                    LastName = x.LastName,
+                    Address1 = x.Address1,
+                    Address2 = x.Address2
                     
                 };
 
