@@ -19,6 +19,7 @@
                         <tr>
                             <th></th>
                             <th st-sort="FirstName">First Name</th>
+                            <th st-sort="MiddleName">Middle Name</th>
                             <th st-sort="LastName">Last Name</th>
                             <th st-sort="Gender">Gender</th>
                             <th st-sort="BirthDate">Birth Date</th>
@@ -33,6 +34,7 @@
                                 <button class="btn btn-xs btn-primary" ng-click="$ctrl.showEditModal(row)"><span class="fa fa-edit"></span></button>
                             </td>
                             <td>{{row.FirstName}}</td>
+                            <td>{{row.MiddleName}}</td>
                             <td>{{row.LastName}}</td>
                             <td>{{row.Gender}}</td>
                             <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
@@ -81,7 +83,7 @@
 
                         <div class="col-sm-4">
                             <label>Middle Name</label>
-                            <input type="text" ng-model="Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
+                            <input type="text" ng-model="$ctrl.Patient.MiddleName" ng-disabled="disableInput" class="form-control" id="MiddleName" />
                         </div>
 
                         <div class="col-sm-4" ng-class="{ 'has-error' : patientForm.FormLastName.$invalid && !patientForm.FormLastName.$pristine }">

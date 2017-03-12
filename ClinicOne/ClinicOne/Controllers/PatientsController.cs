@@ -35,12 +35,23 @@ namespace ClinicOne.Controllers
                 DateTime dob = x.BirthDate;
                 DateTime PresentYear = DateTime.Now;
                 TimeSpan ts = PresentYear - dob;
-                DateTime Age = DateTime.MinValue.AddDays(ts.Days);
+
+
+                int Age;
+
+                try
+                {
+
+                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
+                }
+                catch {
+                    Age = 0;
+                }
 
                 PatientModel model = new PatientModel()
                 {
                     Id = x.Id,
-                    Age = Age.Year - 1,
+                    Age = Age,
                     BirthDate = dob,
                     BloodType = x.BloodType,
                     ContactNumber1 = x.ContactNumber1,

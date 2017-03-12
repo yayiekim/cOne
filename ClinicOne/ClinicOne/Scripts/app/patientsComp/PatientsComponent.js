@@ -4,8 +4,13 @@ patientsComponent.component('patient', {
     templateUrl: '/wwwroot/src/PatientsTemplate.html',
     controller: function MyController($http, $filter) {
 
+        $("#addModal").on('hidden.bs.modal', function () {
+            $(this).data('bs.modal', null);
+        });
+
+
         var $ctrl = this;
-              
+
         $ctrl.submitType;
 
         $ctrl.disableInput = false;
@@ -122,7 +127,7 @@ patientsComponent.component('patient', {
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).success(function (data) {
 
-                  
+
 
                 });
             }
