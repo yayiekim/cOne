@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -228,6 +229,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ClinicController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -251,6 +253,9 @@
     <Compile Include="DiagnosisCategory.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
+    <Compile Include="DropDownCommon.cs">
+      <DependentUpon>ClinicData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Drug.cs">
       <DependentUpon>ClinicData.tt</DependentUpon>
     </Compile>
@@ -265,6 +270,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminModels.cs" />
+    <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\DiagnosisModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1369,6 +1375,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Clinic\" />
+    <Folder Include="Views\Common\" />
     <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>

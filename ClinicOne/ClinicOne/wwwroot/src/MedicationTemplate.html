@@ -73,46 +73,38 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
+                        <div class="input-group">
 
+                            <input class="form-control" list="Strengths" type="text" placeholder="Strength" ng-model="$ctrl.medication.Strength">
+                            <datalist name="Strengths" id="Strengths">
+                                <option ng-repeat="item in $ctrl.strengthDropDown" value="{{item.InputValue}}"></option>
+                            </datalist>
 
-                        <div  ng-class="{ 'has-error' : medicationForm.FormStrength.$invalid && !medicationForm.FormStrength.$pristine }">
-    
-                            <input name="FormStrength" placeholder="Strenght" ng-required="true" type="text" ng-model="$ctrl.medication.Strength" ng-disabled="disableInput" class="form-control" id="Strength" />
-                            <span class="help-block" ng-show="medicationForm.FormStrength.$invalid && !medicationForm.FormStrength.$pristine">
-                                Strength is required.
-                            </span>
                         </div>
-
-                     
                     </div>
 
                     <div class="form-group">
+                        <div class="input-group">
 
-                        <div  ng-class="{ 'has-error' : medicationForm.FormVolume.$invalid && !medicationForm.FormVolume.$pristine }">
-                            <input name="FormVolume" placeholder="Volume" ng-required="true" type="text" ng-model="$ctrl.medication.Volume" ng-disabled="disableInput" class="form-control" id="Volume" />
-                            <span class="help-block" ng-show="medicationForm.FormVolume.$invalid && !medicationForm.FormVolume.$pristine">
-                                Volume is required.
-                            </span>
+                            <input class="form-control" list="Volumes" type="text" placeholder="Volume" ng-model="$ctrl.medication.Volume">
+                            <datalist name="Volumes" id="Volumes">
+                                <option ng-repeat="item in $ctrl.volumeDropDown" value="{{item.InputValue}}"></option>
+                            </datalist>
+
                         </div>
-
-
-                      
                     </div>
 
                     <div class="form-group">
-                        <div  ng-class="{ 'has-error' : medicationForm.FormFrequency.$invalid && !medicationForm.FormFrequency.$pristine }">
-                            <input name="FormFrequency" placeholder="Frequency" ng-required="true" type="text" ng-model="$ctrl.medication.Frequency" ng-disabled="disableInput" class="form-control" id="Volume" />
-                            <span class="help-block" ng-show="medicationForm.FormFrequency.$invalid && !medicationForm.FormFrequency.$pristine">
-                                Frequency is required.
-                            </span>
+                        <div class="input-group">
+
+                            <input class="form-control" list="Frequencies" type="text" placeholder="Frequency" ng-model="$ctrl.medication.Frequency">
+                            <datalist name="Frequencies" id="Frequencies">
+                                <option ng-repeat="item in $ctrl.frequencyDropDown" value="{{item.InputValue}}"></option>
+                            </datalist>
+
                         </div>
-
-                       
                     </div>
-
-               
 
                 </div>
                 <div class="modal-footer">

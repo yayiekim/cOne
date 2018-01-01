@@ -8,10 +8,33 @@
          getDiagnosis: getDiagnosis,
          getMedications: getMedications,
          getRecordsCategories: getRecordsCategories,
-         getLabRecordTypes: getLabRecordTypes
+         getLabRecordTypes: getLabRecordTypes,
+         getInputCommon: getInputCommon
      };
 
      return svc;
+
+
+     function getInputCommon(Id) {
+
+         // create deferred object using $q
+         var deferred = $q.defer();
+
+         // get posts form backend
+         $http.get('/Common/getInputCommon?Id=' + Id + '')
+             .then(function (result) {
+
+                 deferred.resolve(result.data);
+             }, function (error) {
+
+                 deferred.reject(error);
+             });
+
+
+         return deferred.promise;
+
+     };
+
 
      function getRecordTypes(classId) {
 

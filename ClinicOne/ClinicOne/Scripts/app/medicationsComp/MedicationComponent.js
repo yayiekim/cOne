@@ -23,10 +23,17 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     $ctrl.medications = [];
 
+    $ctrl.strengthDropDown = [];
+
+    $ctrl.volumeDropDown = [];
+
+    $ctrl.frequencyDropDown = [];
+
     $ctrl.medicationsListDropDown = [];
 
     $ctrl.medicationsListDisplay = [].concat($ctrl.medications);
 
+  
 
     dropDownSvc.getMedications().then(function (data) {
 
@@ -35,18 +42,19 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
     });
 
 
+
     $ctrl.medication = {
-  
-        Id:'',
-        Medication :'',
-        ConsultationId :'',
+
+        Id: '',
+        Medication: '',
+        ConsultationId: '',
         Quantity: '',
-        Remarks :'',
-        Amount : '',
-        Strength :'',
-        Volume :'',
-        Frequency :'',
-        Route :''
+        Remarks: '',
+        Amount: '',
+        Strength: '',
+        Volume: '',
+        Frequency: '',
+        Route: ''
     };
 
 
@@ -81,7 +89,7 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
         });
 
-     
+
 
     };
 
@@ -107,15 +115,32 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
         };
 
-
-
+        $ctrl.updateCommon();
         $ctrl.clearMedication();
 
         $('#ConsultationMedicationModal').modal('toggle');
 
     };
 
+    $ctrl.updateCommon = function () {
 
+        $ctrl.common = [{
+            InputFieldId: 'Consultation-Medication-Strength',
+            InputValue: $ctrl.medication.Strength
+        }, {
+                InputFieldId: 'Consultation-Medication-Volume',
+                InputValue: $ctrl.medication.Volume
+        }, {
+                InputFieldId: 'Consultation-Medication-Frequency',
+                InputValue: $ctrl.medication.Frequency
+        }];
+
+        consultationSvc.updateCommon($ctrl.common).then(function (result) {
+
+            $ctrl.getCommon();
+
+        });
+    }
 
     $ctrl.clearMedication = function () {
 
@@ -134,6 +159,31 @@ function myComponentCtrl(dropDownSvc, consultationSvc) {
 
     };
 
+
+    $ctrl.getCommon = function ()
+    {
+
+        dropDownSvc.getInputCommon('Consultation-Medication-Strength').then(function (data) {
+
+            $ctrl.strengthDropDown = data;
+
+        });
+
+        dropDownSvc.getInputCommon('Consultation-Medication-Volume').then(function (data) {
+
+            $ctrl.volumeDropDown = data;
+
+        });
+
+        dropDownSvc.getInputCommon('Consultation-Medication-Frequency').then(function (data) {
+
+            $ctrl.frequencyDropDown = data;
+
+        });
+
+    }
+
+    $ctrl.getCommon();
 
 
 

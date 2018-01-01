@@ -20,10 +20,30 @@
          deleteDiagnosis: deleteDiagnosis,
          addMedication: addMedication,
          editMedication: editMedication,
-         deleteMedication: deleteMedication
+         deleteMedication: deleteMedication,
+         updateCommon: updateCommon
      };
 
      return svc;
+
+     function updateCommon(consultation) {
+         
+         return $http({
+             method: 'POST',
+             url: '/Common/updateCommon',
+             data: $.param({ cmn: consultation }),
+             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+         }).then(function (result) {
+
+             return result;
+
+         }, function (error) {
+
+             return error;
+         });
+     };
+
      
      function addConsultation(consultation) {
 

@@ -50,5 +50,6 @@ namespace ClinicOne
         public virtual DbSet<DrugsCategory> DrugsCategories { get; set; }
         public virtual DbSet<PrescribedMedication> PrescribedMedications { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<DropDownCommon> DropDownCommons { get; set; }
     }
 }
