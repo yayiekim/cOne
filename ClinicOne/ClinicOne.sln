@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicOne", "ClinicOne\ClinicOne.csproj", "{49C6F676-9B3E-43F6-AF2A-1800AC396919}"
 EndProject
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Task.txt = Task.txt
 	EndProjectSection
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,8 +22,17 @@ Global
 		{49C6F676-9B3E-43F6-AF2A-1800AC396919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49C6F676-9B3E-43F6-AF2A-1800AC396919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49C6F676-9B3E-43F6-AF2A-1800AC396919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{809B8192-0A8F-4E52-A0F5-C87C5004C8A8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D23CE95-BDA5-4BE2-9861-064066107296}
 	EndGlobalSection
 EndGlobal
