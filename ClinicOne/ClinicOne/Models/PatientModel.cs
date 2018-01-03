@@ -21,6 +21,9 @@ namespace ClinicOne.Models
         public string Address2 { get; set; }
         public string FullName { get; set; }
         public string FullAddress { get; set; }
+        public string Remarks { get; set; }
+
+        public string WaitingListId { get; set; }
 
 
         public virtual List<ConsultationModel> Consultations { get; set; }

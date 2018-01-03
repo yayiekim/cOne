@@ -75,6 +75,119 @@ namespace ClinicOne.Controllers
             return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<JsonResult> getPatientByDate(DateTime date)
+        {
+            var res = await (from w in db.Consultations.Where(i => i.TransactionDate == date)
+                             join o in db.Patients on w.PatientId equals o.Id into ow
+                             from r in ow
+                             select new PatientModel
+                             {
+
+                                 Id = r.Id,
+                                 BloodType = r.BloodType,
+                                 BirthDate = r.BirthDate,
+                                 ContactNumber1 = r.ContactNumber1,
+                                 ContactNumber2 = r.ContactNumber2,
+                                 FullName = r.FirstName + " " + r.MiddleName + " " + r.LastName,
+                                 Gender = r.Gender,
+                                 FullAddress = r.Address1 + ", " + r.Address2,
+                                 FirstName = r.FirstName,
+                                 MiddleName = r.MiddleName,
+                                 LastName = r.LastName,
+                                 Address1 = r.Address1,
+                                 Address2 = r.Address2
+                                
+
+                             }).ToListAsync();
+
+            foreach (var x in res)
+            {
+
+                DateTime dob = x.BirthDate;
+                DateTime PresentYear = DateTime.Now;
+                TimeSpan ts = PresentYear - dob;
+
+
+                int Age;
+
+                try
+                {
+
+                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
+                }
+                catch
+                {
+                    Age = 0;
+                }
+
+                x.Age = Age;
+                x.BirthDate = dob;
+
+            }
+
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<JsonResult> getWaitingPatients()
+        {
+            
+            var res = await (from w in db.Waitings
+                             join o in db.Patients on w.PatientId equals o.Id into ow
+                             from r in ow
+                             select new PatientModel {
+
+                                 Id = r.Id,                                 
+                                 BloodType = r.BloodType,
+                                 BirthDate = r.BirthDate,
+                                 ContactNumber1 = r.ContactNumber1,
+                                 ContactNumber2 = r.ContactNumber2,
+                                 FullName = r.FirstName + " " + r.MiddleName + " " + r.LastName,
+                                 Gender = r.Gender,
+                                 FullAddress = r.Address1 + ", " + r.Address2,
+                                 FirstName = r.FirstName,
+                                 MiddleName = r.MiddleName,
+                                 LastName = r.LastName,
+                                 Address1 = r.Address1,
+                                 Address2 = r.Address2,
+                                 Remarks = w.Remarks,
+                                 WaitingListId = w.Id.ToString()
+
+
+                             }).ToListAsync();
+
+
+            foreach (var x in res)
+            {
+
+                DateTime dob = x.BirthDate;
+                DateTime PresentYear = DateTime.Now;
+                TimeSpan ts = PresentYear - dob;
+
+
+                int Age;
+
+                try
+                {
+
+                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
+                }
+                catch
+                {
+                    Age = 0;
+                }
+
+                x.Age = Age;
+                x.BirthDate = dob;
+
+            }
+
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+
         public async Task<JsonResult> addPatient(PatientModel patient)
         {
 

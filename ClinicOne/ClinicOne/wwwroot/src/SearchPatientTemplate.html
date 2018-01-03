@@ -1,4 +1,32 @@
-﻿<table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
+﻿<br />
+<div class="container">
+
+    <div class="radio-inline form-inline">
+        <label>
+            <input type="radio" ng-click="$ctrl.toggleFilter('all')" ng-model="$ctrl.selectedFilter" ng-checked="true" ng-value="1" />Patient list
+        </label>
+    </div>
+
+    <div class="radio-inline form-inline ">
+        <label>
+            <input type="radio" ng-click="$ctrl.toggleFilter('waiting')" ng-model="$ctrl.selectedFilter" ng-value="2" />Waiting list
+
+        </label>
+    </div>
+
+    <div class="radio-inline form-inline ">
+        <label>
+            <input type="radio" ng-click="$ctrl.toggleFilter('date')" ng-model="$ctrl.selectedFilter" ng-value="3" />By consultation date
+            
+        </label>
+        <input style="margin-left:1em" type="date" class="form-control small" ng-model="$ctrl.selectedDate" ng-change="$ctrl.PatientByDate()" />
+    </div>
+    
+</div>
+
+<table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
+
+
 
     <thead>
         <tr>
@@ -11,11 +39,15 @@
             <th st-sort="LastName">Last Name</th>
             <th st-sort="Gender">Gender</th>
             <th st-sort="BirthDate">Birth Date</th>
-          
+            <th st-sort="Remarks">Remarks</th>
+            <th ng-if="$ctrl.selectedFilter == 2" ></th>
         </tr>
     </thead>
 
     <tbody>
+
+       
+
         <tr ng-repeat="row in $ctrl.patientsListDisplay">
             <td>
             
@@ -25,7 +57,8 @@
             <td>{{row.LastName}}</td>
             <td>{{row.Gender}}</td>
             <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
-          
+            <td>{{row.Remarks}}</td>
+            <td ng-if="$ctrl.selectedFilter == 2" ><input type="button" value="Done" ng-click="$ctrl.waitingDone(row)"/></td>
         </tr>
     </tbody>
 

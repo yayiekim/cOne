@@ -29,8 +29,7 @@
 
                     <tbody>
                         <tr ng-repeat="row in $ctrl.patientsListDisplay track by $index">
-                            <td>
-                                <button class="btn btn-xs btn-info" ng-click="$ctrl.showDetailModal(row)"><span class="fa fa-info-circle"></span></button>
+                            <td>                                
                                 <button class="btn btn-xs btn-primary" ng-click="$ctrl.showEditModal(row)"><span class="fa fa-edit"></span></button>
                             </td>
                             <td>{{row.FirstName}}</td>
