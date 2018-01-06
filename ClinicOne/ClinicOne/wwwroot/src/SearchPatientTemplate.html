@@ -58,7 +58,7 @@
             <td>{{row.Gender}}</td>
             <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
             <td>{{row.Remarks}}</td>
-            <td ng-if="$ctrl.selectedFilter == 2" ><input type="button" value="Done" ng-click="$ctrl.waitingDone(row)"/></td>
+            <td ng-if="$ctrl.selectedFilter == 2" ><input class="btn btn-sm btn-info"  type="button" value="Done" ng-click="$ctrl.waitingDone(row)"/></td>
         </tr>
     </tbody>
 
