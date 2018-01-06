@@ -1,4 +1,6 @@
-﻿<div ng-app="app" ng-controller="consultationCtrl">
+﻿<h2>Consultation</h2>
+
+<div ng-app="app" ng-controller="consultationCtrl">
     <div class="row">
      
         <div class="col-md-8">
@@ -150,6 +152,10 @@
                                     <th>Blood Type</th>
                                     <td>{{selectedPatient.BloodType}}</td>
 
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{selectedPatient.Address1 + ' ' + selectedPatient.Address2}}</td>
                                 </tr>
 
                             </tbody>
