@@ -12,13 +12,16 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
     }
     
     //GET WAITINGLIST
-
+    $scope.searchKey = "";
     $scope.alertMessage;
 
     $scope.disable = true;
    
     $scope.waitingList = [];
     $scope.waitingListDisplay = [].concat($scope.waitingList);
+
+    $scope.patientsList = [];
+    $scope.patientsListDisplay = [].concat($scope.patientsList);
 
     $http({
         method: 'GET',
@@ -30,7 +33,7 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
 
             var Schedule = new Date(ToJavaScriptDate(resdata.Schedule))
             resdata.Schedule = Schedule;
-                 
+
 
         });
 
@@ -41,11 +44,35 @@ waitingController.controller('waitingCtrl', function ($scope, $http, $filter) {
 
     });
 
+    $scope.getPatients = function () {
+
+        $http({
+            method: 'GET',
+            url: '/Patients/getPatients?key=' + $scope.searchKey + ''
+        }).success(function (data) {
+
+
+            angular.forEach(data, function (resdata) {
+
+
+                var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
+                resdata.BirthDate = BirthDate;
+
+
+            });
+
+
+            $scope.patientsList = data;
+
+        }, function errorCallBack(data) {
+
+        });
+
+    };
+
 
     //ADD WAITING PATIENT
 
-    $scope.patientsList = [];
-    $scope.patientsListDisplay = [].concat($scope.patientsList);
 
     $scope.showAddWaitingModal = function () {
 

@@ -24,28 +24,33 @@ patientsComponent.component('patient', {
         $ctrl.patientsList = [];
         $ctrl.patientsListDisplay = [].concat($ctrl.patientsList);
 
-        $http({
-            method: 'GET',
-            url: '/Patients/getPatients'
-        }).success(function (data) {
+       
+
+        $ctrl.getPatients = function () {
+
+            $http({
+                method: 'GET',
+                url: '/Patients/getPatients?key=' + $ctrl.searchKey +''
+            }).success(function (data) {
 
 
-            angular.forEach(data, function (resdata) {
+                angular.forEach(data, function (resdata) {
 
 
-                var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
-                resdata.BirthDate = BirthDate;
+                    var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
+                    resdata.BirthDate = BirthDate;
 
+
+                });
+
+
+                $ctrl.patientsList = data;
+
+            }, function errorCallBack(data) {
 
             });
 
-
-            $ctrl.patientsList = data;
-
-        }, function errorCallBack(data) {
-
-        });
-
+        };
 
         //ADD PATIENTS
 

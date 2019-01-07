@@ -39,7 +39,7 @@ searchPatientsComponent.component('searchPatient', {
         $ctrl.toggleFilter = function (filter)
         {
             if (filter == "all") {
-                $ctrl.allPatients();
+                $ctrl.getPatients();
 
             }
             else if (filter == "waiting")
@@ -79,33 +79,7 @@ searchPatientsComponent.component('searchPatient', {
             });
 
         }
-
-        $ctrl.allPatients = function()
-        {
-            $http({
-                method: 'GET',
-                url: '/Patients/getPatients'
-            }).success(function (data) {
-
-
-                angular.forEach(data, function (resdata) {
-
-
-                    var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
-                    resdata.BirthDate = BirthDate;
-
-
-                });
-
-
-                $ctrl.patientsList = data;
-
-            }, function errorCallBack(data) {
-
-            });
-
-        }
-
+               
         $ctrl.waitingPatients = function () {
 
             $http({
@@ -156,15 +130,33 @@ searchPatientsComponent.component('searchPatient', {
         };
      
 
-      
+        $ctrl.getPatients = function () {
+
+            $http({
+                method: 'GET',
+                url: '/Patients/getPatients?key=' + $ctrl.searchKey + ''
+            }).success(function (data) {
 
 
-        $ctrl.allPatients();
+                angular.forEach(data, function (resdata) {
 
 
- 
+                    var BirthDate = new Date(ToJavaScriptDate(resdata.BirthDate))
+                    resdata.BirthDate = BirthDate;
 
-  
+
+                });
+
+
+                $ctrl.patientsList = data;
+
+            }, function errorCallBack(data) {
+
+            });
+
+        };
+
+          
     }
 });
 

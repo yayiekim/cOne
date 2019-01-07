@@ -96,7 +96,15 @@
                     <table st-table="patientsListDisplay" st-safe-src="patientsList" class="table table-condensed table-responsive table-striped">
                         <thead>
                             <tr>
-                                <th colspan="5"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
+                                <th colspan="5">
+
+                                    <div class="input-group pull-right">
+                                        <input ng-model="searchKey" type="text" class="form-control" placeholder="Search for...">
+                                        <span class="input-group-btn">
+                                            <button ng-click="getPatients()" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </th>
                             </tr>
                             <tr>
 

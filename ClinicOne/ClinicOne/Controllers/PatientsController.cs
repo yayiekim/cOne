@@ -21,12 +21,12 @@ namespace ClinicOne.Controllers
         }
 
 
-        public async Task<JsonResult> getPatients()
+        public async Task<JsonResult> getPatients(string key)
         {
             List<PatientModel> thelist = new List<PatientModel>();
 
 
-            var res = await db.Patients.ToListAsync();
+            var res = await db.Patients.Where(i=>i.FirstName.Contains(key) || i.LastName.Contains(key)).ToListAsync();
 
 
             foreach (var x in res)

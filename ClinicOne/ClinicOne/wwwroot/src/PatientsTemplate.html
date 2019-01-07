@@ -1,57 +1,67 @@
 ﻿
 
-        <div class="panel panel-primary">
+<div class="panel panel-primary">
 
-            <div style="height:50px" class="panel-heading">
-                <span class="fa fa-users"></span>
-                Patient List
-                <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showAddModal()"><span class="fa fa-plus"></span></button>
-            </div>
+    <div style="height:50px" class="panel-heading">
+        <span class="fa fa-users"></span>
+        Patient List
+        <button class="pull-right btn-sm btn btn-default" ng-click="$ctrl.showAddModal()"><span class="fa fa-plus"></span></button>
+    </div>
 
-            <div class="panel-body">
-                <table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
+    <div class="panel-body">
+        <table st-table="$ctrl.patientsListDisplay" st-safe-src="$ctrl.patientsList" class="table table-condensed table-responsive table-striped">
 
-                    <thead>
-                        <tr>
+            <thead>
+                <tr>
 
-                            <th colspan="8"><input st-search="" class="input-sm form-control pull-right" placeholder="Search" type="search" /></th>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <th st-sort="FirstName">First Name</th>
-                            <th st-sort="MiddleName">Middle Name</th>
-                            <th st-sort="LastName">Last Name</th>
-                            <th st-sort="Gender">Gender</th>
-                            <th st-sort="BirthDate">Birth Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                    <th colspan="8">
 
-                    <tbody>
-                        <tr ng-repeat="row in $ctrl.patientsListDisplay track by $index">
-                            <td>                                
-                                <button class="btn btn-xs btn-primary" ng-click="$ctrl.showEditModal(row)"><span class="fa fa-edit"></span></button>
-                            </td>
-                            <td>{{row.FirstName}}</td>
-                            <td>{{row.MiddleName}}</td>
-                            <td>{{row.LastName}}</td>
-                            <td>{{row.Gender}}</td>
-                            <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
-                            <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showConfirmDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
-                        </tr>
-                    </tbody>
+                        <div class="input-group pull-right">
+                            <input ng-model="$ctrl.searchKey" type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button ng-click="$ctrl.getPatients()" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                                               
+                    </th>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <th st-sort="FirstName">First Name</th>
+                    <th st-sort="MiddleName">Middle Name</th>
+                    <th st-sort="LastName">Last Name</th>
+                    <th st-sort="Gender">Gender</th>
+                    <th st-sort="BirthDate">Birth Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in $ctrl.patientsListDisplay track by $index">
+                    <td>
+                        <button class="btn btn-xs btn-primary" ng-click="$ctrl.showEditModal(row)"><span class="fa fa-edit"></span></button>
+                    </td>
+                    <td>{{row.FirstName}}</td>
+                    <td>{{row.MiddleName}}</td>
+                    <td>{{row.LastName}}</td>
+                    <td>{{row.Gender}}</td>
+                    <td>{{row.BirthDate | date: 'MMM dd, yyyy'}}</td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="$ctrl.showConfirmDeleteModal(row)"><span class="fa fa-remove"></span></button></td>
+                </tr>
+            </tbody>
 
 
-                    <tfoot>
-                        <tr>
+            <tfoot>
+                <tr>
 
-                            <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    <td class="text-center" st-pagination="" st-items-by-page="8" colspan="6"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
-        </div>
+</div>
 
 <!-- ADD PATIENTS LIST -->
 <!-- ADD PATIENTS LIST -->
