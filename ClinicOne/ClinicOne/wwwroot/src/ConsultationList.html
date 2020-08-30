@@ -112,60 +112,46 @@
 <div hidden="hidden" id="printModal">
 
     <style>
-        @media screen {
-            #printSection {
-                display: none;
-            }
-        }
+
+
 
         @media print {
-            body * {
-                display: none;
-            }
 
-            #printSection, #printSection * {
-                display: inline;
-            }
 
-            #printSection {
-                position: absolute;
-                left: 0;
-                top: 0;
-                margin-top: 115px;
-                margin-left: 85px;
-            }
-
-            .p-name {
-                font-size: 1.5em;
-                margin-bottom: 4px;
+            html, body {
+                height: 100vh;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
             }
 
             .p-age {
+                margin-top: 0px;
                 font-size: 1em;
-                margin-right: 55px;
             }
 
+            .p-name {
+                margin-bottom: 0px;
+                font-size: 1.5em;
+            }
 
             .p-gender {
+                margin-top: 0px;
                 font-size: 1em;
-                margin-right: 88px;
             }
 
             .c-date {
+                margin-top: 0px;
                 font-size: 1em;
             }
 
             .prescriptions {
-                position: absolute;
                 font-size: 12px;
-                top: 120px;
-                left: 10px;
-                margin-left: 0;
             }
         }
     </style>
 
-    <div id="print-content">
+    <!--<div id="print-content">
 
         <p class="p-name">{{$ctrl.patient.FullName}}</p>
         <br />
@@ -196,7 +182,38 @@
 
 
 
-    </div>
+    </div>-->
+
+    <table id="print-content">
+        <thead>
+            <tr>
+                <th colspan="3" id="header">
+                    <p class="p-name">{{$ctrl.patient.FullName}}</p>
+                </th>
+            </tr>
+            <tr>
+                <th id="header" style="text-align:left;" width="200px;" class="p-age">{{$ctrl.patient.Age}}</th>
+                <th id="header" style="text-align:center;" width="200px;" class="p-gender">{{$ctrl.patient.Gender}}</th>
+                <th id="header" style="text-align:right;" width="200px;" class="c-date">{{$ctrl.myConsultation.TransactionDate | date: 'MMM dd, yyyy'}}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr ng-repeat="row in $ctrl.prescribeMeds">
+                <td colspan="3">
+                    <br />
+                    <p>{{row.Medication}}&nbsp;{{row.Strength}}&nbsp;#{{row.Volume}}</p>
+                    <p>sig:&nbsp;{{row.Frequency}}&nbsp;{{row.Remarks}}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 
 </div>

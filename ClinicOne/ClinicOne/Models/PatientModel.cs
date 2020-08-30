@@ -13,7 +13,7 @@ namespace ClinicOne.Models
         public string LastName { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
-        public int Age { get; set; }
+        public string Age { get; set; }
         public string BloodType { get; set; }
         public string ContactNumber1 { get; set; }
         public string ContactNumber2 { get; set; }

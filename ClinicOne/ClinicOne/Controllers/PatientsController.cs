@@ -19,7 +19,52 @@ namespace ClinicOne.Controllers
         {
             return View();
         }
+  
+        /// <summary>  
+        /// For calculating age  
+        /// </summary>  
+        /// <param name="Dob">Enter Date of Birth to Calculate the age</param>  
+        /// <returns> years, months,days, hours...</returns>  
+        static string CalculateYourAge(DateTime Dob)
+        {
+            DateTime Now = DateTime.Now;
+            int Years = new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1;
+            DateTime PastYearDate = Dob.AddYears(Years);
+            int Months = 0;
+            for (int i = 1; i <= 12; i++)
+            {
+                if (PastYearDate.AddMonths(i) == Now)
+                {
+                    Months = i;
+                    break;
+                }
+                else if (PastYearDate.AddMonths(i) >= Now)
+                {
+                    Months = i - 1;
+                    break;
+                }
+            }
+            int Days = Now.Subtract(PastYearDate.AddMonths(Months)).Days;
+            int Hours = Now.Subtract(PastYearDate).Hours;
+            int Minutes = Now.Subtract(PastYearDate).Minutes;
+            int Seconds = Now.Subtract(PastYearDate).Seconds;
 
+            if (Years < 1 && Months > 0)
+            {
+                return Months.ToString() + " Month(s) Old";
+            }
+            else if (Years < 1 && Months < 1)
+            {
+                return Days.ToString() + " Day(s) Old";
+
+            }
+            else
+            {
+                return Years.ToString();
+            }
+
+
+        }
 
         public async Task<JsonResult> getPatients(string key)
         {
@@ -51,7 +96,7 @@ namespace ClinicOne.Controllers
                 PatientModel model = new PatientModel()
                 {
                     Id = x.Id,
-                    Age = Age,
+                    Age = CalculateYourAge(x.BirthDate),
                     BirthDate = dob,
                     BloodType = x.BloodType,
                     ContactNumber1 = x.ContactNumber1,
@@ -95,35 +140,12 @@ namespace ClinicOne.Controllers
                                  MiddleName = r.MiddleName,
                                  LastName = r.LastName,
                                  Address1 = r.Address1,
-                                 Address2 = r.Address2
-                                
+                                 Address2 = r.Address2,
+                                Age = CalculateYourAge(r.BirthDate),
 
                              }).ToListAsync();
 
-            foreach (var x in res)
-            {
-
-                DateTime dob = x.BirthDate;
-                DateTime PresentYear = DateTime.Now;
-                TimeSpan ts = PresentYear - dob;
-
-
-                int Age;
-
-                try
-                {
-
-                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
-                }
-                catch
-                {
-                    Age = 0;
-                }
-
-                x.Age = Age;
-                x.BirthDate = dob;
-
-            }
+           
 
 
             return Json(res, JsonRequestBehavior.AllowGet);
@@ -152,37 +174,13 @@ namespace ClinicOne.Controllers
                                  Address1 = r.Address1,
                                  Address2 = r.Address2,
                                  Remarks = w.Remarks,
-                                 WaitingListId = w.Id.ToString()
+                                 WaitingListId = w.Id.ToString(),
+                                 Age = CalculateYourAge(r.BirthDate),
 
 
                              }).ToListAsync();
 
-
-            foreach (var x in res)
-            {
-
-                DateTime dob = x.BirthDate;
-                DateTime PresentYear = DateTime.Now;
-                TimeSpan ts = PresentYear - dob;
-
-
-                int Age;
-
-                try
-                {
-
-                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
-                }
-                catch
-                {
-                    Age = 0;
-                }
-
-                x.Age = Age;
-                x.BirthDate = dob;
-
-            }
-
+ 
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
@@ -215,12 +213,8 @@ namespace ClinicOne.Controllers
             db.Patients.Add(model);
             await db.SaveChangesAsync();
 
-            DateTime dob = model.BirthDate;
-            DateTime PresentYear = DateTime.Now;
-            TimeSpan ts = PresentYear - dob;
-            DateTime Age = DateTime.MinValue.AddDays(ts.Days);
 
-            patient.Age = Age.Year - 1;
+            patient.Age = CalculateYourAge(model.BirthDate);
             patient.Id = model.Id;
             
             return Json(patient, JsonRequestBehavior.AllowGet);
