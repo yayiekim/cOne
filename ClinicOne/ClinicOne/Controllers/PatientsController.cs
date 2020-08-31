@@ -13,13 +13,13 @@ namespace ClinicOne.Controllers
     public class PatientsController : AsyncController
     {
         ClinicOneEntities db = new ClinicOneEntities();
-       
+
         // GET: Patients
         public ActionResult Index()
         {
             return View();
         }
-  
+
         /// <summary>  
         /// For calculating age  
         /// </summary>  
@@ -28,6 +28,12 @@ namespace ClinicOne.Controllers
         static string CalculateYourAge(DateTime Dob)
         {
             DateTime Now = DateTime.Now;
+
+            if (Now < Dob) {
+                return "Invalid birthday";
+            }
+
+
             int Years = new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1;
             DateTime PastYearDate = Dob.AddYears(Years);
             int Months = 0;
@@ -71,28 +77,12 @@ namespace ClinicOne.Controllers
             List<PatientModel> thelist = new List<PatientModel>();
 
 
-            var res = await db.Patients.Where(i=>i.FirstName.Contains(key) || i.LastName.Contains(key)).ToListAsync();
+            var res = await db.Patients.Where(i => i.FirstName.Contains(key) || i.LastName.Contains(key)).ToListAsync();
 
 
             foreach (var x in res)
             {
-
                 DateTime dob = x.BirthDate;
-                DateTime PresentYear = DateTime.Now;
-                TimeSpan ts = PresentYear - dob;
-
-
-                int Age;
-
-                try
-                {
-
-                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
-                }
-                catch {
-                    Age = 0;
-                }
-
                 PatientModel model = new PatientModel()
                 {
                     Id = x.Id,
@@ -109,7 +99,7 @@ namespace ClinicOne.Controllers
                     LastName = x.LastName,
                     Address1 = x.Address1,
                     Address2 = x.Address2
-                    
+
                 };
 
                 thelist.Add(model);
@@ -122,6 +112,8 @@ namespace ClinicOne.Controllers
 
         public async Task<JsonResult> getPatientByDate(DateTime date)
         {
+            List<PatientModel> thelist = new List<PatientModel>();
+
             var res = await (from w in db.Consultations.Where(i => i.TransactionDate == date)
                              join o in db.Patients on w.PatientId equals o.Id into ow
                              from r in ow
@@ -141,26 +133,55 @@ namespace ClinicOne.Controllers
                                  LastName = r.LastName,
                                  Address1 = r.Address1,
                                  Address2 = r.Address2,
-                                Age = CalculateYourAge(r.BirthDate),
+
 
                              }).ToListAsync();
 
-           
+            foreach (var x in res)
+            {
+
+                DateTime dob = x.BirthDate;
+               
+
+                PatientModel model = new PatientModel()
+                {
+                    Id = x.Id,
+                    Age = CalculateYourAge(x.BirthDate),
+                    BirthDate = dob,
+                    BloodType = x.BloodType,
+                    ContactNumber1 = x.ContactNumber1,
+                    ContactNumber2 = x.ContactNumber2,
+                    FullName = x.FirstName + " " + x.MiddleName + " " + x.LastName,
+                    Gender = x.Gender,
+                    FullAddress = x.Address1 + ", " + x.Address2,
+                    FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
+                    LastName = x.LastName,
+                    Address1 = x.Address1,
+                    Address2 = x.Address2
+
+                };
+
+                thelist.Add(model);
+
+            }
 
 
-            return Json(res, JsonRequestBehavior.AllowGet);
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
 
         public async Task<JsonResult> getWaitingPatients()
         {
-            
+            List<PatientModel> thelist = new List<PatientModel>();
             var res = await (from w in db.Waitings
                              join o in db.Patients on w.PatientId equals o.Id into ow
                              from r in ow
-                             select new PatientModel {
+                             select new PatientModel
+                             {
 
-                                 Id = r.Id,                                 
+                                 Id = r.Id,
                                  BloodType = r.BloodType,
                                  BirthDate = r.BirthDate,
                                  ContactNumber1 = r.ContactNumber1,
@@ -175,14 +196,58 @@ namespace ClinicOne.Controllers
                                  Address2 = r.Address2,
                                  Remarks = w.Remarks,
                                  WaitingListId = w.Id.ToString(),
-                                 Age = CalculateYourAge(r.BirthDate),
+
 
 
                              }).ToListAsync();
 
- 
 
-            return Json(res, JsonRequestBehavior.AllowGet);
+            foreach (var x in res)
+            {
+
+                DateTime dob = x.BirthDate;
+                DateTime PresentYear = DateTime.Now;
+                TimeSpan ts = PresentYear - dob;
+
+
+                int Age;
+
+                try
+                {
+
+                    Age = DateTime.MinValue.AddDays(ts.Days).Year - 1;
+                }
+                catch
+                {
+                    Age = 0;
+                }
+
+                PatientModel model = new PatientModel()
+                {
+                    Id = x.Id,
+                    Age = CalculateYourAge(x.BirthDate),
+                    BirthDate = dob,
+                    BloodType = x.BloodType,
+                    ContactNumber1 = x.ContactNumber1,
+                    ContactNumber2 = x.ContactNumber2,
+                    FullName = x.FirstName + " " + x.MiddleName + " " + x.LastName,
+                    Gender = x.Gender,
+                    FullAddress = x.Address1 + ", " + x.Address2,
+                    FirstName = x.FirstName,
+                    MiddleName = x.MiddleName,
+                    LastName = x.LastName,
+                    Address1 = x.Address1,
+                    Address2 = x.Address2,
+                    Remarks = x.Remarks,
+                    WaitingListId = x.WaitingListId
+                };
+
+                thelist.Add(model);
+
+            }
+
+
+            return Json(thelist, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -216,7 +281,7 @@ namespace ClinicOne.Controllers
 
             patient.Age = CalculateYourAge(model.BirthDate);
             patient.Id = model.Id;
-            
+
             return Json(patient, JsonRequestBehavior.AllowGet);
         }
 
@@ -250,6 +315,6 @@ namespace ClinicOne.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
-        
+
     }
 }

@@ -34,6 +34,12 @@ namespace ClinicOne.Controllers
         static string CalculateYourAge(DateTime Dob)
         {
             DateTime Now = DateTime.Now;
+
+            if (Now < Dob)
+            {
+                return "Invalid birthday";
+            }
+
             int Years = new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1;
             DateTime PastYearDate = Dob.AddYears(Years);
             int Months = 0;
